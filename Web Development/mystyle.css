@@ -1,0 +1,86 @@
+body {
+	margin-left: 40px;
+}
+
+h1 {
+	font-family: 'Mirza', cursive;
+	color: blue;
+	text-align: center;
+	margin-left: -40px;
+}
+
+legend {
+	font-variant: small-caps ;
+	font-size:36px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+p {
+	font-size: 16px;
+	font-family: "Lucida Sans Unicode";
+	color: rgb(0,150,200);
+	margin-left: 23%;
+	background-color: rgb(220,220,220);
+	width: 650px;
+	text-align : center;
+}
+
+#html {
+	color: rgb(0,150,200);
+}
+
+#js {
+	color: orange;
+}
+
+#css {
+	color: rgb(80,80,80);
+}
+
+#li1 {
+	background-color: rgb(200,255,0);
+	width: 100px;
+	text-align: center;
+	margin-left:45%;
+}
+
+img {
+	margin-left: 20px;
+
+}
+
+#cssImg {
+	margin-left: 20px;
+}
+
+.imga {
+	margin-left: 39%;
+}
+
+#p1 {
+	text-align: center;
+	margin-left: 280px;
+}
+
+#jsa {
+	margin-left: 28%;
+}
+
+#game {
+	margin-left : 200px;
+	text-align : center;
+}
+
+#gameh2 {
+	color : red;
+}
+
+#g2 {
+     margin: 0px 0px 0px 150px;
+}
+
+#game1 {
+     text-align : center;
+     padding : 0;
+     
+}

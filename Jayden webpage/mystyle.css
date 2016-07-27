@@ -1,0 +1,107 @@
+h1 {
+	font-variant : small-caps;
+	font-family: 'Mirza', cursive;
+	font-size : 300%;
+	text-align : center;
+	color:rgb(50,250,150);
+}
+
+body {
+	background-image: url("images/wall.jpg");
+	background-size: 1280px 1024px;
+}
+
+p {
+	font-size: 17px;
+	font-family: "Lucida Sans Unicode";
+}
+
+li {
+	margin-left:15px;
+}
+
+f1{
+	float: left;
+}
+
+legend {
+	font-variant: small-caps ;
+	font-size:36px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#h1span {
+	color:rgb(50,180,250);
+}
+
+#p1 {
+	background-color:rgb(120,120,120);
+	color:white;
+	color: rgb(250,100,0);
+	text-align:center;
+}
+
+#l1 {
+	color: rgb(250,100,0);
+}
+
+#f2 {
+	float:right;
+}
+
+#div1 {
+	float: left;
+}
+
+#l2 {
+	color: rgb(0,250,180);
+}
+
+#p2 {
+	background-color:rgb(120,120,120);
+	color: rgb(0,250,200);
+}
+
+#p4 {
+	background-color:rgb(120,120,120);
+	color: rgb(50,200,250);
+}
+
+#p1span {
+	background-color:white;
+}
+
+#h2a1 {
+	color : black;
+}
+
+#l3 {
+	color:rgb(50,200,250);
+}
+
+#p3 {
+	background-color:rgb(120,120,120);
+	color: rgb(50,200,250);
+	float:right;
+	width: 400px;
+	font-size:30px;
+}
+
+#p5 {
+	color:rgb(200,0,250);
+	font-size:18px;
+}
+
+.div2 {
+	padding : 20px;
+	background-color:gray;
+}
+
+#playlist{background:#666;width:150px;padding:10px;}
+.active a{color:#5DB0E6;text-decoration:none;}
+li a{color:#eeeedd;background:#333;padding:5px;display:block;}
+li a:hover{text-decoration:none;}
+audio{background:#666;width:400px;padding:10px;margin-left:50px;}
+#pldiv {
+	float:left;
+}
