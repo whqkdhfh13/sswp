@@ -1,5 +1,5 @@
 // CLICKABLE GRID
-// MR. V
+// Was MR. V
 
 var SCREEN_WIDTH = 200;
 var SCREEN_HEIGHT = 200;
