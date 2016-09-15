@@ -34,6 +34,7 @@ var selected = point1; // Use to keep track of which point is currently selected
 // Set up & Draw
 function setup() {
 	createCanvas(400, 400);
+	frameRate(10);
 }
 
 function draw() {
@@ -54,14 +55,11 @@ function keyTyped() {
 		println("CALCULATION RESULTS");
 
 		// ***** INVOKE YOUR FUNCTIONS BELOW... *****
-		println("distance p1 to p2="+distance(point1,point2));
-		println("distance p3 to p4="+distance(point3,point4));
-		println("slope p1 to p2="+getslope(point1,point2)[0]+"="+getslope(point1,point2)[2]+"/"+getslope(point1,point2)[1]);
-		println("slope p3 to p4="+getslope(point3,point4)[0]+"="+getslope(point3,point4)[2]+"/"+getslope(point3,point4)[1]);
-		println("midpoint between p1 and p2=("+findmidp(point1,point2)+")");
-		println("midpoint between p3 and p4=("+findmidp(point3,point4)+")");
-
-
+		println("distance p1 to p2 = √("+distance(point1,point2)[2]+"²+"+distance(point1,point2)[1]+"²) ≈ "+round(distance(point1,point2)[0])+"  /  distance p3 to p4 = √("+distance(point3,point4)[2]+"²+"+distance(point3,point4)[1]+"²) ≈ "+round(distance(point3,point4)[0]));
+		println("slope for line1 = "+getslope(point1,point2)[2]+"/"+getslope(point1,point2)[1]+" = "+getslope(point1,point2)[0]+"  /  slope for line2 = "+getslope(point3,point4)[2]+"/"+getslope(point3,point4)[1]+" = "+getslope(point3,point4)[0]);
+		println("midpoint between p1 and p2 = ("+findmidp(point1,point2)+")"+"  /  midpoint between p3 and p4 = ("+findmidp(point3,point4)+")");
+		println("domain for line1 : ["+finddomain(point1,point2)+"]"+"  /  domain for line2 : ["+finddomain(point3,point4)+"]");
+		println("range for line1 : ["+findrange(point1,point2)+"]"+"  /  range for line2 : ["+findrange(point3,point4)+"]");
 
 
 
@@ -106,8 +104,9 @@ function keyPressed() {
 function distance(pA, pB) {
 	var run = pB.x - pA.x, 
 		rise = pB.y - pA.y,
-		d = sqrt (sq(run) + sq(rise) );
-		return d;
+		d = sqrt (sq(run) + sq(rise) ),
+		darray = [d,run,rise];
+		return darray;
 }
 
 function textofPoint(point){
@@ -143,8 +142,21 @@ function findmidp(pA, pB) {
 		return midarray;
 }
 
+function finddomain(p1, p2) {
+	// I have problem at here. If i move p1 to right side and p2 to left side, it will shows
+	// like Domain : [3, -7] but It must shows [-7, 3]. So I decide to use IF statement.
+	var darray = [];
+	if (p1.x >= p2.x) { darray = [p2.x,p1.x];}
+	else if (p1.x <= p2.x) { darray = [p1.x,p2.x];}
+	return darray;
+}
 
-
-
-
+function findrange(p1, p2) {
+	// I have problem at here. If i move p1 to right side and p2 to left side, it will shows
+	// like Domain : [3, -7] but It must shows [-7, 3]. So I decide to use IF statement.
+	var rarray = [];
+	if (p1.y >= p2.y) { rarray = [p2.y,p1.y];}
+	else if (p1.y <= p2.y) { rarray = [p1.y,p2.y];}
+	return rarray;
+}
 
