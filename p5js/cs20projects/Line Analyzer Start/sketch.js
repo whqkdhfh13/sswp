@@ -55,12 +55,12 @@ function keyTyped() {
 		println("CALCULATION RESULTS");
 
 		// ***** INVOKE YOUR FUNCTIONS BELOW... *****
-		println("distance p1 to p2 = √("+distance(point1,point2)[2]+"²+"+distance(point1,point2)[1]+"²) ≈ "+round(distance(point1,point2)[0])+"  /  distance p3 to p4 = √("+distance(point3,point4)[2]+"²+"+distance(point3,point4)[1]+"²) ≈ "+round(distance(point3,point4)[0]));
-		println("slope for line1 = "+getslope(point1,point2)[2]+"/"+getslope(point1,point2)[1]+" = "+getslope(point1,point2)[0]+"  /  slope for line2 = "+getslope(point3,point4)[2]+"/"+getslope(point3,point4)[1]+" = "+getslope(point3,point4)[0]);
+		println("distance p1 to p2 = √("+distance(point1,point2)[2]+"²+"+distance(point1,point2)[1]+"²) ≈ "+distance(point1,point2)[0].toFixed(4)+"  /  distance p3 to p4 = √("+distance(point3,point4)[2]+"²+"+distance(point3,point4)[1]+"²) ≈ "+distance(point3,point4)[0].toFixed(4));	
+		println("slope for line1 = "+findslope(point1,point2)[2]+"/"+findslope(point1,point2)[1]+" ≈ "+findslope(point1,point2)[0].toFixed(4)+"  /  slope for line2 = "+findslope(point3,point4)[2]+"/"+findslope(point3,point4)[1]+" ≈ "+findslope(point3,point4)[0].toFixed(4));
 		println("midpoint between p1 and p2 = ("+findmidp(point1,point2)+")"+"  /  midpoint between p3 and p4 = ("+findmidp(point3,point4)+")");
 		println("domain for line1 : ["+finddomain(point1,point2)+"]"+"  /  domain for line2 : ["+finddomain(point3,point4)+"]");
 		println("range for line1 : ["+findrange(point1,point2)+"]"+"  /  range for line2 : ["+findrange(point3,point4)+"]");
-
+		println("Equation for line1 : y = "+findslope(point1,point2)[0].toFixed(1)+"x + "+findyint(point1,point2,point1).toFixed(1)+"  /  equation for line2 : y = "+findslope(point3,point4)[0].toFixed(1)+"x + "+findyint(point3,point4,point3).toFixed(1))
 
 
 	} else if (key === "1") {
@@ -127,10 +127,11 @@ function mousePressed() {
 	}
 }
 
-function getslope(pA, pB) {
+function findslope(pA, pB) {
 	var run = pB.x - pA.x,
-		rise = pB.y - pA.y,
-		s = rise / run ,
+		rise = pB.y - pA.y;
+	var s = rise / run ;
+
 		sarray = [s,run,rise];
 		return sarray;
 }
@@ -160,3 +161,8 @@ function findrange(p1, p2) {
 	return rarray;
 }
 
+function findyint(slp1,slp2,point) {
+	var a = findslope(slp1,slp2)[0], b;
+	b = point.y - a * point.x;
+	return b;
+}
