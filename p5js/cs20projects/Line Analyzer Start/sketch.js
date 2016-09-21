@@ -84,7 +84,7 @@ function keyTyped() {
 		selected.fillColor = "blue"; // Deselect the current point
 		selected = point4; // Assign selected point to point 1
 		selected.fillColor = "red"; // Set color of new selected point
-	}
+	} 
 }
 
 function keyPressed() {
@@ -97,6 +97,29 @@ function keyPressed() {
 		selected.y += 1;
 	} else if (keyCode === DOWN_ARROW) {
 		selected.y -= 1;
+	} else if (keyCode === 82) {
+		 	point1 = {
+			x: -7,
+			y: -5,
+			fillColor: "red",
+			name: "p1"
+		};	 point2 = {
+			x: 3,
+			y: 5,
+			fillColor: "blue",
+			name:"p2"
+		};	 point3 = {
+			x: -2,
+			y: -5,
+			fillColor: "blue",
+			name:"p3"
+		};	 point4 = {
+			x: 8,
+			y: 5,
+			fillColor: "blue",
+			name:"p4"
+		}; selected = point1;
+		
 	}
 }
 
@@ -115,7 +138,9 @@ function textofPoint(point){
 	fill(0,0,255);
 	textSize(15);
 	textWidth(5);
+
 	text(point.name+"("+point.x+","+point.y+")",xPix+5,yPix-5);
+	
 }
 
 function mousePressed() {
