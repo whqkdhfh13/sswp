@@ -1,7 +1,7 @@
 var ball = {
 	x: 200,
 	y: 0,
-	xspeed: 3,
+	xspeed: 4,
 	yspeed: 2,
 	math: function(gspeed) {
 		this.yspeed += gspeed;
