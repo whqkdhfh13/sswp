@@ -1,6 +1,6 @@
 // Line Analyzer
 
-// Global Variables
+// Global Variables !!
 var point1 = {
     x: -7,
     y: -5,
