@@ -5,3 +5,7 @@
 	name = whqkdhfh13
 	email = whqkdhfh13@gmail.com
 	password = Wnsals91!
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
