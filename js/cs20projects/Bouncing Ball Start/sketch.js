@@ -4,7 +4,7 @@ var ball = {
     r: 50,
     xSpeed: 2,
     ySpeed: -20,
-    gravity: 0.5
+    gravity: 0.37
 };
 
 function setup() {
@@ -22,6 +22,12 @@ function draw() {
     // Bounce Vertically
     if (ball.y + ball.r > height) {
         ball.ySpeed = -20;
+    }
+
+    // Block when ball reach the top
+    if (ball.y < 0) {
+        ball.ySpeed *= -1;
+        ball.y += 2;
     }
 
     // Bounce Horizontally
