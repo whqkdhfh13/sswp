@@ -2,9 +2,10 @@
 
 // GLOBAL VARIABLES
 var easyWords = ["apple", "boy", "cup", "dog", "eyes", "fish", "goat", "hat"];
-var mediumWords = ["medium1", "medium2", "medium3", "medium4", "medium5", "medium6", ]
+var mediumWords = ["medium1", "medium2", "medium3", "medium4", "medium5", "medium6", ];
+var hardWords = ["어려움", "이것도어려움", "아마 이것도", "이건모름"];
 var currentWord = "Press 1 for an easy word.";
-var bgColor,tColor;
+var bgColor,tColor,i=0;
 // SETUP FUNCTION - RUNS ONCE AT BEGINNING
 function setup() {
     createCanvas(600, 400);
@@ -43,5 +44,15 @@ function keyReleased() {
         tColor = color(0);
         var randIndex = floor(random(0, mediumWords.length));
         currentWord = mediumWords[randIndex];
+    }
+    if (keyCode == 51) {
+        bgColor = color(255,0,0);
+        tColor = color(0);
+        currentWord = hardWords[i];
+        i++;
+        if(i > hardWords.length - 1) {
+            i = 0;
+        }
+
     }
 }
