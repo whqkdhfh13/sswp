@@ -45,6 +45,7 @@ function keyReleased() {
         var randIndex = floor(random(0, mediumWords.length));
         currentWord = mediumWords[randIndex];
     }
+
     if (keyCode == 51) {
         bgColor = color(255,0,0);
         tColor = color(0);
