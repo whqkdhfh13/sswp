@@ -34,6 +34,17 @@ function draw() {
     background(0);
     drawPlatforms();
 
+    // Math stuff
+    if (xSpeed === 2) {
+        stroke(255,255,255);
+        line(220,385,250,385);
+        line(220,392,250,392);
+    } else if (xSpeed === -2) {
+        stroke(255,255,255);
+        line(150,385,180,385);
+        line(150,392,180,392);
+    }
+    stroke(0);
     // Draw player
     fill(0, 255, 0);
     rect(190, 380, 20, 20);
@@ -51,9 +62,11 @@ function movePlatforms() {
 
 function drawPlatforms() {
     fill(120);
+    stroke(0);
     for (var i = 0; i < xValues.length; i++) {
         rect(xValues[i], yValues[i], 50, 10);
     }
+    stroke(0);
 } // end drawPlatforms
 
 function keyPressed() {
@@ -64,10 +77,16 @@ function keyPressed() {
     if (keyCode == 39) {
         xSpeed = -1;
     }
+    if (keyCode == 32) {
+        xSpeed *= 2;
+    }
 }
 
 function keyReleased() {
     if (keyCode == 37 || keyCode == 39) {
         xSpeed = 0;
+    }
+    if (keyCode == 32) {
+        xSpeed *= 1/2;
     }
 }
