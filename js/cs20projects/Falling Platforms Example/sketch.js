@@ -5,7 +5,8 @@ var xValues,
     yValues,
     xSpeed,
     ySpeeds,
-    wdt;
+    wdt,
+    abc;
 
 // SETUP FUNCTION - Runs once at beginning of program
 function setup() {
@@ -49,6 +50,7 @@ function draw() {
     // Draw player
     fill(0, 255, 0);
     rect(190, 380, 20, 20);
+
 }
 
 function movePlatforms() {
