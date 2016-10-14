@@ -19,6 +19,7 @@ function setup() {
     for (var numItems = 0; numItems < 30; numItems++) {
         xValues.push(random(-width, 2 * width));
         yValues.push(random(0, height));
+        ySpeeds.push(random(0.5,2.5));
     }
 }
 
@@ -41,10 +42,11 @@ function draw() {
 
 function movePlatforms() {
     for (var i = 0; i < xValues.length; i++) {
-        yValues[i] += 1;
+        yValues[i] += ySpeeds[i];
         if (yValues[i] > height) {
             xValues[i] = random(-width, 2 * width);
             yValues[i] = -20;
+            ySpeeds[i] = random(0.5,2.5);
         }
     }
 } // end movePlatforms
@@ -64,10 +66,16 @@ function keyPressed() {
     if (keyCode == 39) {
         xSpeed = -1;
     }
+    if (keyCode == 32) {
+        xSpeed *=2;
+    }
 }
 
 function keyReleased() {
     if (keyCode == 37 || keyCode == 39) {
         xSpeed = 0;
+    }
+    if (keyCode == 32) {
+        xSpeed*=1/2;
     }
 }

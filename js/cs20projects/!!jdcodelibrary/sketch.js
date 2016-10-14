@@ -1,21 +1,14 @@
-//For Script "drawDoor.js"
 
-/*function setup() {
-    createCanvas(600, 600);
-}
 
-function draw() {
-    background(0);
-    //drawDoor(x, y, w, h, tColor, bColor)
-    drawDoor(480, 230, 40, 60, "white", "blue");
-    drawDoor(0, 500, 200, 500, "white", "red");
-    drawDoor(300,400, 300, 60, "gray", "red");
-}*/
+
 
 //For Script
 
 function setup() {
-    noCanvas();
+
+    //For Script "drawDoor.js"
+    //createCanvas(600,600);
+
 
     var time = framesToTime(30000,60);
     println(time);
@@ -28,27 +21,12 @@ function setup() {
 
 }
 
-function framesToTime(numFrames, fps) {
-    var totalSeconds = floor(numFrames / fps);
-    var mins = floor(totalSeconds / 60);
-    var secs = totalSeconds % 60;
+function draw() {
+    createCanvas(windowWidth, windowHeight);
+    background(0);
+    // //drawDoor(x, y, w, h, tColor, bColor)
+    // drawDoor(480, 230, 40, 60, "white", "blue");
+    // drawDoor(0, 500, 200, 500, "white", "red");
+    // drawDoor(300,400, 300, 60, "gray", "red");
 
-    if(mins < 10) {
-        mins = "0" + mins;
-    }
-
-    if(secs < 10) {
-        secs = "0" + secs;
-    }
-    return mins + ":" + secs;
-}
-
-function average(ave) {
-    var hf=0,Ave;
-    for(var i=0; i< ave.length; i++) {
-        hf += ave[i];
-    }
-    Ave = hf / ave.length;
-    println(hf / ave.length);
-    return Ave;
 }

@@ -1,12 +1,12 @@
 // Draw a Level Start
 // Cleanest code I've ever seen!!!
+var prefA = 1;
 
-function setup() {
-    createCanvas(800, 600);
-}
+function setup() {}
 
 function draw() {
 
+    createCanvas(800*prefA, 600*prefA);
     background(0);
 
     // DRAW PLATFORMS
@@ -35,32 +35,32 @@ function drawBackground(bgcolor) {
 
     fill(bgcolor);
     noStroke();
-    rect(0, 540, 800, 60);
-    rect(0, 420, 240, 40);
-    rect(0, 120, 20, 300);
-    rect(0, 0, 200, 120);
-    rect(100, 200, 200, 20);
-    rect(300, 80, 40, 140);
-    rect(340, 80, 100, 40);
-    rect(440, 100, 160, 20);
-    rect(460, 120, 40, 220);
-    rect(420, 200, 40, 40);
-    rect(680, 100, 120, 20);
-    rect(580, 200, 220, 20);
-    rect(500, 300, 300, 40);
+    rect(0*prefA, 540*prefA, 800*prefA, 60*prefA);
+    rect(0*prefA, 420*prefA, 240*prefA, 40*prefA);
+    rect(0*prefA, 120*prefA, 20*prefA, 300*prefA);
+    rect(0*prefA, 0*prefA, 200*prefA, 120*prefA);
+    rect(100*prefA, 200*prefA, 200*prefA, 20*prefA);
+    rect(300*prefA, 80*prefA, 40*prefA, 140*prefA);
+    rect(340*prefA, 80*prefA, 100*prefA*prefA, 40*prefA);
+    rect(440*prefA, 100*prefA, 160*prefA, 20*prefA);
+    rect(460*prefA, 120*prefA, 40*prefA, 220*prefA);
+    rect(420*prefA, 200*prefA, 40*prefA, 40*prefA);
+    rect(680*prefA, 100*prefA, 120*prefA, 20*prefA);
+    rect(580*prefA, 200*prefA, 220*prefA, 20*prefA);
+    rect(500*prefA, 300*prefA, 300*prefA, 40*prefA);
 
 }
 
 function drawLadder(x, y, h, ldcolor) {
     fill(ldcolor);
-    rect(x, y, 5, h); // Left Edge
-    rect(x + 35, y, 5, h); // Right Edge
+    rect(x*prefA, y*prefA, 5*prefA, h*prefA); // Left Edge
+    rect((x + 35)*prefA, y*prefA, 5*prefA, h*prefA); // Right Edge
 
     // Draw Rungs
-    var rungY = y + 20;
-    while (rungY < y + h) {
-        rect(x, rungY, 40, 2);
-        rungY += 20;
+    var rungY = (y + 20)*prefA;
+    while (rungY < (y + h)*prefA) {
+        rect(x*prefA, rungY*prefA, 40*prefA, 2*prefA);
+        rungY += 20*prefA;
     }
 }
 
@@ -68,11 +68,11 @@ function drawVine(x, y, h, vcolor) {
     fill(vcolor);
     for (var i = 0; i < h; i++) {
         if (i % 2 === 0) { // even: draw left vine
-            rect(x, y, 10, 20);
+            rect(x*prefA, y*prefA, 10*prefA, 20*prefA);
         } else { // odd: draw right vine
-            rect(x + 10, y, 10, 20);
+            rect((x + 10)*prefA, y*prefA, 10*prefA, 20*prefA);
         }
-        y += 20;
+        y += 20*prefA;
     }
 
 }
@@ -81,12 +81,22 @@ function drawBox(x, y, size, outercolor, innercolor) {
 
     //Outer Rectangle
     fill(outercolor);
-    rect(x, y, size, size);
+    rect(x*prefA, y*prefA, size*prefA, size*prefA);
 
     // Inner Rectangle
     fill(innercolor);
-    var offset = 1 / 4 * size;
-    var innerSize = 1 / 2 * size;
-    rect(x + offset, y + offset, innerSize, innerSize);
+    var offset = (1 / 4 * size)*prefA;
+    var innerSize = (1 / 2 * size)*prefA;
+    rect((x + offset)*prefA, (y + offset)*prefA, innerSize*prefA, innerSize*prefA);
 
+}
+
+function keyPressed() {
+    println(keyCode);
+    if (keyCode == 90) {
+        prefA += 0.05;
+    }
+    if (keyCode == 88) {
+        prefA -= 0.05;
+    }
 }
