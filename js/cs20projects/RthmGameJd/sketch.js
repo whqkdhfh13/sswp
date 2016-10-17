@@ -9,17 +9,19 @@ var yValues,
 	negscoreamount,
     clrinc1, clrinc2, clrinc3,
     combo,bestCombo,
-    gameState;
+    gameState,
+    timeoutValue;
 
 function setup() {
 	// Important Values
 	yValues = [];
-    blocks = [0, 2, 1, 1, 2, 0];
-	ytimed = [3, 4, 5, 6, 7, 8];
-	speedValue = 1;
+    blocks = [];
+	ytimed = [3, 4, 5, 6, 7, 8, 8.5, 9, 9.5, 10];
+	speedValue = 2;
 	negscoreamount = 100;
     clrinc1 = 0;
     combo = 1;
+    frameRate(30);
 
     // Settings
 	createCanvas(600, 800);
@@ -27,18 +29,20 @@ function setup() {
     ytiminglaneoff = 600;
     gameState = "start";
     bestCombo = 0;
+    timeoutValue = 0;
 
     clrinc1 = 0;
     clrinc2 = 0;
     clrinc3 = 0;
 
-	for (var i = 0; i < blocks.length; i++) {
+	for (var i = 0; i < ytimed.length; i++) {
 		yValues.push(ytiminglaneoff - ytimed[i] * 60 );
+        blocks.push(floor(random(0,2)));
 	}
 }
 
 function draw() {
-    background(0, 0, 20);
+    background(0, 0, 40, 100);
     if (gameState == "start") {
         drawStartUI();
     } else if (gameState == "action") {
@@ -62,7 +66,7 @@ function draw() {
 }
 
 function movePlatforms(speed, negscoreamount) {
-    for (var i = 0; i < blocks.length; i++) {
+    for (var i = 0; i < ytimed.length; i++) {
         yValues[i] += speed ;
         if (yValues[i] > height - 150) {
 			yValues[i] += 200;
@@ -82,6 +86,16 @@ function movePlatforms(speed, negscoreamount) {
 } // end movePlatforms
 
 function drawActionUI() {
+    // Pause and count time
+    if (timeoutValue == 0) {
+        fill(0,150,250);
+        textSize(60);
+        text("Starts in 1 sec...",100,580);
+
+        noLoop();
+        setTimeout(loop,1000);
+        timeoutValue = 1;
+    }
 
 	// Draw UI
 	// Underbar
@@ -113,7 +127,7 @@ function drawActionUI() {
         // Combo text
         textSize(36);
         fill(0,150,250);
-        text(combo+" Combo!",1/2 * width - 75, 1/3 * height);
+        text(combo-1+" Combo!",1/2 * width - 75, 1/3 * height);
     }
 
 }
@@ -149,20 +163,20 @@ function drawEndUI() {
     // Display text depends on score
     if (score < 1000 ) {
         text("You're such a... \n   Rank : F", 140, 500);
-    } else if (score < 1/12 * (blocks.length * 100 * combo) || score < 1000) {
+    } else if (score < 1/12 * (ytimed.length * 100 * combo) || score < 1000) {
         text("Try hard !! \n Rank : C", 160, 500);
-    } else if (score > 1/12 * (blocks.length * 100 * combo) && score < 1/3 * (blocks.length * 100 * combo)) {
+    } else if (score > 1/12 * (ytimed.length * 100 * combo) && score < 1/3 * (ytimed.length * 100 * combo)) {
         text("You're good !! \n   Rank : A+", 140, 500);
-    } else if (score > 1/3 * (blocks.length * 100 * combo)){
+    } else if (score > 1/3 * (ytimed.length * 100 * combo)){
         text("You're just GOD !! \n     Rank : SS+", 100, 500);
     }
 
 }
 
 function drawBlocks() {
-
+    stroke(200,150,0);
 	// Loop function
-	for(var i=0; i < blocks.length; i++) {
+	for(var i=0; i < ytimed.length; i++) {
 		var ii = blocks[i] * 200
         if (blocks[i] == 0) {
             fill(0,150,220);
@@ -173,6 +187,7 @@ function drawBlocks() {
         }
 		rect(ii,yValues[i], 200, 20);
 	}
+    stroke(0);
 }
 
 function keyPressed() {
@@ -182,7 +197,7 @@ function keyPressed() {
     // Increase amount of number inside fill
     if (keyCode == 37) {
         clrinc1 = 20;
-        for(var i = 0; i < blocks.length; i++) {
+        for(var i = 0; i < ytimed.length; i++) {
             if (blocks[i] == 0 && yValues[i] > ytiminglaneoff - 10 && yValues[i] < ytiminglaneoff + 10) {
                 yValues[i] = 1200;
                 score += 100 * combo;
@@ -192,7 +207,7 @@ function keyPressed() {
     }
     if (keyCode == 40) {
         clrinc2 = 20;
-        for(var i = 0; i < blocks.length; i++) {
+        for(var i = 0; i < ytimed.length; i++) {
             if (blocks[i] == 1 && yValues[i] > ytiminglaneoff - 10 && yValues[i] < ytiminglaneoff + 10) {
                 yValues[i] = 1200;
                 score += 100 * combo;
@@ -202,7 +217,7 @@ function keyPressed() {
     }
     if (keyCode == 39) {
         clrinc3 = 20;
-        for(var i = 0; i < blocks.length; i++) {
+        for(var i = 0; i < ytimed.length; i++) {
             if (blocks[i] == 2 && yValues[i] > ytiminglaneoff - 10 && yValues[i] < ytiminglaneoff + 10) {
                 yValues[i] = 1200;
                 score += 100 * combo;
@@ -211,7 +226,13 @@ function keyPressed() {
         }
     }
     if (keyCode == 32) {
-        gameState = "action";
+        if (gameState == "start") {
+            gameState = "action";
+        }
+        if (gameState == "end") {
+            setup();
+            gameState = "start";
+        }
     }
 }
 
