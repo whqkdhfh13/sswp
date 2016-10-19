@@ -10,34 +10,46 @@ var yValues,
     clrinc1, clrinc2, clrinc3,
     combo,bestCombo,
     gameState,
-    timeoutValue;
+    timeoutValue,
+    sound,
+    loopCount, waitingTime;
+
+function preload() {
+    sound = loadSound('ttls.mp3');
+}
 
 function setup() {
 	// Important Values
 	yValues = [];
     blocks = [];
-	ytimed = [3, 4, 5, 6, 7, 8, 8.5, 9, 9.5, 10];
-	speedValue = 2;
+	ytimed = [];
+	speedValue = 0.73;
 	negscoreamount = 100;
     clrinc1 = 0;
     combo = 1;
-    frameRate(30);
+    frameRate(60);
+    loopCount = 29;
+    waitingTime = 3;
 
     // Settings
 	createCanvas(600, 800);
     score = 0;
     ytiminglaneoff = 600;
     gameState = "start";
-    bestCombo = 0;
+    bestCombo = 1;
     timeoutValue = 0;
 
     clrinc1 = 0;
     clrinc2 = 0;
     clrinc3 = 0;
 
+    for (var i = 0 + waitingTime; i < loopCount; i++) {
+        ytimed.push(i);
+    }
+
 	for (var i = 0; i < ytimed.length; i++) {
 		yValues.push(ytiminglaneoff - ytimed[i] * 60 );
-        blocks.push(floor(random(0,2)));
+        blocks.push(floor(random(0,3)));
 	}
 }
 
@@ -62,6 +74,9 @@ function draw() {
 
     } else if (gameState == "end") {
         drawEndUI();
+        println(bestCombo);
+        println(combo);
+        sound.stop();
     }
 }
 
@@ -73,7 +88,7 @@ function movePlatforms(speed, negscoreamount) {
 		}
 
         // Move bar to outside the screen when player missed it
-		if (yValues[i] == 851) {
+		if (yValues[i] == 850 + speed) {
 			score -= negscoreamount;
 
             // Put combo value to bestCombo when player missed the bar
@@ -153,12 +168,15 @@ function drawEndUI() {
     fill(255);
     text("Your score = " + score, 100, 300);
 
-    if (bestCombo == 0) {
-        bestCombo = "\nFULL COMBO";
+    if (bestCombo == 1 ) {
+        text("Best Combo = \nFULL COMBO", 100, 350);
+    } else if (bestCombo > 2 ) {
+
+        text("Best Combo = " + bestCombo , 100, 350);
     }
 
     // Best combo in the game
-    text("Best Combo = " + bestCombo, 100, 350);
+
 
     // Display text depends on score
     if (score < 1000 ) {
@@ -228,6 +246,7 @@ function keyPressed() {
     if (keyCode == 32) {
         if (gameState == "start") {
             gameState = "action";
+            sound.play();
         }
         if (gameState == "end") {
             setup();
