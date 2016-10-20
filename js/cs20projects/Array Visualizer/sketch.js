@@ -22,7 +22,11 @@ var yValue;  // Y-value of the horizontal line
 var addAmount = 10;
 var removeAmount = 10;
 var hotfix = 0;
-var scaleDraw = 20;
+var scaleDraw = 10;
+var AofN = 100;
+var coppiedArray = [], booleanArray = 0;
+var MaxNum;
+
 
 // SETUP FUNCTION - Runs once at beginning of program
 function setup() {
@@ -32,22 +36,22 @@ function setup() {
     myArray = [];
     outputStr = "Array Visualizer";
     yValue = 5;
-    for (var i = 0; i <= 200; i += 5) {
-        myArray.push(i);
+    for (var i = 0; i < 100; i += 1) {
+        myArray.push(floor(random(0,101)));
     }
 }
 
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
     background(0);
-    drawArray(myArray, 0 + hotfix, 200 + hotfix + scaleDraw, scaleDraw );
-    drawHzLine(average(myArray), 0 + hotfix, 200 + hotfix + scaleDraw, color(255, 0, 0));
+    drawArray(myArray, 0, AofN + hotfix + scaleDraw, scaleDraw );
+    drawHzLine(average(myArray), 0, AofN + hotfix + scaleDraw, color(255, 0, 0));
 }
 
 function keyPressed() {
     println(keyCode);
     if (keyCode == 32) { // Space Key
-        outputStr = "Arrays are Great!";
+        outputStr = "Array Visualizer / Maximum = " + MaxNum;
         yValue = 8;
     }
 
@@ -65,5 +69,23 @@ function keyPressed() {
         hotfix -= 10;
     }
 
+    if (keyCode == 83 && booleanArray == 0) { // S
+        coppiedArray = myArray.slice();
+        booleanArray++;
+        myArray.sort(function(a, b){return a-b});
+    } else if (keyCode == 83 && booleanArray == 1) {
+        myArray = coppiedArray.slice();
+        booleanArray--;
+    }
+
+    if (keyCode == 77) { // M
+        if (booleanArray == 0) {
+
+        } else if (booleanArray == 1) {
+
+        }
+    }
 
 }
+
+// TODO : Find Maximum when I press M

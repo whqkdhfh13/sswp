@@ -13,7 +13,7 @@ function drawArray(anArray, low, high, scale) {
 	}
 
     // Draw Vertical Bars for array values
-    fill(0, 125, 15, 180);
+    fill(0, 125, 15, 200);
     stroke(255);
     strokeWeight(1);
     var barWidth = (width - 30) / anArray.length;
@@ -36,7 +36,7 @@ function drawHzLine(val, low, high, col) {
     lineY = map(val, low, high, height, 50);
     line(0, lineY, width, lineY);
     textSize(14);
-    fill(0,150,250);
+    fill(0,200,250);
     stroke(0);
     text(average(myArray), 1/3 * width, lineY);
 }
