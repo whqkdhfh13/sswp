@@ -1,0 +1,26 @@
+body {
+    text-align: center;
+    background-color: grey;
+}
+
+button {
+    color: white;
+    background-color: #555555;
+    border-color: #555555;
+}
+
+
+.a1 {
+    background-color: rgb(27, 69, 113);
+    border-color: rgb(27, 69, 113);
+}
+
+.a2 {
+    background-color: rgb(87, 115, 47);
+    border-color: rgb(87, 115, 47);
+}
+
+.a3 {
+    background-color: rgb(220, 123, 0);
+    border-color: rgb(220, 123, 0);
+}
