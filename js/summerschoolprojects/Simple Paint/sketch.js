@@ -3,14 +3,15 @@ var fillColor, drawSize;
 function setup() {
    createCanvas(800,600);
    background(255);
-   
+
    fillColor = color(255,0,0);
    drawSize = 50;
 }
 
 function draw() {
+    noStroke();
   fill(fillColor);
-  if (mouseIsPressed) 
+  if (mouseIsPressed)
   {ellipse(mouseX,mouseY,drawSize,drawSize);}
 }
 
