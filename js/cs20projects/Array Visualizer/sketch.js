@@ -16,9 +16,9 @@ function setup() {
     cnv.parent(container);
 
     // Initialize Variables
-    array1 = [1, 1, 1, 1, 1];
-    array2 = [2, 2, 2, 2, 2];
-    array3 = [3, 3, 3, 3, 3];
+    array1 = [1, 2, 3, 4, 5];
+    array2 = [2, 6, 8, 4, 10];
+    array3 = [6, 3, 9, 5, 12];
 
     //Find the Maximum and Minimum by sort those arrays.
     var fmArray = array1.concat(array2, array3);
@@ -38,12 +38,12 @@ function setup() {
 
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
-    background(255);
+    background(255,255,255);
     drawArrays(array1, array2, array3, yMin, MaxNum + yScl, yScl);
 
-    drawHzLine(array1, average(array1), yMin, MaxNum + yScl, color(255, 0, 0), 150);
-    drawHzLine(array2, average(array2), yMin, MaxNum + yScl, color(255, 0, 0), 200);
-    //drawHzLine(25, yMin, yMax, color(0, 255, 0));
+    drawHzLine(average(array1), yMin, MaxNum + yScl, color(0, 150, 250), 150);
+    drawHzLine(average(array2), yMin, MaxNum + yScl, color(0, 150, 50), 180);
+    drawHzLine(average(array3), yMin, MaxNum + yScl, color(250, 150, 0), 210);
 }
 
 function keyPressed() {
