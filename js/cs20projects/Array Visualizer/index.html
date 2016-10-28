@@ -3,26 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sketch</title>
+    <title>Array Visualizer</title>
 
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+
+    <script src="libraries/jquery-3.1.1.slim.min.js"></script>
     <script src="libraries/p5.js"></script>
-    <script src="libraries/p5.dom.js"></script>
-    <script src="libraries/p5.sound.js"></script>
 
     <script src="helpers.js"></script>
     <script src="sketch.js"></script>
+    <script src="script.js"></script>
     <script src="findAverage.js"></script>
 
-    <style>
-        body {
-            text-align: center;
-            background-color: grey;
-        }
-
-    </style>
 </head>
 
 <body>
+    <!-- Div to hold canvas -->
+    <div id="container"></div>
+    <!-- Div for array selectors -->
+    <div id="controls">
+        <button id="a1" class="a1">Array 1</button>
+        <button id="a2" class="a2">Array 2</button>
+        <button id="a3" class="a3">Array 3</button>
+    </div>
 </body>
 
 </html>
