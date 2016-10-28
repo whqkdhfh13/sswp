@@ -87,11 +87,12 @@ function drawGridLines(low, high, scale) {
     }
 }
 
-function drawHzLine(array, val, low, high, col, txtwidth) {
+function drawHzLine(val, low, high, col, txtwidth) {
     stroke(col);
+    fill(col);
     lineY = map(val, low, high, height - botBuffer, topBuffer);
     line(0, lineY, width, lineY);
     textSize(15);
     noStroke();
-    text("ave"+average(array), txtwidth, lineY - 2);
+    text(val, txtwidth, lineY - 2);
 }
