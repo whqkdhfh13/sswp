@@ -1,4 +1,5 @@
 // let's start!!
+// Global valuables
 var yValues,
     blocks,
     ytimed,
