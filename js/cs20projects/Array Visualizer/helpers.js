@@ -93,6 +93,6 @@ function drawHzLine(val, low, high, col, txtwidth) {
     lineY = map(val, low, high, height - botBuffer, topBuffer);
     line(0, lineY, width, lineY);
     textSize(15);
-    noStroke();
+    stroke(255);
     text(val, txtwidth, lineY - 2);
 }
