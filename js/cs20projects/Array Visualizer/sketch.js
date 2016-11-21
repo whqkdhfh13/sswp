@@ -22,6 +22,7 @@ function setup() {
     cnv.parent(container);
 
     // Initialize Variables
+
     array1 = [1, 3, 6, 8, 2];
     array2 = [3, 9, 8, 2, 4];
     array3 = [4, 1, 3, 8, 7];
@@ -55,9 +56,22 @@ function draw() {
 }
 
 function keyPressed() {
-    println(keyCode);
-    if (keyCode == 49) { // #1
-        addNumber(array1, 2);
+  println(keyCode);
+  if (keyCode == 49) { // #1
+    addNumber(array1, 2);
+  }
+
+  if (keyCode == 50) { // #2
+    addNumber(array2, 2);
+  }
+
+  if (keyCode == 51) { // #3
+    addNumber(array3, 2);
+  }
+
+  if (keyCode == 70) { // F
+    if ((MaxNum - MinNum) / yScl > 15) {
+      yScl +=1;
     }
 
     if (keyCode == 50) { // #2
