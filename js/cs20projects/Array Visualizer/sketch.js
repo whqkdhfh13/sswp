@@ -1,12 +1,18 @@
 // ARRAY VISUALIZER
 
 // DECLARE GLOBAL VARIABLES
-var array1, array2, array3;  // Arrays to be drawn, should be same length
-var yMin, yMax, yScl; // Vertical Axis Values
-var outputStr;  // Message at the top of the screen
+var array1,
+    array2,
+    array3; // Arrays to be drawn, should be same length
+var yMin,
+    yMax,
+    yScl; // Vertical Axis Values
+var outputStr; // Message at the top of the screen
 var scaleDraw = 1;
-var coppiedArray = [], booleanArray = 0;
-var MaxNum, MinNum;
+var coppiedArray = [],
+    booleanArray = 0;
+var MaxNum,
+    MinNum;
 var RndNum;
 var prefix = 0;
 
@@ -31,7 +37,7 @@ function setup() {
 
     yMin = 1;
     if (yMin > 5) {
-      yMin = MinNum - 5;
+        yMin = MinNum - 5;
     }
     yMax = 5;
     yScl = 1;
@@ -40,7 +46,7 @@ function setup() {
 
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
-    background(255,255,255);
+    background(255, 255, 255);
     drawArrays(array1, array2, array3, yMin, MaxNum + yScl, yScl);
 
     drawHzLine(average(array1), yMin, MaxNum + yScl, color(0, 150, 250), 150);
@@ -49,37 +55,49 @@ function draw() {
 }
 
 function keyPressed() {
-  println(keyCode);
-  if (keyCode == 49) { // #1
-    addNumber(array1, 2);
-  }
-  
-  if (keyCode == 50) { // #2
-    addNumber(array2, 2);
-  }
-  
-  if (keyCode == 51) { // #3
-    addNumber(array3, 2);
-  }
-  
-  if (keyCode == 70) { // F
-    if ((MaxNum - MinNum) / yScl > 15) {
-      yScl +=1;
+    println(keyCode);
+    if (keyCode == 49) { // #1
+        addNumber(array1, 2);
     }
-  }
 
-  // Findthe Max and Min everytime I press the key
-  var fmArray = array1.concat(array2, array3);
-  fmArray.sort(function(a, b) {
-    return a - b
-  });
-  MaxNum = fmArray[fmArray.length - 1];
-  MinNum = fmArray[0];
-  outputStr = "|| Array Visualizer || / Maximum = " + MaxNum + " / Minimum = " + MinNum + " /";
+    if (keyCode == 50) { // #2
+        addNumber(array2, 2);
+    }
+
+    if (keyCode == 51) { // #3
+        addNumber(array3, 2);
+    }
+
+    if (keyCode == 82) { // R
+        array1 = [];
+        array2 = [];
+        array3 = [];
+        for (var i = 0; i < 5; i++) {
+            array1.push(floor(random(1, 10)));
+            array2.push(floor(random(1, 10)));
+            array3.push(floor(random(1, 10)));
+        }
+    }
+
+    // Check and Fix the scale everytime I press the key
+    if ((MaxNum - MinNum) / yScl > 5) {
+        yScl++;
+    } else if ((MaxNum - MinNum) / yScl < 5) {
+        yScl--;
+    }
+
+    // Find the Max and Min everytime I press the key
+    var fmArray = array1.concat(array2, array3);
+    fmArray.sort(function(a, b) {
+        return a - b
+    });
+    MaxNum = fmArray[fmArray.length - 1];
+    MinNum = fmArray[0];
+    outputStr = "|| Array Visualizer || / Maximum = " + MaxNum + " / Minimum = " + MinNum + " /";
 }
 
 function addNumber(array, num) {
-  for (i = 0; i < array.length; i++) {
-      array[i] +=num;
+    for (i = 0; i < array.length; i++) {
+        array[i] += num;
     }
 }
