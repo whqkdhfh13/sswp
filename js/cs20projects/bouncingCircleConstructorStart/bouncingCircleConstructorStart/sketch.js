@@ -53,6 +53,8 @@ function bouncingC(xSpeed, ySpeed) {
 
 function mousePressed() {
     for (var i = 0; i < balls.length; i++) {
-        balls[i].magic();
+		if (mouseIsPressed && mouseX >= balls[i].x - 1/2 * balls[i].r && mouseX <= balls[i].x + 1/2 * balls[i].r && mouseY >= balls[i].y - 1/2 * balls[i].r && mouseY <= balls[i].y + 1/2 * balls[i].r) {
+			balls[i].magic();
+		}
     }
 }

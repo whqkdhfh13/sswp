@@ -37,7 +37,9 @@ function keyPressed() {
         }
         for(var i = 0; i < bubbles.length; i++) {
             rcolors.push(color(random(255), random(255), random(255), 180));
+            bubbles[i].magic(i);
         }
+
         println(rcolors);
     }
 }

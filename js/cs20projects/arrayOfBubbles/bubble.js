@@ -4,6 +4,9 @@ function Bubble(x, y, col) {
     this.y = y;
     this.r = random(24, 64);
     this.col = col;
+    this.magic = function(i) {
+        this.col = rcolors[i];
+    };
 
     // Methods (Behaviour)
     this.update = function() {
@@ -18,5 +21,6 @@ function Bubble(x, y, col) {
         stroke(this.col);
         fill(this.col);
         ellipse(this.x, this.y, 2 * this.r);
-    }
+    };
+
 }
