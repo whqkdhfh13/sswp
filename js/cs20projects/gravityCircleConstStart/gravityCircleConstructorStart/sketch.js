@@ -3,7 +3,7 @@
 // DECLARE GLOBAL VARIABLES
 var circles = [];
 
-// SETUP FUNCTION - Runs once at beginning of program
+// SETUP FUNCTION - Runs once at beginning of the program
 function setup() {
     createCanvas(600, 400);
     for (var i = 0; i < 15; i++) {
@@ -35,14 +35,14 @@ function drawaCircle() {
             this.ySpeed = this.launchSpeed; // Reset to launch speed
             this.launchSpeed = this.launchSpeed * 0.9; // Energy loss
         }
-    }
+    };
 
     this.display = function() {
         noFill();
         stroke(this.col);
         strokeWeight(4);
         ellipse(this.x, this.y, 2 * this.r);
-    }
+    };
 }
 
 // DRAW FUNCTION - Loops @ 60FPS by default
@@ -56,8 +56,8 @@ function run(){
     for (var i = 0; i < circles.length; i++) {
         circles[i].update();
         circles[i].display();
-        if (mouseX >= circles[i].x && mouseX <= circles[i].x + circles[i].r && mouseY >= circles[i].y && mouseY <= circles[i].y + circles[i].r) {
-            
+        if (mouseX >= circles[i].x && mouseX <= circles[i].x + circles[i].r && mouseY >= circles[i].y + circles[i].r - 10 && mouseY <= circles[i].y + circles[i].r + 50) {
+            circles[i].ySpeed = circles[i].launchSpeed ;
         }
     }
 }
