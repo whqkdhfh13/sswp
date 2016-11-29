@@ -2,6 +2,7 @@
 
 // DECLARE GLOBAL VARIABLES
 var circles = [];
+var strcolor;
 
 // SETUP FUNCTION - Runs once at beginning of the program
 function setup() {
@@ -9,6 +10,8 @@ function setup() {
     for (var i = 0; i < 15; i++) {
         circles.push(new drawaCircle());
     }
+    noCursor();
+    strcolor = random(["red", "green", "blue", "white", "yellow", "purple"]);
 }
 
 function drawaCircle() {
@@ -18,7 +21,8 @@ function drawaCircle() {
     this.xSpeed = 0;
     this.ySpeed = 0;
     this.g = 1;
-    this.launchSpeed = random(-30, -10);
+    this.launchSpeedStart = random(-30, -10);
+    this.launchSpeed = this.launchSpeedStart;
     this.col = color(random(255), random(255), random(255));
 
     this.update = function() {
@@ -50,14 +54,20 @@ function draw(){
     // DRAWING
     background(0);
     run();
+    stroke(strcolor);
+    rect(mouseX - 25, mouseY - 6, 50, 4);
 }
 
 function run(){
     for (var i = 0; i < circles.length; i++) {
         circles[i].update();
         circles[i].display();
-        if (mouseX >= circles[i].x && mouseX <= circles[i].x + circles[i].r && mouseY >= circles[i].y + circles[i].r - 10 && mouseY <= circles[i].y + circles[i].r + 50) {
+        if (mouseX >= circles[i].x - circles[i].r && mouseX <= circles[i].x + circles[i].r && mouseY >= circles[i].y - 50 && mouseY <= circles[i].y + circles[i].r) {
             circles[i].ySpeed = circles[i].launchSpeed ;
+        }
+        if (mouseIsPressed && circles[i].ySpeed <= 0.01) {
+            circles[i].ySpeed = circles[i].launchSpeedStart;
+            circles[i].launchSpeed = circles[i].launchSpeedStart;
         }
     }
 }
