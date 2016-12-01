@@ -8,9 +8,9 @@ function setup() {
     createCanvas(600, 400);
 
     // Initialize Variables
-    // for (var i = 0; i < 300; i++) {
-    //     stars.push(new Star(random(-width, 2 * width), random(-height, 2 * height)));
-    // }
+    for (var i = 0; i < 300; i++) {
+        stars.push(new Star(random(-width, 2 * width), random(-height, 2 * height)));
+    }
 }
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
