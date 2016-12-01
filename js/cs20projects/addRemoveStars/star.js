@@ -1,7 +1,5 @@
 function Star(x, y) {
     // Properties (State)
-    // this.x = random(-width, 2 * width);
-    // this.y = random(-height, 2 * height);
     this.x = x;
     this.y = y;
     this.r = random(4, 8);
@@ -31,8 +29,4 @@ function Star(x, y) {
         ellipse(this.x, this.y, 2 * this.r);
     };
 
-    this.call = function() {
-        this.display();
-        this.update();
-    };
 }
