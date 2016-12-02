@@ -6,7 +6,7 @@ var circles = [];
 // SETUP FUNCTION - Runs once at beginning of program
 function setup() {
     createCanvas(600, 400);
-
+    noCursor();
     // Initialize Variables
     for (var i = 0; i < 20; i++) {
         circles.push(new BouncingCircle(random(30, width - 30), random(30, height - 30), random(-5, 5), random(-5, 5)));
@@ -16,8 +16,14 @@ function setup() {
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
     background(0);
+    rect(mouseX - 10, mouseY - 2.5, 20, 5);
+    rect(mouseX - 2.5, mouseY - 10, 5, 20);
     for (var i = 0; i < circles.length; i++) {
         circles[i].call();
+    }
+
+    if (frameCount % 120 == 0) {
+        circles.push(new BouncingCircle(random(30, width - 30), random(30, height - 30), random(-5, 5), random(-5, 5)))
     }
 }
 
