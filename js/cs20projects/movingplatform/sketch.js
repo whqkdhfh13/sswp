@@ -1,6 +1,7 @@
 var platforms = [];
 var ra;
 var pf1, pf2, pf3;
+var status1=0;
 
 function setup() {
 	createCanvas(600,400);
@@ -13,7 +14,6 @@ function setup() {
 	// pf2 = new createPlatform(ra, ra, ra, ra, 0, -2);
 	// pf3 = new createPlatform(ra, ra, ra, ra, 2, -3);
 
-	incNum = 0;
 }
 
 function draw() {

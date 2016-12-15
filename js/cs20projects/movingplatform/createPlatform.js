@@ -1,36 +1,36 @@
 function createPlatform(x, y, w, h, xSpeed, ySpeed, col) {
 
-        if (xSpeed == ra || undefined) {
+        if (xSpeed == ra || xSpeed == undefined) {
             this.xSpeed = random(-5, 5);
         } else {
             this.xSpeed = xSpeed;
         }
 
-        if (ySpeed == ra || undefined) {
+        if (ySpeed == ra || ySpeed == undefined) {
             this.ySpeed = random(-5, 5);
         } else {
             this.ySpeed = ySpeed;
         }
 
-        if (w == ra || undefined) {
+        if (w == ra || w == undefined) {
             this.w = random(25, 100);
         } else {
             this.w = w;
         }
 
-        if (h == ra || undefined) {
+        if (h == ra || h == undefined) {
             this.h = random(25, 100);
         } else {
             this.h = h;
         }
 
-        if (x == ra || undefined) {
+        if (x == ra || x == undefined) {
             this.x = random(0, width - this.w);
         } else {
             this.x = w;
         }
 
-        if (y == ra || undefined) {
+        if (y == ra || y == undefined) {
             this.y = random(0, height - this.h);
         } else {
             this.y = y;
@@ -62,7 +62,6 @@ function createPlatform(x, y, w, h, xSpeed, ySpeed, col) {
         cl4 += 1;
 
         if (frameCount % 240 == 0) {
-            incNum = 0;
             cl1 = random(255);
             cl2 = random(255);
             cl3 = random(255);
