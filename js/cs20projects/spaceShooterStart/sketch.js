@@ -28,7 +28,6 @@ function setup() {
 
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
-
     // DRAWING
     background(0);
     fill(255,enemyColor,enemyColor);
@@ -41,11 +40,22 @@ function draw() {
         enemyColor = 255;
     }
 
+    for (var i = 0; i < enemies.length; i++) {
+        enemies[i].call();
+        // if (enemies[i].hit()) {
+        //     enemies.splice(i, 1);
+        // }
+        if (enemies[i].y > height) {
+            enemies.splice(i, 1);
+        }
+    }
+
     for (var i = 0; i < laser.length; i++) {
         laser[i].call();
 
-        if (laser[i].hit()) {
+        if (laser[i].hit(enemies)) {
             laser.splice(i, 1);
+            break;
         }
 
         if (laser[i].y < 50) {
@@ -56,20 +66,13 @@ function draw() {
 
     }
 
-    for (var i = 0; i < enemies.length; i++) {
-        enemies[i].call();
-        // if (enemies[i].hit()) {
-        //     enemies.splice(i, 1);
-        // }
-    }
-
     if (frameCount % 60 == 0) {
         enemies.push(new makeEnemy(30,18));
     }
 
     if (frameCount % 25 === 0 && vot) {
         laserSoundNew.play();
-        laser.push(new Laser(mouseX, mouseY));
+        laser.push(new Laser());
         rebound += 10;
     }
 
@@ -88,4 +91,10 @@ function mousePressed() {
 
 function mouseReleased() {
     vot = false;
+}
+
+function keyPressed() {
+    if (keyCode == 32) {
+        println(enemies);
+    }
 }

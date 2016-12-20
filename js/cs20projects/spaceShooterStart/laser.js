@@ -1,16 +1,16 @@
 // Laser Constructor Function
-function Laser(x, y) {
+function Laser() {
     // Properties (State)
     this.w = 5;
     this.h = 10;
-    this.x = x - this.w / 2;
-    this.y = y - this.h / 2;
+    this.x = mouseX - this.w / 2;
+    this.y = mouseY - this.h / 2;
 
     this.ySpeed = -10;
 
-    this.hit = function() {
-        for (var i = 0; i < enemies.length; i++) {
-            var d = dist(enemies[i].x, enemies[i].y, this.x, this.y);
+    this.hit = function(enemy) {
+        for (var i = 0; i < enemy.length; i++) {
+            var d = dist(this.x, this.y, enemy[i].x, enemy[i].y);
             console.log(d);
             if (d <= 15) {
                 enemies.splice(i, 1);
