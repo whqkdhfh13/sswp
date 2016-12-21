@@ -6,7 +6,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
     this.h = 25;
     this.dx = 5;
     this.dy = 0;
-    this.g = 0.7;
+    this.g = 0.6;
     this.launchSpeed = -15;
     this.lc = lc;  // left keycode
     this.uc = uc;  // up keycode
@@ -15,6 +15,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
     this.col = col;  // colour
     this.jumpCount = 0;
     this.dstatus = 0;
+    this.count = 0;
 
     // Methods (Behaviour)
     this.update = function(platforms) {
@@ -42,9 +43,9 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
         this.dy += this.g;
 
         // Land on Ground
-        if (this.y + this.h > height) {
+        if (this.y > height) {
             this.dy = 0;
-            this.y = height - this.h;
+            this.y = 0;
             this.jumpCount = 0;
         }
 
@@ -53,7 +54,8 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
             for (var i = 0; i < platforms.length; i++) {
                 if (this.intersects(platforms[i])) {
                     this.dy = 0;
-                    this.y = platforms[i].y - this.h;
+                    this.y = platforms[i].y -this.h;
+                    platforms[i].count++;
                     break;
                 }
             }
