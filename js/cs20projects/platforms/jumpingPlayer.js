@@ -1,4 +1,4 @@
-function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
+function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump) {
     // Properties (State)
     this.x = x;
     this.y = y;
@@ -16,6 +16,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
     this.jumpCount = 0;
     this.dstatus = 0;
     this.count = 0;
+    this.maxJumpCount = maxJump;
 
     // Methods (Behaviour)
     this.update = function(platforms) {
@@ -92,7 +93,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col) {
     };
 
     this.keyEvent = function() {
-        if (keyCode == this.uc && this.jumpCount < 2) { // Jump on up code
+        if (keyCode == this.uc && this.jumpCount < this.maxJumpCount) { // Jump on up code
             this.jump();
             this.jumpCount++;
         }

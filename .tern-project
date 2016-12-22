@@ -1,12 +1,35 @@
 {
   "ecmaVersion": 6,
-  "libs": [],
+  "libs": [
+    "browser",
+    "jquery"
+  ],
   "plugins": {
     "node": {
       "dontLoad": "",
       "load": "",
       "modules": ""
     },
-    "node_resolve": {}
+    "node_resolve": {},
+    "complete_strings": {
+      "maxLength": 15
+    },
+    "doc_comment": {
+      "fullDocs": true,
+      "strong": false
+    },
+    "modules": {
+      "dontLoad": "",
+      "load": "",
+      "modules": ""
+    },
+    "es_modules": {},
+    "angular": {},
+    "requirejs": {
+      "baseURL": "",
+      "paths": "",
+      "override": ""
+    },
+    "commonjs": {}
   }
 }
