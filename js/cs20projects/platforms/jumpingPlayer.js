@@ -1,4 +1,4 @@
-function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump) {
+function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump, ve, spx, spy) {
     // Properties (State)
     this.x = x;
     this.y = y;
@@ -17,6 +17,14 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump) {
     this.dstatus = 0;
     this.count = 0;
     this.maxJumpCount = maxJump;
+    this.life = 3;
+    this.sp = {
+        x : spx,
+        y : spy,
+        size : 20,
+        v : ve,
+        vel : 0
+    };
 
     // Methods (Behaviour)
     this.update = function(platforms) {
@@ -45,6 +53,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump) {
 
         // Land on Ground
         if (this.y > height) {
+            this.life--;
             this.dy = 0;
             this.y = 0;
             this.jumpCount = 0;

@@ -8,8 +8,8 @@ function setup() {
     createCanvas(800, 600);
 
     // Initialize game objects
-    player.push(new JumpingPlayer(400, 25, 37, 38, 39, 40, color(255, 0, 0), 3));
-    player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 3));
+    player.push(new JumpingPlayer(400, 25, 37, 38, 39, 40, color(255, 0, 0), 2, -30, 760, 540));
+    player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 2, 30, 20, 540));
     platforms.push(new Platform(350, 450));
     platforms.push(new Platform(450, 350));
     platforms.push(new Platform(250, 150));
@@ -59,8 +59,18 @@ function draw() {
 
         // Move player
         for (var i = 0; i < player.length; i++) {
-            player[i].update(platforms);
-            player[i].display();
+            if (player[i].life > 0) {
+                player[i].update(platforms);
+                player[i].display();
+                for (var j = 0; j < player[i].life; j++) {
+                    if (j == 0) {
+                        player[i].sp.vel = 0;
+                    };
+                    rect(player[i].sp.x + player[i].sp.vel, player[i].sp.y, player[i].sp.size, player[i].sp.size);
+                    player[i].sp.vel += player[i].sp.v
+                    println(player[i].sp.vel+", "+player[i].sp.v);
+                }
+            }
         }
     }
 }
