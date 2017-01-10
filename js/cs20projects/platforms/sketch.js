@@ -8,8 +8,8 @@ function setup() {
     createCanvas(800, 600);
 
     // Initialize game objects
+	player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 2, 30, 20, 540));
     player.push(new JumpingPlayer(400, 25, 37, 38, 39, 40, color(255, 0, 0), 2, -30, 760, 540));
-    player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 2, 30, 20, 540));
     platforms.push(new Platform(350, 450));
     platforms.push(new Platform(450, 350));
     platforms.push(new Platform(250, 150));
@@ -66,9 +66,13 @@ function draw() {
                     if (j == 0) {
                         player[i].sp.vel = 0;
                     };
-                    rect(player[i].sp.x + player[i].sp.vel, player[i].sp.y, player[i].sp.size, player[i].sp.size);
-                    player[i].sp.vel += player[i].sp.v
-                    println(player[i].sp.vel+", "+player[i].sp.v);
+					if (j % 12 == 0) {
+						player[i].xpref = player[i].sp.v * -12 * j / 12;
+						player[i].ypref = -30 * j / 12;
+					};
+
+					rect(player[i].sp.x + player[i].sp.vel + player[i].xpref, player[i].sp.y + player[i].ypref, player[i].sp.size, player[i].sp.size);
+                    player[i].sp.vel += player[i].sp.v;
                 }
             }
         }
@@ -79,5 +83,13 @@ function keyPressed() {
 
     for (var i = 0; i < player.length; i++) {
         player[i].keyEvent();
-    }
+    };
+
+	if (keyIsDown(49)) {
+		player[0].life++;
+	}
+
+	if (keyIsDown(50)) {
+		player[1].life++;
+	}
 }

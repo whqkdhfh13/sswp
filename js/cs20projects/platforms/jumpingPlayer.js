@@ -25,6 +25,8 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump, ve, spx, spy) {
         v : ve,
         vel : 0
     };
+    this.xpref = 0;
+    this.ypref = 0;
 
     // Methods (Behaviour)
     this.update = function(platforms) {
