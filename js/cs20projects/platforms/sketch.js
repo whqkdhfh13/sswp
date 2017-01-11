@@ -8,7 +8,6 @@ var timer = 0;
 
 function preload() {
     intersectSound = loadSound("intersect.mp3");
-    jumpSound = loadSound("jump.mp3");
 }
 
 function setup() {
