@@ -93,6 +93,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump, ve, spx, spy) {
 
     this.jump = function() {
         this.dy = this.launchSpeed;
+        intersectSound.play();
     };
 
 
@@ -104,7 +105,7 @@ function JumpingPlayer(x, y, lc, uc, rc, dc, col, maxJump, ve, spx, spy) {
     };
 
     this.keyEvent = function() {
-        if (keyCode == this.uc && this.jumpCount < this.maxJumpCount) { // Jump on up code
+        if (keyCode == this.uc && this.jumpCount < this.maxJumpCount && gameStatus == "run") { // Jump on up code
             this.jump();
             this.jumpCount++;
         }
