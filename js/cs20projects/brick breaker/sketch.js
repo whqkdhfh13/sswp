@@ -37,12 +37,16 @@ function draw() {
 				textSize(30);
 				text(bricks[x][y], 10 + x * 70, 110 + y * 50);
 			} else if (bricks[x][y] === -1) {
+				fill(150, 150, 150, 80);
+				ellipse(x * 69 + 39, y * 50 + 105, 20);
+				// noFill();
+				// ellipse(x * 69 + 39, y * 50 + 105, 23 + incNum);
 				fill(0, 230, 20);
 				ellipse(x * 69 + 35, y * 50 + 100, 20, 20);
 				noFill();
 				strokeWeight(4);
 				stroke(0, 230, 20);
-				ellipse(x * 69 + 35, y * 50 + 100, 23 + incNum, 23 + incNum);
+				ellipse(x * 69 + 35, y * 50 + 100, 23 + incNum);
 			}
 		}
 	}
@@ -50,6 +54,14 @@ function draw() {
 	if (stageReset === 1) {
 		for (var i = 0; i < 6; i++) {
 			bricks[i].unshift(0);
+		}
+
+		for (var j = 0; j < 6; j++) {
+			var rn = random([0, 1, 2, 3, 4, 5]);
+			if (bricks[rn][0] === 0) {
+				bricks[rn][0] = -1;
+			}
+			break;
 		}
 
 		for (var i = 0; i < floor(random(1, 7)); i++) {
@@ -62,7 +74,6 @@ function draw() {
 		currentStage++;
 	}
 
-	bricks[0][0] = -1;
 }
 
 function keyPressed() {
