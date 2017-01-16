@@ -22,27 +22,42 @@ function draw() {
 	if (incNum < 0) {
 		incSpeed = 1.5;
 	}
-	println(incNum);
 	for (var x = 0; x < bricks.length; x++) {
 		for (var y = 0; y < 10; y++) {
 			if (bricks[x][y] > 0) {
-				strokeWeight(1);
-				stroke(255);
+				// brick shadow
+				noStroke();
 				fill(150, 150, 150, 80);
 				rect(x * 69 + 6, 80 + y * 50, 68, 49);
+
+				// brick
 				fill(255,0,0);
 				rect(x * 69 + 2, 75 + y * 50, 68, 49);
+
+				// text
 				stroke(255);
 				fill(255);
 				textSize(30);
 				text(bricks[x][y], 10 + x * 70, 110 + y * 50);
 			} else if (bricks[x][y] === -1) {
+
+				// inner shadow
+				noStroke();
 				fill(150, 150, 150, 80);
 				ellipse(x * 69 + 39, y * 50 + 105, 20);
-				// noFill();
-				// ellipse(x * 69 + 39, y * 50 + 105, 23 + incNum);
+
+				// outer shadow
+				noFill();
+				stroke(150, 150, 150, 80);
+				strokeWeight(4);
+				ellipse(x * 69 + 39, y * 50 + 105, 23 + incNum);
+
+				// inner circle
+				noStroke();
 				fill(0, 230, 20);
 				ellipse(x * 69 + 35, y * 50 + 100, 20, 20);
+
+				// outer circle
 				noFill();
 				strokeWeight(4);
 				stroke(0, 230, 20);
@@ -64,7 +79,7 @@ function draw() {
 			break;
 		}
 
-		for (var i = 0; i < floor(random(1, 7)); i++) {
+		for (var i = 0; i < floor(random(2, 7)); i++) {
 			var rn = random([0, 1, 2, 3, 4, 5]);
 			if (bricks[rn][0] === 0) {
 				bricks[rn][0] = currentStage;
