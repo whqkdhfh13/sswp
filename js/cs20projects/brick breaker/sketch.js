@@ -67,6 +67,7 @@ function draw() {
 	}
 
 	if (stageReset === 1) {
+		var chksum = 0;
 		for (var i = 0; i < 6; i++) {
 			bricks[i].unshift(0);
 		}
@@ -83,7 +84,14 @@ function draw() {
 			var rn = random([0, 1, 2, 3, 4, 5]);
 			if (bricks[rn][0] === 0) {
 				bricks[rn][0] = currentStage;
+				chksum += bricks[rn][0];
 			}
+		}
+
+		if (chksum === 0 && bricks[0][0] === 0) {
+			bricks[0][0] = currentStage;
+		} else if (chksum === 0 && bricks[1][0] === 0) {
+			bricks[1][0] = currentStage;
 		}
 		stageReset = 0;
 		currentStage++;
