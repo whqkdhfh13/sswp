@@ -6,6 +6,9 @@ var currentStage = 1;
 var stageReset = 1;
 var incNum = 3, incSpeed = 1.5;
 var gameStatus = "run";
+var balls = [];
+var test;
+var ballStatus = "standby";
 
 function setup() {
 	createCanvas(420, 575);
@@ -14,13 +17,14 @@ function setup() {
 			bricks[i].push(0);
 		}
 	}
+	test = new ball(210, 517);
 }
 
 function draw() {
 	if (gameStatus == "start") {
 
 	} else if (gameStatus == "run") {
-		background(255);
+		background(255, 255, 255, 120);
 		incSpeed -= 0.07;
 		incNum += incSpeed;
 		if (incNum < 0) {
@@ -100,6 +104,9 @@ function draw() {
 			currentStage++;
 		}
 
+		test.update();
+		test.display();
+
 		// Draw lines at Top and Bottom
 		noStroke();
 		fill(0);
@@ -114,5 +121,8 @@ function draw() {
 function keyPressed() {
 	if (keyIsDown(32)) {
 		stageReset++;
+	}
+	if (keyIsDown(37)) {
+		ballStatus = "fire";
 	}
 }
