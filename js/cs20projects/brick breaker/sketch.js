@@ -73,6 +73,18 @@ function draw() {
 			}
 		}
 
+		for (var i = 0; i < balls.length; i++) {
+			var hor = floor((balls[i].x + 2) / 69);
+			var ver = floor((balls[i].y + 75) / 50);
+			for (var j = 0; j < 6; j++) {
+				for (var k = 0; k < 9; k++) {
+					if (balls[i].x >= j * 69 - 8 && balls[i].x <= (j + 1) * 69 + 12 && balls[i].y >= k * 50 + 65 && balls[i].y <= (k + 1) * 50 + 85) {
+
+					}
+				}
+			}
+		}
+
 		if (stageReset === 1) {
 			var chksum = 0;
 			for (var i = 0; i < 6; i++) {
@@ -123,6 +135,8 @@ function keyPressed() {
 		stageReset++;
 	}
 	if (keyIsDown(37)) {
+		test.defineSpeed();
 		ballStatus = "fire";
+		console.log(ballStatus);
 	}
 }
