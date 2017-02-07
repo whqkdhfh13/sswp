@@ -7,8 +7,9 @@ var stageReset = 1;
 var incNum = 3, incSpeed = 1.5;
 var gameStatus = "run";
 var balls = [];
-var test;
 var ballStatus = "standby";
+var timer = 0;
+var toggle = 0;
 
 function setup() {
 	createCanvas(420, 575);
@@ -17,7 +18,9 @@ function setup() {
 			bricks[i].push(0);
 		}
 	}
-	test = new ball(210, 517);
+	for (var i = 0; i < 3; i++) {
+		balls.push(new ball(210, 517));
+	}
 }
 
 function draw() {
@@ -27,8 +30,15 @@ function draw() {
 		background(255, 255, 255, 120);
 		incSpeed -= 0.07;
 		incNum += incSpeed;
+		timer++;
 		if (incNum < 0) {
 			incSpeed = 1.5;
+		}
+		if (toggle === 1) {
+			fireBalls();
+		}
+		if (balls[balls.length-1].ballStatus == "fire") {
+			toggle = 0;
 		}
 		for (var x = 0; x < bricks.length; x++) {
 			for (var y = 0; y < 10; y++) {
@@ -74,6 +84,15 @@ function draw() {
 		}
 
 		for (var i = 0; i < balls.length; i++) {
+			balls[i].update();
+			balls[i].display();
+
+			if (balls[i].y > 515) {
+				balls[i].ballStatus = "standby";
+				println(toggle);
+			}
+
+			// To check if ball is stay inside the break
 			var hor = floor((balls[i].x + 2) / 69);
 			var ver = floor((balls[i].y + 75) / 50);
 			for (var j = 0; j < 6; j++) {
@@ -116,9 +135,6 @@ function draw() {
 			currentStage++;
 		}
 
-		test.update();
-		test.display();
-
 		// Draw lines at Top and Bottom
 		noStroke();
 		fill(0);
@@ -135,8 +151,28 @@ function keyPressed() {
 		stageReset++;
 	}
 	if (keyIsDown(37)) {
-		test.defineSpeed();
-		ballStatus = "fire";
-		console.log(ballStatus);
+		var chksum = 0;
+		for (var i = 0; i < balls.length; i++) {
+			if (balls[i].ballStatus == "fire") {chksum++;}
+		}
+		if (chksum === 0) {
+			for (var j = 0; j < balls.length; j++) {
+				println(j);
+				println(balls);
+				balls[j].defineSpeed();
+			}
+			timer = 0;
+			toggle++;
+			// test.defineSpeed();
+			// test.ballStatus = "fire";
+			// console.log(ballStatus);
+		}
+	}
+}
+
+function fireBalls() {
+	println(timer);
+	if (timer % 6 === 0 && timer > 0) {
+		balls[timer/6 - 1].ballStatus = "fire";
 	}
 }

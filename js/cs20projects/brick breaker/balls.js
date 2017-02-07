@@ -5,16 +5,17 @@ function ball(x, y) {
     this.xSavePoint = 210;
     this.xSpeed = 0;
     this.ySpeed = 0;
+    this.ballStatus = "standby";
 
 
     this.update = function() {
-        if (this.x > 420 || this.x < 0) {
+        if (this.x > 410 || this.x < 10) {
             this.xSpeed *= -1;
         }
         if (this.y < 50) {
             this.ySpeed *= -1;
         }
-        if (ballStatus == "fire") {
+        if (this.ballStatus == "fire") {
             this.x += this.xSpeed;
             this.y += this.ySpeed;
         }
