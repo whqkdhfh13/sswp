@@ -10,6 +10,7 @@ var balls = [];
 var ballStatus = "standby";
 var timer = 0;
 var toggle = 0;
+var swt = 0;
 
 function setup() {
 	createCanvas(420, 575);
@@ -19,7 +20,7 @@ function setup() {
 		}
 	}
 	for (var i = 0; i < 3; i++) {
-		balls.push(new ball(210, 517));
+		balls.push(new ball(210, 516));
 	}
 }
 
@@ -40,6 +41,38 @@ function draw() {
 		if (balls[balls.length-1].ballStatus == "fire") {
 			toggle = 0;
 		}
+
+		for (var i = 0; i < balls.length; i++) {
+
+			if (balls[i].y > 515) {
+				balls[i].ballStatus = "standby";
+			}
+
+			if (balls[0].ballStatus == "standby" && balls[balls.length-1].ballStatus == "standby") {
+				stroke(0, 150, 250);
+				line(balls[0].x, balls[0].y, mouseX, mouseY);
+				println("work");
+			}
+
+			// To check if ball is stay inside the break
+			var hor = floor((balls[i].x + 2) / 69);
+			var ver = floor((balls[i].y + 75) / 50);
+			for (var j = 0; j < 6; j++) {
+				for (var k = 0; k < 9; k++) {
+					if (balls[i].x >= j * 69 - 8 && balls[i].x <= (j + 1) * 69 + 12 && balls[i].y >= k * 50 + 65 && balls[i].y <= (k + 1) * 50 + 85) {
+						if (bricks[j][k] == -1) {
+							swt++;
+							bricks[j][k] = 0;
+							// I need to make game to reset after all balls are come back
+						}
+					}
+				}
+			}
+
+			balls[i].update();
+			balls[i].display();
+		}
+
 		for (var x = 0; x < bricks.length; x++) {
 			for (var y = 0; y < 10; y++) {
 				if (bricks[x][y] > 0) {
@@ -83,29 +116,12 @@ function draw() {
 			}
 		}
 
-		for (var i = 0; i < balls.length; i++) {
-			balls[i].update();
-			balls[i].display();
-
-			if (balls[i].y > 515) {
-				balls[i].ballStatus = "standby";
-				println(toggle);
-			}
-
-			// To check if ball is stay inside the break
-			var hor = floor((balls[i].x + 2) / 69);
-			var ver = floor((balls[i].y + 75) / 50);
-			for (var j = 0; j < 6; j++) {
-				for (var k = 0; k < 9; k++) {
-					if (balls[i].x >= j * 69 - 8 && balls[i].x <= (j + 1) * 69 + 12 && balls[i].y >= k * 50 + 65 && balls[i].y <= (k + 1) * 50 + 85) {
-
-					}
-				}
-			}
-		}
-
 		if (stageReset === 1) {
 			var chksum = 0;
+			if (swt == 1) {
+				balls.push(new ball(balls[0].x, balls[0].y));
+				swt--;
+			}
 			for (var i = 0; i < 6; i++) {
 				bricks[i].unshift(0);
 			}
@@ -150,29 +166,20 @@ function keyPressed() {
 	if (keyIsDown(32)) {
 		stageReset++;
 	}
-	if (keyIsDown(37)) {
-		var chksum = 0;
-		for (var i = 0; i < balls.length; i++) {
-			if (balls[i].ballStatus == "fire") {chksum++;}
-		}
-		if (chksum === 0) {
-			for (var j = 0; j < balls.length; j++) {
-				println(j);
-				println(balls);
-				balls[j].defineSpeed();
-			}
-			timer = 0;
-			toggle++;
-			// test.defineSpeed();
-			// test.ballStatus = "fire";
-			// console.log(ballStatus);
-		}
-	}
 }
 
-function fireBalls() {
-	println(timer);
-	if (timer % 6 === 0 && timer > 0) {
-		balls[timer/6 - 1].ballStatus = "fire";
+function mouseReleased() {
+	var chksum = 0;
+	for (var i = 0; i < balls.length; i++) {
+		if (balls[i].ballStatus == "fire") {chksum++;}
+	}
+	if (chksum === 0) {
+		for (var j = 0; j < balls.length; j++) {
+			println(j);
+			println(balls);
+			balls[j].defineSpeed();
+		}
+		timer = 0;
+		toggle++;
 	}
 }
