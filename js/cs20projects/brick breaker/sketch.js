@@ -1,57 +1,108 @@
-// CAUTION - bricks[y][x], not bricks[x][y].
-var bricks = [
+
+var bricks = [ // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9]
 	[], [], [], [], [], []
  ];
-var currentStage = 1;
-var stageReset = 1;
-var incNum = 3, incSpeed = 1.5;
-var gameStatus = "run";
-var balls = [];
-var ballStatus = "standby";
-var timer = 0;
-var toggle = 0;
-var swt = 0;
+var currentStage = 1; // Number that will insert to brick after stageReset
+var stageReset = 1; // Switch to reset stage, will be subtracted after Reset has done and will be added after all balls are come back
+var incNum = 3, incSpeed = 1.5; // Number for bouncing hoop
+var gameStatus = "run"; // I don't need it for now.
+var balls = []; // Array for balls
+var timer = 0; // Timer for fire balls, increasing every frames and will be reset to 0 when player start fire.
+			   // in balls.js, there's function called fireBalls(), each balls will fire every 4 timer except 0.
+var toggle = 0; // Switch to start fire, will increase when mouse is realised but won't work when balls are still flying.
+var chkball = 0; // Will be increased when balls touch the green item. At stageReset, it will push balls [chkball] times.
+var swt = 1; // To run stageReset only once. StageRese will run when swt is 0 and all ballStatus are standby.
 
 function setup() {
-	createCanvas(420, 575);
-	for (var i = 0; i < bricks.length; i++) {
+	createCanvas(420, 575); // Tried to make it similar to mobile screen =]
+	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
 			bricks[i].push(0);
 		}
 	}
-	for (var i = 0; i < 3; i++) {
-		balls.push(new ball(210, 516));
-	}
+	balls.push(new ball(210, 516)); // Push first ball to start with.
 }
 
 function draw() {
 	if (gameStatus == "start") {
 
-	} else if (gameStatus == "run") {
+	} else if (gameStatus == "run") { // I'll make start and finish status as well, after I build my game successfully.
 		background(255, 255, 255, 120);
-		incSpeed -= 0.07;
+		incSpeed -= 0.07; // Gravity of green item's hoop.
 		incNum += incSpeed;
-		timer++;
+		timer++; // As I said, timer will be added every frame.
 		if (incNum < 0) {
-			incSpeed = 1.5;
+			incSpeed = 1.5; // Make it Bounce
 		}
-		if (toggle === 1) {
+
+		if (toggle === 1) { // Run fireBalls() when toggle is 1. It will become zero when last ball's status is fire.
 			fireBalls();
 		}
-		if (balls[balls.length-1].ballStatus == "fire") {
+
+		if (balls[balls.length-1].ballStatus == "fire") { // When last ball's status is fire, set toggle and swt to 0.
 			toggle = 0;
+			swt = 0;
+		}
+
+		if (stageReset === 1) { // Run code when stageReset is 1. All bricks will move to 1 down and create new breaks.
+			var chksum = 0;
+			if (chkball > 0) { // If player has touch the green item, push the ball [chkball] times.
+				for (var i = 0; i < chkball; chkball--) {
+					balls.push(new ball(balls[0].x, balls[0].y));
+				}
+			}
+
+			for (var i = 0; i < 6; i++) { // Move all bricks to 1 down. ex)bricks[0][0] -> bricks[0][1]
+				bricks[i].unshift(0);
+			}
+
+			var rn = random([0, 1, 2, 3, 4, 5]); // Make green item to random location.
+			if (bricks[rn][0] === 0) {
+				bricks[rn][0] = -1;
+			}
+
+			for (var i = 0; i < floor(random(2, 7)); i++) { // Make bricks random times, if no brick is already exist there.
+				var rn = random([0, 1, 2, 3, 4, 5]);
+				if (bricks[rn][0] === 0) {
+					bricks[rn][0] = currentStage;
+					chksum += bricks[rn][0];
+				}
+			}
+
+			if (chksum === 0 && bricks[0][0] === 0) {
+				bricks[0][0] = currentStage;
+			} else if (chksum === 0 && bricks[1][0] === 0) {
+				bricks[1][0] = currentStage;
+			}
+			stageReset = 0;
+			currentStage++;
+		}
+
+		var chksum2 = 0;
+		for (var i = 0; i < balls.length; i++) {
+			if (balls[i].ballStatus == "fire") {
+				chksum2++;
+			}
+		}
+
+		if (chksum2 === 0) {
+			if (swt === 0) {
+				stageReset++;
+				swt++;
+			}
+			if (mouseX > 0 && mouseX < 420 && mouseY > 45 && mouseY < 500) {
+				stroke(0, 150, 250);
+				line(balls[0].x, balls[0].y, mouseX, mouseY);
+			}
 		}
 
 		for (var i = 0; i < balls.length; i++) {
 
+			balls[i].update();
+			balls[i].display();
+
 			if (balls[i].y > 515) {
 				balls[i].ballStatus = "standby";
-			}
-
-			if (balls[0].ballStatus == "standby" && balls[balls.length-1].ballStatus == "standby") {
-				stroke(0, 150, 250);
-				line(balls[0].x, balls[0].y, mouseX, mouseY);
-				println("work");
 			}
 
 			// To check if ball is stay inside the break
@@ -61,16 +112,12 @@ function draw() {
 				for (var k = 0; k < 9; k++) {
 					if (balls[i].x >= j * 69 - 8 && balls[i].x <= (j + 1) * 69 + 12 && balls[i].y >= k * 50 + 65 && balls[i].y <= (k + 1) * 50 + 85) {
 						if (bricks[j][k] == -1) {
-							swt++;
+							chkball++;
 							bricks[j][k] = 0;
-							// I need to make game to reset after all balls are come back
 						}
 					}
 				}
 			}
-
-			balls[i].update();
-			balls[i].display();
 		}
 
 		for (var x = 0; x < bricks.length; x++) {
@@ -116,40 +163,6 @@ function draw() {
 			}
 		}
 
-		if (stageReset === 1) {
-			var chksum = 0;
-			if (swt == 1) {
-				balls.push(new ball(balls[0].x, balls[0].y));
-				swt--;
-			}
-			for (var i = 0; i < 6; i++) {
-				bricks[i].unshift(0);
-			}
-
-			for (var j = 0; j < 6; j++) {
-				var rn = random([0, 1, 2, 3, 4, 5]);
-				if (bricks[rn][0] === 0) {
-					bricks[rn][0] = -1;
-				}
-				break;
-			}
-
-			for (var i = 0; i < floor(random(2, 7)); i++) {
-				var rn = random([0, 1, 2, 3, 4, 5]);
-				if (bricks[rn][0] === 0) {
-					bricks[rn][0] = currentStage;
-					chksum += bricks[rn][0];
-				}
-			}
-
-			if (chksum === 0 && bricks[0][0] === 0) {
-				bricks[0][0] = currentStage;
-			} else if (chksum === 0 && bricks[1][0] === 0) {
-				bricks[1][0] = currentStage;
-			}
-			stageReset = 0;
-			currentStage++;
-		}
 
 		// Draw lines at Top and Bottom
 		noStroke();
@@ -175,8 +188,6 @@ function mouseReleased() {
 	}
 	if (chksum === 0) {
 		for (var j = 0; j < balls.length; j++) {
-			println(j);
-			println(balls);
 			balls[j].defineSpeed();
 		}
 		timer = 0;
