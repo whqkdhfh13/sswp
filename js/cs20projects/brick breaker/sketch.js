@@ -27,7 +27,7 @@ function draw() {
 	if (gameStatus == "start") {
 
 	} else if (gameStatus == "run") { // I'll make start and finish status as well, after I build my game successfully.
-		background(255, 255, 255, 120);
+		background(255, 255, 255, 150);
 		incSpeed -= 0.07; // Gravity of green item's hoop.
 		incNum += incSpeed;
 		timer++; // As I said, timer will be added every frame.
@@ -90,7 +90,7 @@ function draw() {
 				stageReset++;
 				swt++;
 			}
-			if (mouseX > 0 && mouseX < 420 && mouseY > 45 && mouseY < 500) {
+			if (mouseX > 0 && mouseX < 420 && mouseY > 35 && mouseY < 500 && mouseIsPressed) {
 				stroke(0, 150, 250);
 				line(balls[0].x, balls[0].y, mouseX, mouseY);
 			}
@@ -105,19 +105,20 @@ function draw() {
 				balls[i].ballStatus = "standby";
 			}
 
+			var chksuma = 0;
+			for (var j = 0; j < balls.length; j++) {
+				if (balls[j].ballStatus == "fire") {chksuma++;}
+			}
+			if (chksuma === 0 && balls.length > 1 ) {
+				for (var k = 1; k < balls.length; k++) {
+					balls[k].x = balls[0].x;
+				}
+			}
+
 			// To check if ball is stay inside the break
 			var hor = floor((balls[i].x + 2) / 69);
 			var ver = floor((balls[i].y + 75) / 50);
-			for (var j = 0; j < 6; j++) {
-				for (var k = 0; k < 9; k++) {
-					if (balls[i].x >= j * 69 - 8 && balls[i].x <= (j + 1) * 69 + 12 && balls[i].y >= k * 50 + 65 && balls[i].y <= (k + 1) * 50 + 85) {
-						if (bricks[j][k] == -1) {
-							chkball++;
-							bricks[j][k] = 0;
-						}
-					}
-				}
-			}
+
 		}
 
 		for (var x = 0; x < bricks.length; x++) {
@@ -167,7 +168,7 @@ function draw() {
 		// Draw lines at Top and Bottom
 		noStroke();
 		fill(0);
-		rect(0, 40, 420, 4);
+		rect(0, 30, 420, 4);
 		rect(0, 525, 420, 4);
 
 	} else if (gameStatus == "finish") {
@@ -177,8 +178,9 @@ function draw() {
 
 function keyPressed() {
 	if (keyIsDown(32)) {
-		stageReset++;
+
 	}
+
 }
 
 function mouseReleased() {

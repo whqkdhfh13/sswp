@@ -6,18 +6,50 @@ function ball(x, y) {
     this.xSP = 210;
     this.ySpeed = 0;
     this.ballStatus = "standby";
-
+    this.swi = 0;
 
     this.update = function() {
         if (this.x > 410 || this.x < 10) {
             this.xSpeed *= -1;
         }
-        if (this.y < 55) {
+        if (this.y < 45) {
             this.ySpeed *= -1;
         }
         if (this.ballStatus == "fire") {
+            this.swi = 0;
             this.x += this.xSpeed;
+            for (var j = 0; j < 6; j++) {
+				for (var k = 0; k < 9; k++) {
+					if (this.x >= j * 69 - 8 && this.x <= (j + 1) * 69 + 12 && this.y >= k * 50 + 65 && this.y <= (k + 1) * 50 + 85) {
+						if (bricks[j][k] == -1) {
+							chkball++;
+							bricks[j][k] = 0;
+						} else if (bricks[j][k] > 0) {
+                            this.xSpeed *= -1;
+                            this.x += this.xSpeed;
+                            bricks[j][k]--;
+                            this.swi++;
+                        }
+					}
+				}
+			}
             this.y += this.ySpeed;
+            for (var j = 0; j < 6; j++) {
+				for (var k = 0; k < 9; k++) {
+					if (this.x >= j * 69 - 8 && this.x <= (j + 1) * 69 + 12 && this.y >= k * 50 + 65 && this.y <= (k + 1) * 50 + 85) {
+						if (bricks[j][k] == -1) {
+							chkball++;
+							bricks[j][k] = 0;
+						} else if (bricks[j][k] > 0) {
+                            this.ySpeed *= -1;
+                            this.y += this.ySpeed;
+                            if (this.swi === 0) {
+                                bricks[j][k]--;
+                            }
+                        }
+					}
+				}
+			}
         }
 
     };
@@ -35,7 +67,11 @@ function ball(x, y) {
         textSize(12);
         stroke(255);
         fill(0, 200, 0);
-        if (balls[0].ballStatus == "standby" && balls[balls.length-1].ballStatus == "standby") {
+        var chksumb = 0;
+        for (var j = 0; j < balls.length; j++) {
+            if (balls[j].ballStatus == "fire") {chksumb++;}
+        }
+        if (chksumb === 0) {
             text("X"+balls.length, this.x - 7, 540);
         }
     };
