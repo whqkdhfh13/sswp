@@ -90,7 +90,7 @@ function draw() {
 				stageReset++;
 				swt++;
 			}
-			if (mouseX > 0 && mouseX < 420 && mouseY > 35 && mouseY < 500 && mouseIsPressed) {
+			if (mouseX > -210 && mouseX < 630 && mouseY < 500) {
 				stroke(0, 150, 250);
 				line(balls[0].x, balls[0].y, mouseX, mouseY);
 			}
@@ -170,6 +170,8 @@ function draw() {
 		fill(0);
 		rect(0, 30, 420, 4);
 		rect(0, 525, 420, 4);
+		fill (255);
+		rect(0, 0, 420, 30);
 
 	} else if (gameStatus == "finish") {
 
@@ -191,8 +193,8 @@ function mouseReleased() {
 	if (chksum === 0) {
 		for (var j = 0; j < balls.length; j++) {
 			balls[j].defineSpeed();
+			timer = 0;
+			toggle++;
 		}
-		timer = 0;
-		toggle++;
 	}
 }
