@@ -65,38 +65,39 @@ function draw() {
 				var rn = random([0, 1, 2, 3, 4, 5]);
 				if (bricks[rn][0] === 0) {
 					bricks[rn][0] = currentStage;
-					chksum += bricks[rn][0];
+					chksum += bricks[rn][0]; // Add numbers to chksum.
 				}
 			}
 
-			if (chksum === 0 && bricks[0][0] === 0) {
+			if (chksum === 0 && bricks[0][0] === 0) { // If chksum is 0, which means there's no brick, make 1 brick.
 				bricks[0][0] = currentStage;
-			} else if (chksum === 0 && bricks[1][0] === 0) {
+			} else if (chksum === 0 && bricks[1][0] === 0) { // If green item is already exist at bricks[0][0], make brick at bricks[1][0].
 				bricks[1][0] = currentStage;
 			}
-			stageReset = 0;
-			currentStage++;
-		}
+			stageReset = 0; // Change stageReset value to 0 again.
+			currentStage++; // Add 1 to currentStage.
+		} // stageReset ends here.
 
-		var chksum2 = 0;
+		var chksum2 = 0; // I will use this method so many times, it's beautiful.
 		for (var i = 0; i < balls.length; i++) {
 			if (balls[i].ballStatus == "fire") {
 				chksum2++;
 			}
 		}
 
-		if (chksum2 === 0) {
-			if (swt === 0) {
+		if (chksum2 === 0) { // If all balls are standby,
+			if (swt === 0) { // Run stageReset, and add 1 to swt that stageReset don't run twice.
 				stageReset++;
 				swt++;
 			}
+			// Draw lines to the mouse point from balls.
 			if (mouseX > 0 && mouseX < 420 && mouseY > 35 && mouseY < 500 && mouseIsPressed) {
 				stroke(0, 150, 250);
 				line(balls[0].x, balls[0].y, mouseX, mouseY);
 			}
 		}
 
-		for (var i = 0; i < balls.length; i++) {
+		for (var i = 0; i < balls.length; i++) { // Loop for balls
 
 			balls[i].update();
 			balls[i].display();
