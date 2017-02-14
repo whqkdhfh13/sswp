@@ -34,7 +34,6 @@ var selected = point1; // Use to keep track of which point is currently selected
 // Set up & Draw
 function setup() {
     createCanvas(400, 400);
-    frameRate(10);
 }
 
 function draw() {
@@ -45,6 +44,12 @@ function draw() {
     textofPoint(point2);
     textofPoint(point3);
     textofPoint(point4);
+    if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400 && mouseIsPressed) {
+        var mousexpix = map(mouseX, 0, width, -10, 10);
+        var mouseypix = map(mouseY, 0, height, 10, -10);
+        selected.x = round(mousexpix);
+        selected.y = round(mouseypix);
+    }
 }
 
 // Events
@@ -147,12 +152,12 @@ function textofPoint(point) {
 }
 
 function mousePressed() {
-    if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400) {
-        var mousexpix = map(mouseX, 0, width, -10, 10);
-        var mouseypix = map(mouseY, 0, height, 10, -10);
-        selected.x = round(mousexpix);
-        selected.y = round(mouseypix);
-    }
+    // if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400) {
+    //     var mousexpix = map(mouseX, 0, width, -10, 10);
+    //     var mouseypix = map(mouseY, 0, height, 10, -10);
+    //     selected.x = round(mousexpix);
+    //     selected.y = round(mouseypix);
+    // }
 }
 
 function findslope(pA, pB) {

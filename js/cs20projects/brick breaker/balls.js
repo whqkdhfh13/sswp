@@ -78,7 +78,6 @@ function ball(x, y) {
 }
 
 function fireBalls() {
-	println(timer);
 	if (balls[0].ySpeed > -1.6) {
 		if (balls[0].xSpeed > 0) {
 			for (var i = 0; i < balls.length; i++) {

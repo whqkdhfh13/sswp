@@ -12,6 +12,7 @@ var timer = 0; // Timer for fire balls, increasing every frames and will be rese
 var toggle = 0; // Switch to start fire, will increase when mouse is realised but won't work when balls are still flying.
 var chkball = 0; // Will be increased when balls touch the green item. At stageReset, it will push balls [chkball] times.
 var swt = 1; // To run stageReset only once. StageRese will run when swt is 0 and all ballStatus are standby.
+var swt2 = 1; // Switch for savepoint.
 
 function setup() {
 	createCanvas(420, 575); // Tried to make it similar to mobile screen =]
@@ -91,7 +92,7 @@ function draw() {
 				swt++;
 			}
 
-			if (mouseX > -210 && mouseX < 630 && mouseY < 500) {
+			if (mouseX > -210 && mouseX < 630 && mouseY < 500 && mouseIsPressed) { // Draw lines.
 				stroke(0, 150, 250);
 				line(balls[0].x, balls[0].y, mouseX, mouseY);
 			}
@@ -102,17 +103,27 @@ function draw() {
 			balls[i].update();
 			balls[i].display();
 
-			if (balls[i].y > 515) {
-				balls[i].ballStatus = "standby";
-			}
-
 			var chksuma = 0;
 			for (var j = 0; j < balls.length; j++) {
 				if (balls[j].ballStatus == "fire") {chksuma++;}
 			}
+
+			if (balls[0].ballStatus == "fire") {
+				swt2 = 0;
+			}
+
+			if (balls[i].y > 515) { // Make its status to standby when it touches the line at the bottom
+				balls[i].ballStatus = "standby";
+				if (swt2 === 0) {
+					balls[0].xSP = balls[i].x;
+					swt2++;
+				}
+			}
+
+			// If all balls are standby, gather them to
 			if (chksuma === 0 && balls.length > 1 ) {
 				for (var k = 1; k < balls.length; k++) {
-					balls[k].x = balls[0].x;
+					balls[k].x = balls[0].xSP;
 				}
 			}
 
@@ -195,7 +206,7 @@ function mouseReleased() {
 		for (var j = 0; j < balls.length; j++) {
 			balls[j].defineSpeed();
 			timer = 0;
-			toggle++;
 		}
+		toggle++;
 	}
 }
