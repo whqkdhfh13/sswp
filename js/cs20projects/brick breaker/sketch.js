@@ -55,6 +55,9 @@ function draw() {
 
 			for (var i = 0; i < 6; i++) { // Move all bricks to 1 down. ex)bricks[0][0] -> bricks[0][1]
 				bricks[i].unshift(0);
+				if (bricks[i][8] > 0) { // Lose the game when any bricks hit the bottom
+					gameStatus = "finish";
+				}
 			}
 
 			var rn = random([0, 1, 2, 3, 4, 5]); // Make green item to random location.
@@ -114,28 +117,24 @@ function draw() {
 
 			if (balls[i].y > 515) { // Make its status to standby when it touches the line at the bottom
 				balls[i].ballStatus = "standby";
-				if (swt2 === 0) {
+				if (swt2 === 0) { // Set savepoint of first ball when first ball touches the bottom
 					balls[0].xSP = balls[i].x;
 					swt2++;
 				}
 			}
 
-			// If all balls are standby, gather them to
+			// If all balls are standby, gather them to savepoint of the first ball
 			if (chksuma === 0 && balls.length > 1 ) {
 				for (var k = 1; k < balls.length; k++) {
 					balls[k].x = balls[0].xSP;
 				}
 			}
 
-			// To check if ball is stay inside the break
-			var hor = floor((balls[i].x + 2) / 69);
-			var ver = floor((balls[i].y + 75) / 50);
-
 		}
 
-		for (var x = 0; x < bricks.length; x++) {
+		for (var x = 0; x < bricks.length; x++) { // Loop for bricks to draw them
 			for (var y = 0; y < 10; y++) {
-				if (bricks[x][y] > 0) {
+				if (bricks[x][y] > 0) { // If that index has an number of greater than 0, draw brick.
 					// brick shadow
 					noStroke();
 					fill(150, 150, 150, 80);
@@ -150,11 +149,11 @@ function draw() {
 					fill(255);
 					textSize(30);
 					text(bricks[x][y], 10 + x * 70, 110 + y * 50);
-				} else if (bricks[x][y] === -1) {
+				} else if (bricks[x][y] === -1) { // If that index has an number of -1, draw green item.
 					// inner shadow
 					noStroke();
 					fill(150, 150, 150, 80);
-					ellipse(x * 69 + 39, y * 50 + 105, 20);
+					ellipse(x * 69 + 39, y * 50 + 103, 20);
 
 					// outer shadow
 					noFill();
@@ -186,27 +185,38 @@ function draw() {
 		rect(0, 0, 420, 30);
 
 	} else if (gameStatus == "finish") {
-
+		background(0);
+		stroke(255);
+		textSize(30);
+		text("YOU SUCH AN ALLISTER", 30, 300);
 	}
 }
 
 function keyPressed() {
 	if (keyIsDown(32)) {
-
+		stageReset++;
 	}
-
 }
 
 function mouseReleased() {
 	var chksum = 0;
+	var chksumc = 0;
 	for (var i = 0; i < balls.length; i++) {
 		if (balls[i].ballStatus == "fire") {chksum++;}
+		if (balls[i].ballStatus == "standby") {chksumc++;}
 	}
-	if (chksum === 0) {
+	if (chksum === 0 && chksumc === balls.length) {
 		for (var j = 0; j < balls.length; j++) {
 			balls[j].defineSpeed();
 			timer = 0;
 		}
 		toggle++;
+	}
+}
+
+function mousePressed() {
+	if (gameStatus == "finish") {
+		setup();
+		gameStatus = "run";
 	}
 }

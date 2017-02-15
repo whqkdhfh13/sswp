@@ -1,7 +1,7 @@
 function ball(x, y) {
     this.x = x;
     this.y = y;
-    this.speed = 8;
+    this.speed = 7;
     this.xSpeed = 0;
     this.xSP = 210;
     this.ySpeed = 0;
@@ -20,7 +20,7 @@ function ball(x, y) {
             this.x += this.xSpeed;
             for (var j = 0; j < 6; j++) {
 				for (var k = 0; k < 9; k++) {
-					if (this.x >= j * 69 - 8 && this.x <= (j + 1) * 69 + 12 && this.y >= k * 50 + 65 && this.y <= (k + 1) * 50 + 85) {
+					if (this.x >= j * 69 - 3 && this.x <= (j + 1) * 69 + 7 && this.y >= k * 50 + 70 && this.y <= (k + 1) * 50 + 80) {
 						if (bricks[j][k] == -1) {
 							chkball++;
 							bricks[j][k] = 0;
@@ -36,7 +36,7 @@ function ball(x, y) {
             this.y += this.ySpeed;
             for (var j = 0; j < 6; j++) {
 				for (var k = 0; k < 9; k++) {
-					if (this.x >= j * 69 - 8 && this.x <= (j + 1) * 69 + 12 && this.y >= k * 50 + 65 && this.y <= (k + 1) * 50 + 85) {
+					if (this.x >= j * 69 - 5 && this.x <= (j + 1) * 69 + 9 && this.y >= k * 50 + 68 && this.y <= (k + 1) * 50 + 82) {
 						if (bricks[j][k] == -1) {
 							chkball++;
 							bricks[j][k] = 0;
