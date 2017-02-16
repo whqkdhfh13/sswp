@@ -25,8 +25,6 @@ function ball(x, y) {
 							chkball++;
 							bricks[j][k] = 0;
 						} else if (bricks[j][k] > 0) {
-                            this.xSpeed *= -1;
-                            this.x += this.xSpeed;
                             bricks[j][k]--;
                             this.swi++;
                         }
@@ -45,6 +43,9 @@ function ball(x, y) {
                             this.y += this.ySpeed;
                             if (this.swi === 0) {
                                 bricks[j][k]--;
+                            } else if (this.swi > 0) {
+                                this.xSpeed *= -1;
+                                this.x += this.xSpeed;
                             }
                         }
 					}
@@ -78,7 +79,7 @@ function ball(x, y) {
 }
 
 function fireBalls() {
-	if (balls[0].ySpeed > -1.6) {
+	if (balls[0].ySpeed > -1.6 && balls[0].ballStatus == "standby") {
 		if (balls[0].xSpeed > 0) {
 			for (var i = 0; i < balls.length; i++) {
 				balls[i].ySpeed = -1.6;
