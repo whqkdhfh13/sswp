@@ -1,5 +1,5 @@
 
-var bricks = [ // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9]
+var bricks = [ // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9].
 	[], [], [], [], [], []
  ];
 var currentStage = 1; // Number that will insert to brick after stageReset
@@ -15,7 +15,7 @@ var swt = 1; // To run stageReset only once. StageRese will run when swt is 0 an
 var swt2 = 1; // Switch for savepoint.
 
 function setup() {
-	createCanvas(420, 575); // Tried to make it similar to mobile screen =]
+	createCanvas(420, 575); // Tried to make it similar to mobile screen =].
 	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
 			bricks[i].push(0);
@@ -28,7 +28,7 @@ function draw() {
 	if (gameStatus == "start") {
 
 	} else if (gameStatus == "run") { // I'll make start and finish status as well, after I build my game successfully.
-		background(255, 255, 255, 150);
+		background(255, 255, 255, 120);
 		incSpeed -= 0.07; // Gravity of green item's hoop.
 		incNum += incSpeed;
 		timer++; // As I said, timer will be added every frame.
@@ -53,7 +53,7 @@ function draw() {
 				}
 			}
 
-			for (var i = 0; i < 6; i++) { // Move all bricks to 1 down. ex)bricks[0][0] -> bricks[0][1]
+			for (var i = 0; i < 6; i++) { // Move all bricks to 1 down. ex)bricks[0][0] -> bricks[0][1].
 				bricks[i].unshift(0);
 				if (bricks[i][8] > 0) { // Lose the game when any bricks hit the bottom
 					gameStatus = "finish";
@@ -105,6 +105,16 @@ function draw() {
 
 			balls[i].update();
 			balls[i].display();
+
+			var chksumb = 0;
+	        for (var j = 0; j < balls.length; j++) {
+	            if (balls[j].ballStatus == "fire") {chksumb++;}
+	        }
+	        if (chksumb === 0) { // When all balls are at standby, draw how many balls player have.
+				noStroke();
+				fill(0, 0, 0, 50);
+				rect(this.x - 10, 530, 20, 10);
+	        }
 
 			var chksuma = 0;
 			for (var j = 0; j < balls.length; j++) {
@@ -184,7 +194,7 @@ function draw() {
 		fill (255);
 		rect(0, 0, 420, 30);
 
-	} else if (gameStatus == "finish") {
+	} else if (gameStatus == "finish") { // If gameStatus is 'finish', will run thos code.
 		background(0);
 		stroke(255);
 		textSize(30);
@@ -192,29 +202,29 @@ function draw() {
 	}
 }
 
-function keyPressed() {
+function keyPressed() { // Just to test that stageReset is working or not.
 	if (keyIsDown(32)) {
 		stageReset++;
 	}
 }
 
-function mouseReleased() {
+function mouseReleased() { // Fire balls when mouse is Released, and all balls are at standby.
 	var chksum = 0;
 	var chksumc = 0;
 	for (var i = 0; i < balls.length; i++) {
-		if (balls[i].ballStatus == "fire") {chksum++;}
-		if (balls[i].ballStatus == "standby") {chksumc++;}
+		if (balls[i].ballStatus == "fire") {chksum++;} // If chksum = 0, it means all balls are at standby.
+		if (balls[i].ballStatus == "standby") {chksumc++;} // If chksumc = 0, it means all balls are at fire.
 	}
-	if (chksum === 0 && chksumc === balls.length) {
+	if (chksum === 0 && chksumc === balls.length) { // If all balls are at standby,
 		for (var j = 0; j < balls.length; j++) {
-			balls[j].defineSpeed();
-			timer = 0;
+			balls[j].defineSpeed(); // define speed and store it to each ball,
+			timer = 0; // set timer to 0 so it will start from 0 again (timer++ line is inside draw function).
 		}
-		toggle++;
+		toggle++; // and toggle++ so it will run fireBalls function in balls.js.
 	}
 }
 
-function mousePressed() {
+function mousePressed() { // run game again when gameStatus is finish and press the mouse.
 	if (gameStatus == "finish") {
 		setup();
 		gameStatus = "run";
