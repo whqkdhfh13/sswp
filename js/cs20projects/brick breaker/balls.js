@@ -81,7 +81,11 @@ function ball(x, y) {
 }
 
 function fireBalls() {
+<<<<<<< HEAD
 	if (balls[0].ySpeed > -1.6 && balls[0].ballStatus == "standby") { // If ySpeed is lower than some amount, it will be changed before fire it.
+=======
+	if (balls[0].ySpeed > -1.6 && balls[0].ballStatus == "standby") {
+>>>>>>> 34181178c289e77954035cf30d2629d3662921d5
 		if (balls[0].xSpeed > 0) {
 			for (var i = 0; i < balls.length; i++) {
 				balls[i].ySpeed = -1.6;
