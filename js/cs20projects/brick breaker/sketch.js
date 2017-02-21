@@ -13,6 +13,8 @@ var toggle = 0; // Switch to start fire, will increase when mouse is realised bu
 var chkball = 0; // Will be increased when balls touch the green item. At stageReset, it will push balls [chkball] times.
 var swt = 1; // To run stageReset only once. StageRese will run when swt is 0 and all ballStatus are standby.
 var swt2 = 1; // Switch for savepoint.
+var temparray = []; // Temporary array for menu.
+var swt3 = 0; // Switch for menu.
 
 function setup() {
 	createCanvas(420, 575); // Tried to make it similar to mobile screen =].
@@ -28,7 +30,7 @@ function draw() {
 	if (gameStatus == "start") {
 
 	} else if (gameStatus == "run") { // I'll make start and finish status as well, after I build my game successfully.
-		background(255, 255, 255, 120);
+		background(255, 255, 255, 150);
 		incSpeed -= 0.07; // Gravity of green item's hoop.
 		incNum += incSpeed;
 		timer++; // As I said, timer will be added every frame.
@@ -204,7 +206,7 @@ function draw() {
 
 function keyPressed() { // Just to test that stageReset is working or not.
 	if (keyIsDown(32)) {
-		stageReset++;
+		callmenu();
 	}
 }
 
@@ -228,5 +230,30 @@ function mousePressed() { // run game again when gameStatus is finish and press 
 	if (gameStatus == "finish") {
 		setup();
 		gameStatus = "run";
+	}
+}
+
+function callmenu() {
+    if (swt3 === 0) {
+		var chkarray = [];
+	    for (var i = 0; i < balls.length; i++) {
+	        if (balls[i].ballStatus == "standby") {
+	            chkarray.push(0);
+	        } else {
+	            chkarray.push(1);
+	        }
+			balls[i].ballStatus = "standby";
+	    }
+	    temparray = chkarray.slice();
+		swt++;
+	} else {
+		for (var j = 0; j < balls.length; j++) {
+			if (temparray[i] === 0) {
+				balls[i].ballStatus = "standby";
+			} else {
+				balls[i].ballStatus = "fire";
+			}
+		}
+		swt3--;
 	}
 }
