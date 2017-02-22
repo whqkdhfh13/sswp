@@ -4,7 +4,7 @@ var bricks = [ // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9
  ];
 var currentStage = 1; // Number that will insert to brick after stageReset
 var stageReset = 1; // Switch to reset stage, will be subtracted after Reset has done and will be added after all balls are come back
-var incNum = 3, incSpeed = 1.5; // Number for bouncing hoop
+var incNum = 2, incSpeed = 1.2; // Number for bouncing hoop
 var gameStatus = "run"; // I don't need it for now.
 var balls = []; // Array for balls
 var timer = 0; // Timer for fire balls, increasing every frames and will be reset to 0 when player start fire.
@@ -24,18 +24,22 @@ function setup() {
 		}
 	}
 	balls.push(new ball(210, 516)); // Push first ball to start with.
+	textAlign(CENTER);
 }
 
 function draw() {
 	if (gameStatus == "start") {
 
-	} else if (gameStatus == "run") { // I'll make start and finish status as well, after I build my game successfully.
+	} else if (gameStatus == "run" || gameStatus == "menu") { // I'll make start and finish status as well, after I build my game successfully.
 		background(255, 255, 255, 150);
-		incSpeed -= 0.07; // Gravity of green item's hoop.
-		incNum += incSpeed;
-		timer++; // As I said, timer will be added every frame.
+		if (gameStatus == "run") {
+			incSpeed -= 0.05; // Gravity of green item's hoop.
+			incNum += incSpeed;
+			timer++; // As I said, timer will be added every frame.
+		}
+
 		if (incNum < 0) {
-			incSpeed = 1.5; // Make it Bounce
+			incSpeed = 1.2; // Make it Bounce
 		}
 
 		if (toggle === 1) { // Run fireBalls() when toggle is 1. It will become zero when last ball's status is fire.
@@ -104,8 +108,9 @@ function draw() {
 		}
 
 		for (var i = 0; i < balls.length; i++) { // Loop for balls
-
-			balls[i].update();
+			if (gameStatus == "run") {
+				balls[i].update();
+			}
 			balls[i].display();
 
 			var chksumb = 0;
@@ -153,25 +158,26 @@ function draw() {
 					rect(x * 69 + 6, 80 + y * 50, 68, 49);
 
 					// brick
-					fill(255,0,0);
+					fill(255,50,50);
 					rect(x * 69 + 2, 75 + y * 50, 68, 49);
 
 					// text
+					strokeWeight(1);
 					stroke(255);
 					fill(255);
 					textSize(30);
-					text(bricks[x][y], 10 + x * 70, 110 + y * 50);
+					text(bricks[x][y], 35 + x * 69, 110 + y * 50);
 				} else if (bricks[x][y] === -1) { // If that index has an number of -1, draw green item.
 					// inner shadow
 					noStroke();
 					fill(150, 150, 150, 80);
-					ellipse(x * 69 + 39, y * 50 + 103, 20);
+					ellipse(x * 69 + 39, y * 50 + 104, 20);
 
 					// outer shadow
 					noFill();
 					stroke(150, 150, 150, 80);
 					strokeWeight(4);
-					ellipse(x * 69 + 39, y * 50 + 105, 23 + incNum);
+					ellipse(x * 69 + 39, y * 50 + 105, 24 + incNum);
 
 					// inner circle
 					noStroke();
@@ -182,19 +188,41 @@ function draw() {
 					noFill();
 					strokeWeight(4);
 					stroke(0, 230, 20);
-					ellipse(x * 69 + 35, y * 50 + 100, 23 + incNum);
+					ellipse(x * 69 + 35, y * 50 + 100, 24 + incNum);
 				}
 			}
 		}
+
+		var chksumd = 0;
+        for (var j = 0; j < balls.length; j++) {
+            if (balls[j].ballStatus == "standby") {chksumd++;}
+        }
+        if (chksumd > 0) { // When all balls are at standby, draw how many balls player have.
+            textSize(14);
+			noStroke();
+            fill(50, 165, 255);
+            text("X"+chksumd, balls[0].xSP, 544);
+        }
 
 
 		// Draw lines at Top and Bottom
 		noStroke();
 		fill(0);
-		rect(0, 30, 420, 4);
-		rect(0, 525, 420, 4);
+		rect(0, 30, 420, 6);
+		rect(0, 525, 420, 6);
 		fill (255);
 		rect(0, 0, 420, 30);
+
+		// Pop up!
+		if (gameStatus == "menu") {
+			noStroke();
+			fill(255, 255, 255, 120);
+			rect(0, 0, 420, 575);
+			strokeWeight(6);
+			stroke(20, 20, 20, 100);
+			fill(100, 100, 100, 150);
+			rect(60, 80, 300, 400);
+		}
 
 	} else if (gameStatus == "finish") { // If gameStatus is 'finish', will run thos code.
 		background(0);
@@ -206,7 +234,11 @@ function draw() {
 
 function keyPressed() { // Just to test that stageReset is working or not.
 	if (keyIsDown(32)) {
-		callmenu();
+		if (gameStatus == "run") {
+			gameStatus = "menu";
+		} else {
+			gameStatus = "run";
+		}
 	}
 }
 
@@ -230,30 +262,5 @@ function mousePressed() { // run game again when gameStatus is finish and press 
 	if (gameStatus == "finish") {
 		setup();
 		gameStatus = "run";
-	}
-}
-
-function callmenu() {
-    if (swt3 === 0) {
-		var chkarray = [];
-	    for (var i = 0; i < balls.length; i++) {
-	        if (balls[i].ballStatus == "standby") {
-	            chkarray.push(0);
-	        } else {
-	            chkarray.push(1);
-	        }
-			balls[i].ballStatus = "standby";
-	    }
-	    temparray = chkarray.slice();
-		swt++;
-	} else {
-		for (var j = 0; j < balls.length; j++) {
-			if (temparray[i] === 0) {
-				balls[i].ballStatus = "standby";
-			} else {
-				balls[i].ballStatus = "fire";
-			}
-		}
-		swt3--;
 	}
 }

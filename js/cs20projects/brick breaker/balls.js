@@ -63,20 +63,17 @@ function ball(x, y) {
     };
 
     this.display = function() {
+        // Shadow
         noStroke();
-        fill(0, 255, 0);
+        fill(150, 80);
+        ellipse(this.x + 4, this.y + 5, 20, 20);
+        // Ball
+        fill(50, 150, 255);
         ellipse(this.x, this.y, 20, 20);
+
         textSize(12);
-        stroke(255);
-        fill(0, 200, 0);
-        var chksumb = 0;
-        for (var j = 0; j < balls.length; j++) {
-            if (balls[j].ballStatus == "fire") {chksumb++;}
-        }
-        if (chksumb === 0) { // When all balls are at standby, draw how many balls player have.
-            fill(0, 200, 0);
-            text("X"+balls.length, this.x - 7, 540);
-        }
+        noStroke();
+        fill(50, 150, 255);
     };
 }
 
