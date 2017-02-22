@@ -228,7 +228,7 @@ function draw() {
 		background(0);
 		stroke(255);
 		textSize(30);
-		text("YOU SUCH AN ALLISTER", 30, 300);
+		text("YOU SUCH AN ALLISTER", width/2, 300);
 	}
 }
 

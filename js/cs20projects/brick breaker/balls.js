@@ -1,7 +1,7 @@
 function ball(x, y) {
     this.x = x;
     this.y = y;
-    this.speed = 7;
+    this.speed = 8;
     this.xSpeed = 0;
     this.xSP = 210;
     this.ySpeed = 0;
@@ -78,7 +78,11 @@ function ball(x, y) {
 }
 
 function fireBalls() {
-	if (balls[0].ySpeed > -1.6 && balls[0].ballStatus == "standby") { // If ySpeed is lower than some amount, it will be changed before fire it.
+	var chksume = 0;
+	for (var k = 0; k < balls.length; k++) {
+		if (balls[k].ballStatus == "fire") {chksume++;}
+	}
+	if (balls[0].ySpeed > -1.6 && chksume === 0) { // If ySpeed is lower than some amount, it will be changed before fire it.
 		if (balls[0].xSpeed > 0) {
 			for (var i = 0; i < balls.length; i++) {
 				balls[i].ySpeed = -1.6;
