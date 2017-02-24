@@ -1,3 +1,4 @@
+// twinkleArray Math Challange.
 
 var bricks = [ // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9].
 	[], [], [], [], [], []
@@ -15,12 +16,16 @@ var swt = 1; // To run stageReset only once. StageRese will run when swt is 0 an
 var swt2 = 1; // Switch for savepoint.
 var temparray = []; // Temporary array for menu.
 var swt3 = 0; // Switch for menu.
+var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
+	[], [], [], [], [], []
+];
 
 function setup() {
 	createCanvas(420, 575); // Tried to make it similar to mobile screen =].
 	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
 			bricks[i].push(0);
+			twinkleArray[i].push(0);
 		}
 	}
 	balls.push(new ball(210, 516)); // Push first ball to start with.
@@ -165,7 +170,7 @@ function draw() {
 					strokeWeight(1);
 					stroke(255);
 					fill(255);
-					textSize(30);
+					textSize(33);
 					text(bricks[x][y], 35 + x * 69, 110 + y * 50);
 				} else if (bricks[x][y] === -1) { // If that index has an number of -1, draw green item.
 					// inner shadow
@@ -197,7 +202,7 @@ function draw() {
         for (var j = 0; j < balls.length; j++) {
             if (balls[j].ballStatus == "standby") {chksumd++;}
         }
-        if (chksumd > 0) { // When all balls are at standby, draw how many balls player have.
+        if (chksumd === balls.length || toggle === 1) { // When all balls are at standby, draw balls that player has.
             textSize(14);
 			noStroke();
             fill(50, 165, 255);
