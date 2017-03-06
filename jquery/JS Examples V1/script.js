@@ -1,5 +1,5 @@
 var username;
-
+var right = 0;
 $(document).ready(function() {
 
     $("#helloUser").click(function() {
@@ -15,17 +15,14 @@ $(document).ready(function() {
     });
 
     $("#q1").click(function() {
+        right = 0;
         var qst1 = confirm("Is sin of 30 equals 1/2?");
-        if (qst1 == true) {
-            var qst11 = prompt("Then what is sin of 90?")
-            if (qst11 == 1) {
-                alert("You're so smart, " + username + "!");
-            } else {
-                alert("Beep-");
-            }
-        } else {
-            alert("Nope!")
-        }
+        var qst2 = confirm("Is sin of 90 equals sqroot(3)/2?");
+        var qst3 = confirm("Is 1 year has 365 days?");
+        if (qst1 == true) {right++;}
+        if (qst2 == false) {right++;}
+        if (qst3 == true) {right++;}
+        document.getElementById("score").innerHTML = "Your score is " + right + "/3 ! Nice job!";
     });
 
 
