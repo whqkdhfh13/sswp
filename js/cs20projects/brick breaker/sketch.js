@@ -30,14 +30,14 @@ function setup() {
 	chkball = 0;
 	currentStage = 1;
 	swt = 1;
-	createCanvas(420, 575); // Tried to make it similar to mobile screen =].
+	createCanvas(420, 585); // Tried to make it similar to mobile screen =].
 	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
 			bricks[i].push(0);
 			twinkleArray[i].push(0);
 		}
 	}
-	balls.push(new ball(210, 516)); // Push first ball to start with.
+	balls.push(new ball(210, 526)); // Push first ball to start with.
 	textAlign(CENTER);
 }
 
@@ -127,16 +127,6 @@ function draw() {
 			}
 			balls[i].display();
 
-			var chksumb = 0;
-	        for (var j = 0; j < balls.length; j++) {
-	            if (balls[j].ballStatus == "fire") {chksumb++;}
-	        }
-	        if (chksumb === 0) { // When all balls are at standby, draw how many balls player have.
-				noStroke();
-				fill(0, 0, 0, 50);
-				rect(this.x - 10, 530, 20, 10);
-	        }
-
 			var chksuma = 0;
 			for (var j = 0; j < balls.length; j++) {
 				if (balls[j].ballStatus == "fire") {chksuma++;}
@@ -146,7 +136,7 @@ function draw() {
 				swt2 = 0;
 			}
 
-			if (balls[i].y > 515) { // Make its status to standby when it touches the line at the bottom
+			if (balls[i].y > 525) { // Make its status to standby when it touches the line at the bottom
 				balls[i].ballStatus = "standby";
 				if (swt2 === 0) { // Set savepoint of first ball when first ball touches the bottom
 					balls[0].xSP = balls[i].x;
@@ -169,7 +159,7 @@ function draw() {
 					// brick shadow
 					noStroke();
 					fill(150, 150, 150, 80);
-					rect(x * 69 + 6, 80 + y * 50, 68, 49);
+					rect(x * 69 + 6, 90 + y * 50, 68, 49);
 
 					// brick
 					if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 4) {
@@ -181,36 +171,36 @@ function draw() {
 						twinkleArray[x][y] = 0;
 					}
 					println(twinkleArray[x][y]);
-					rect(x * 69 + 2, 75 + y * 50, 68, 49);
+					rect(x * 69 + 2, 85 + y * 50, 68, 49);
 
 					// text
 					strokeWeight(1);
 					stroke(255);
 					fill(255);
 					textSize(33);
-					text(bricks[x][y], 35 + x * 69, 110 + y * 50);
+					text(bricks[x][y], 35 + x * 69, 120 + y * 50);
 				} else if (bricks[x][y] === -1) { // If that index has an number of -1, draw green item.
 					// inner shadow
 					noStroke();
 					fill(150, 150, 150, 80);
-					ellipse(x * 69 + 39, y * 50 + 104, 20);
+					ellipse(x * 69 + 39, y * 50 + 114, 20);
 
 					// outer shadow
 					noFill();
 					stroke(150, 150, 150, 80);
 					strokeWeight(4);
-					ellipse(x * 69 + 39, y * 50 + 105, 24 + incNum);
+					ellipse(x * 69 + 39, y * 50 + 115, 24 + incNum);
 
 					// inner circle
 					noStroke();
 					fill(0, 230, 20);
-					ellipse(x * 69 + 35, y * 50 + 100, 20, 20);
+					ellipse(x * 69 + 35, y * 50 + 110, 20, 20);
 
 					// outer circle
 					noFill();
 					strokeWeight(4);
 					stroke(0, 230, 20);
-					ellipse(x * 69 + 35, y * 50 + 100, 24 + incNum);
+					ellipse(x * 69 + 35, y * 50 + 110, 24 + incNum);
 				}
 			}
 		}
@@ -219,11 +209,14 @@ function draw() {
         for (var j = 0; j < balls.length; j++) {
             if (balls[j].ballStatus == "standby") {chksumd++;}
         }
+			// Error detected that text appears when ball touches the ground and last ball didn't take off yet
         if (chksumd === balls.length || toggle === 1) { // When all balls are at standby, draw balls that player has.
             textSize(14);
 			noStroke();
+				fill(0, 0, 0, 50);
+				rect(this.x - 10, 540, 20, 10);
             fill(50, 165, 255);
-            text("X"+chksumd, balls[0].xSP, 544);
+            text("X"+chksumd, balls[0].xSP, 554);
         }
 
 
@@ -231,7 +224,7 @@ function draw() {
 		noStroke();
 		fill(0);
 		rect(0, 30, 420, 6);
-		rect(0, 525, 420, 6);
+		rect(0, 535, 420, 6);
 		fill (255);
 		rect(0, 0, 420, 30);
 
@@ -239,7 +232,7 @@ function draw() {
 		if (gameStatus == "menu") {
 			noStroke();
 			fill(255, 255, 255, 120);
-			rect(0, 0, 420, 575);
+			rect(0, 0, 420, 585);
 			strokeWeight(6);
 			stroke(20, 20, 20, 100);
 			fill(100, 100, 100, 150);
