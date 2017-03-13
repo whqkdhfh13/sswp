@@ -1,26 +1,35 @@
 // twinkleArray Math Challange.
 
-var bricks = [ // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9].
-	[], [], [], [], [], []
- ];
-var currentStage = 1; // Number that will insert to brick after stageReset
+var bricks; // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9].
+var currentStage; // Number that will insert to brick after stageReset
 var stageReset = 1; // Switch to reset stage, will be subtracted after Reset has done and will be added after all balls are come back
 var incNum = 2, incSpeed = 1.2; // Number for bouncing hoop
 var gameStatus = "run"; // I don't need it for now.
-var balls = []; // Array for balls
-var timer = 0; // Timer for fire balls, increasing every frames and will be reset to 0 when player start fire.
+var balls; // Array for balls
+var timer; // Timer for fire balls, increasing every frames and will be reset to 0 when player start fire.
 			   // in balls.js, there's function called fireBalls(), each balls will fire every 4 timer except 0.
-var toggle = 0; // Switch to start fire, will increase when mouse is realised but won't work when balls are still flying.
-var chkball = 0; // Will be increased when balls touch the green item. At stageReset, it will push balls [chkball] times.
-var swt = 1; // To run stageReset only once. StageRese will run when swt is 0 and all ballStatus are standby.
+var toggle; // Switch to start fire, will increase when mouse is realised but won't work when balls are still flying.
+var chkball; // Will be increased when balls touch the green item. At stageReset, it will push balls [chkball] times.
+var swt; // To run stageReset only once. StageRese will run when swt is 0 and all ballStatus are standby.
 var swt2 = 1; // Switch for savepoint.
-var temparray = []; // Temporary array for menu.
 var swt3 = 0; // Switch for menu.
 var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
 	[], [], [], [], [], []
 ];
 
 function setup() {
+	bricks = [
+		[], [], [], [], [], []
+	];
+	twinkleArray = [
+		[], [], [], [], [], []
+	];
+	balls = [];
+	timer = 0;
+	toggle = 0;
+	chkball = 0;
+	currentStage = 1;
+	swt = 1;
 	createCanvas(420, 575); // Tried to make it similar to mobile screen =].
 	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
@@ -163,7 +172,15 @@ function draw() {
 					rect(x * 69 + 6, 80 + y * 50, 68, 49);
 
 					// brick
-					fill(255,50,50);
+					if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 4) {
+						fill(255,50,50, 255);
+						twinkleArray[x][y]++;
+					} else if (twinkleArray[x][y] === 0) {
+						fill(255,50,50);
+					} else if (twinkleArray[x][y] === 4) {
+						twinkleArray[x][y] = 0;
+					}
+					println(twinkleArray[x][y]);
 					rect(x * 69 + 2, 75 + y * 50, 68, 49);
 
 					// text

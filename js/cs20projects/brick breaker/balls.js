@@ -29,6 +29,7 @@ function ball(x, y) {
                             this.xSpeed *= -1;
                             bricks[j][k]--;
                             this.swi++;
+                            twinkleArray[j][k] = 1;
                         }
 					}
 				}
@@ -43,10 +44,9 @@ function ball(x, y) {
 						} else if (bricks[j][k] > 0) {
                             this.y -= this.ySpeed;
                             this.ySpeed *= -1;
+                            twinkleArray[j][k] = 1;
                             if (this.swi === 0) {
                                 bricks[j][k]--;
-                            } else {
-                                this.ySpeed *= -1;
                             }
                         }
 					}

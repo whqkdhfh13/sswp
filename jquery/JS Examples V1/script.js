@@ -10,7 +10,7 @@ $(document).ready(function() {
             alert("Hello " + username + "!");
             document.getElementById("name").innerHTML = "Good luck on your quiz, " + username + "!";
         } else {
-            alert("You didn't type anything!")
+            alert("You didn't type anything!");
         }
     });
 
@@ -22,6 +22,18 @@ $(document).ready(function() {
         if (qst1 == true) {right++;}
         if (qst2 == false) {right++;}
         if (qst3 == true) {right++;}
+        console.log(document.getElementById("score").style.color);
+        if (document.getElementById("score").style.color == "red") {
+            document.getElementById("score").style.color = "green";
+        } else if (document.getElementById("score").style.color = "blue") {
+            document.getElementById("score").style.color = "yellow";
+        } else if (document.getElementById("score").style.color = "green") {
+            document.getElementById("score").style.color = "blue";
+        } else if (document.getElementById("score").style.color = "yellow") {
+            document.getElementById("score").style.color = "black";
+        } else {
+            document.getElementById("score").style.color = "red";
+        }
         document.getElementById("score").innerHTML = "Your score is " + right + "/3 ! Nice job!";
     });
 
