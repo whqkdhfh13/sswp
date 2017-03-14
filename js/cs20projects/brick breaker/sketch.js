@@ -127,18 +127,19 @@ function draw() {
 			}
 			balls[i].display();
 
+			// Error detected at Line 130~155.
 			var chksuma = 0;
 			for (var j = 0; j < balls.length; j++) {
 				if (balls[j].ballStatus == "fire") {chksuma++;}
 			}
-
-			if (balls[0].ballStatus == "fire") {
+			if (balls[0].ballStatus == "fire" && chksuma == 1) {
 				swt2 = 0;
 			}
 
+			println("sp : " + balls[0].xSP + "\n swt2 : " + swt2 + "\n chksuma : " + chksuma);
 			if (balls[i].y > 525) { // Make its status to standby when it touches the line at the bottom
 				balls[i].ballStatus = "standby";
-				if (swt2 === 0) { // Set savepoint of first ball when first ball touches the bottom
+				if (swt2 === 0 && balls[balls.length-1].ballStatus == "standby") { // Set savepoint of first ball when first ball touches the bottom
 					balls[0].xSP = balls[i].x;
 					swt2++;
 				}
@@ -146,7 +147,7 @@ function draw() {
 
 			// If all balls are standby, gather them to savepoint of the first ball
 			if (chksuma === 0 && balls.length > 1 ) {
-				for (var k = 1; k < balls.length; k++) {
+				for (var k = 0; k < balls.length; k++) {
 					balls[k].x = balls[0].xSP;
 				}
 			}
@@ -162,15 +163,15 @@ function draw() {
 					rect(x * 69 + 6, 90 + y * 50, 68, 49);
 
 					// brick
-					if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 4) {
-						fill(255,50,50, 255);
+					if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 3) {
+						fill(255,180,180);
 						twinkleArray[x][y]++;
 					} else if (twinkleArray[x][y] === 0) {
 						fill(255,50,50);
-					} else if (twinkleArray[x][y] === 4) {
+					} else if (twinkleArray[x][y] === 3) {
+						fill(255,180,180);
 						twinkleArray[x][y] = 0;
 					}
-					println(twinkleArray[x][y]);
 					rect(x * 69 + 2, 85 + y * 50, 68, 49);
 
 					// text
