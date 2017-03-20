@@ -13,6 +13,12 @@ function preload() {
 function setup() {
     createCanvas(800, 600);
 
+    player = [];
+    platforms = [];
+    gameStatus = "intro";
+    chklife = 0;
+    timer = 0;
+
     // Initialize game objects
     // JumpingPlayer(startingX, startingY, leftKC, upKC, rightKC, downKC, playerColour, maxJump, distBtwLife, lifeStartX,  lifeStartY)
     player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 2, 30, 20, 540));
@@ -107,6 +113,15 @@ function draw() {
     } else if (gameStatus == "stop") {
         fill(120, 120, 130, 20);
         rect(300, 150, 200, 300);
+        textSize(48);
+        fill(200, 200, 200);
+        text("Freeze..", 315, 200);
+        textSize(18);
+        text("Press spacebar or \n Click the screen.", 325, 230)
+        fill(0, 0, 200);
+        text("Press 1 to add a Life", 315, 350);
+        fill(200, 0, 0);
+        text("Press 2 to add a Life", 315, 390);
     }
 }
 
@@ -137,5 +152,10 @@ function mousePressed() {
         gameStatus = "stop";
     } else if (gameStatus == "stop") {
         gameStatus = "run";
+    }
+
+    if (gameStatus == "finish") {
+        setup();
+        gameStatus = "intro";
     }
 }
