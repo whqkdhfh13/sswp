@@ -20,7 +20,7 @@ function ball(x, y) {
             this.x += this.xSpeed;
             for (var j = 0; j < 6; j++) {
 				for (var k = 0; k < 9; k++) {
-					if (this.x >= j * 69 - 5 && this.x <= (j + 1) * 69 + 9 && this.y >= k * 50 + 80 && this.y <= (k + 1) * 50 + 90) {
+					if (this.x >= j * 69 - 4 && this.x <= (j + 1) * 69 + 8 && this.y >= k * 50 + 80 && this.y <= (k + 1) * 50 + 90) {
 						if (bricks[j][k] == -1) {
 							chkball++;
 							bricks[j][k] = 0;
@@ -30,6 +30,7 @@ function ball(x, y) {
                             bricks[j][k]--;
                             this.swi++;
                             twinkleArray[j][k] = 1;
+                            sound.play();
                         }
 					}
 				}
@@ -37,7 +38,7 @@ function ball(x, y) {
             this.y += this.ySpeed;
             for (var j = 0; j < 6; j++) {
 				for (var k = 0; k < 9; k++) {
-					if (this.x >= j * 69 - 5 && this.x <= (j + 1) * 69 + 9 && this.y >= k * 50 + 80 && this.y <= (k + 1) * 50 + 90) {
+					if (this.x >= j * 69 - 4 && this.x <= (j + 1) * 69 + 8 && this.y >= k * 50 + 80 && this.y <= (k + 1) * 50 + 90) {
 						if (bricks[j][k] == -1) {
 							chkball++;
 							bricks[j][k] = 0;
@@ -45,9 +46,8 @@ function ball(x, y) {
                             this.y -= this.ySpeed;
                             this.ySpeed *= -1;
                             twinkleArray[j][k] = 1;
-                            if (this.swi === 0) {
-                                bricks[j][k]--;
-                            }
+                            bricks[j][k]--;
+                            sound.play();
                         }
 					}
 				}

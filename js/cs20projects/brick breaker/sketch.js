@@ -16,6 +16,11 @@ var swt3 = 0; // Switch for menu.
 var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
 	[], [], [], [], [], []
 ];
+var sound;
+
+function preload() {
+    sound = loadSound('bubble.mp3');
+}
 
 function setup() {
 	bricks = [
@@ -116,6 +121,7 @@ function draw() {
 			}
 
 			if (mouseX > -210 && mouseX < 630 && mouseY < 500 && mouseIsPressed) { // Draw lines.
+				strokeWeight(2);
 				stroke(0, 150, 250);
 				line(balls[0].x, balls[0].y, mouseX, mouseY);
 			}
@@ -136,7 +142,7 @@ function draw() {
 				swt2 = 0;
 			}
 
-			println("sp : " + balls[0].xSP + "\n swt2 : " + swt2 + "\n chksuma : " + chksuma);
+			// println("sp : " + balls[0].xSP + "\n swt2 : " + swt2 + "\n chksuma : " + chksuma);
 			if (balls[i].y > 525) { // Make its status to standby when it touches the line at the bottom
 				balls[i].ballStatus = "standby";
 				if (swt2 === 0 && chksuma == balls.length) { // Set savepoint of first ball when first ball touches the bottom
