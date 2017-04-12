@@ -123,6 +123,7 @@ function draw() {
 			if (mouseX > -210 && mouseX < 630 && mouseY < 500 && mouseIsPressed) { // Draw lines.
 				strokeWeight(2);
 				stroke(0, 150, 250);
+				strokeWeight(3);
 				line(balls[0].x, balls[0].y, mouseX, mouseY);
 			}
 		}
