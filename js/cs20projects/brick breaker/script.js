@@ -1,7 +1,7 @@
 var username;
 $(document).ready(function() {
 
-    $("#game").hide();
+    $("canvas").hide();
 
     $("#a").click(function() {
         // Hello User
