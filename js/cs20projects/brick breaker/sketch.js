@@ -17,6 +17,7 @@ var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
 	[], [], [], [], [], []
 ];
 var sound;
+var tg2;
 
 function preload() {
     sound = loadSound('bubble.mp3');
@@ -35,6 +36,7 @@ function setup() {
 	chkball = 0;
 	currentStage = 1;
 	swt = 1;
+	tg2 = 0;
 	createCanvas(420, 585); // Tried to make it similar to mobile screen =].
 	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
@@ -44,6 +46,7 @@ function setup() {
 	}
 	balls.push(new ball(210, 526)); // Push first ball to start with.
 	textAlign(CENTER);
+	noCursor();
 }
 
 function draw() {
@@ -51,6 +54,18 @@ function draw() {
 
 	} else if (gameStatus == "run" || gameStatus == "menu") { // I'll make start and finish status as well, after I build my game successfully.
 		background(255, 255, 255, 150);
+
+		// Mouse cursor
+		fill(0, 255, 255);
+		ellipse(mouseX, mouseY, 5);
+		noFill();
+		stroke(0, 255, 255);
+		strokeWeight(2);
+		ellipse(mouseX, mouseY, 15);
+
+		// Debugging
+		println(tg2);
+
 		if (gameStatus == "run") {
 			incSpeed -= 0.05; // Gravity of green item's hoop.
 			incNum += incSpeed;
@@ -268,24 +283,28 @@ function keyPressed() { // Just to test that stageReset is working or not.
 }
 
 function mouseReleased() { // Fire balls when mouse is Released, and all balls are at standby.
-	var chksum = 0;
-	var chksumc = 0;
-	for (var i = 0; i < balls.length; i++) {
-		if (balls[i].ballStatus == "fire") {chksum++;} // If chksum = 0, it means all balls are at standby.
-		if (balls[i].ballStatus == "standby") {chksumc++;} // If chksumc = 0, it means all balls are at fire.
-	}
-	if (chksum === 0 && chksumc === balls.length) { // If all balls are at standby,
-		for (var j = 0; j < balls.length; j++) {
-			balls[j].defineSpeed(); // define speed and store it to each ball,
-			timer = 0; // set timer to 0 so it will start from 0 again (timer++ line is inside draw function).
+	if (tg2 > 0) {
+		var chksum = 0;
+		var chksumc = 0;
+		for (var i = 0; i < balls.length; i++) {
+			if (balls[i].ballStatus == "fire") {chksum++;} // If chksum = 0, it means all balls are at standby.
+			if (balls[i].ballStatus == "standby") {chksumc++;} // If chksumc = 0, it means all balls are at fire.
 		}
-		toggle++; // and toggle++ so it will run fireBalls function in balls.js.
+		if (chksum === 0 && chksumc === balls.length) { // If all balls are at standby,
+			for (var j = 0; j < balls.length; j++) {
+				balls[j].defineSpeed(); // define speed and store it to each ball,
+				timer = 0; // set timer to 0 so it will start from 0 again (timer++ line is inside draw function).
+			}
+			toggle++; // and toggle++ so it will run fireBalls function in balls.js.
+		}
 	}
+	tg2++;
 }
 
 function mousePressed() { // run game again when gameStatus is finish and press the mouse.
 	if (gameStatus == "finish") {
 		setup();
+		stageReset++;
 		gameStatus = "run";
 	}
 }
