@@ -4,6 +4,11 @@ var nickname = [];
 var authArray = [];
 $(document).ready(function() {
 
+    // Load id, password and nickname.
+    id = localStorage.id.split(";");
+    password = localStorage.password.split(";");
+    nickname = localStorage.nickname.split(";");
+
     $("canvas").hide();
 
     $("#singin").click(function() {
@@ -12,28 +17,29 @@ $(document).ready(function() {
     });
 
     $("#singup").click(function() {
-        id = localStorage.id.split(";");
-        password = localStorage.password.split(";");
-        nickname = localStorage.nickname.split(";");
 
     });
 
 });
 
 function authorizations(input, type) {
-    var authType;
+    var authType, tempStr;
+
     if (type == id) {
         authType = $("#inputId").val();
+        tempStr = localStorage.getItem(id);
     } else {
         authType = $("#inputPw").val();
+        tempStr = localStorage.getItem(password);
     }
-
-    var tempStr;
-    tempStr = localStorage.getItem(input);
     authArray = tempStr.split(";");
 
     for (var i = 0; i < authArray.length; i++) {
-
+        if (authArray[i] == authType) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
