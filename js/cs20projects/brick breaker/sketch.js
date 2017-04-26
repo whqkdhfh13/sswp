@@ -18,6 +18,7 @@ var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
 ];
 var sound;
 var tg2;
+var ballCount;
 
 function preload() {
     sound = loadSound('bubble.mp3');
@@ -37,6 +38,7 @@ function setup() {
 	currentStage = 1;
 	swt = 1;
 	tg2 = 0;
+	ballCount = 0;
 	createCanvas(420, 585); // Tried to make it similar to mobile screen =].
 	for (var i = 0; i < bricks.length; i++) { // Push column of 9 zero to each row.
 		for (var j = 0; j < 9; j++) {
@@ -135,7 +137,7 @@ function draw() {
 				swt++;
 			}
 
-			if (mouseX > -210 && mouseX < 630 && mouseY < 500 && mouseIsPressed) { // Draw lines.
+			if (mouseX > -210 && mouseX < 630 && mouseY < 500 && mouseIsPressed && tg2 > 1) { // Draw lines.
 				strokeWeight(2);
 				stroke(0, 150, 250);
 				strokeWeight(3);
@@ -241,7 +243,7 @@ function draw() {
 				fill(0, 0, 0, 50);
 				rect(this.x - 10, 540, 20, 10);
             fill(50, 165, 255);
-            text("X"+chksumd, balls[0].xSP, 554);
+            text("X"+ balls.length - ballCount, balls[0].xSP, 554);
         }
 
 
@@ -283,7 +285,7 @@ function keyPressed() { // Just to test that stageReset is working or not.
 }
 
 function mouseReleased() { // Fire balls when mouse is Released, and all balls are at standby.
-	if (tg2 > 0) {
+	if (tg2 > 1) {
 		var chksum = 0;
 		var chksumc = 0;
 		for (var i = 0; i < balls.length; i++) {
@@ -298,7 +300,6 @@ function mouseReleased() { // Fire balls when mouse is Released, and all balls a
 			toggle++; // and toggle++ so it will run fireBalls function in balls.js.
 		}
 	}
-	tg2++;
 }
 
 function mousePressed() { // run game again when gameStatus is finish and press the mouse.
@@ -307,4 +308,13 @@ function mousePressed() { // run game again when gameStatus is finish and press 
 		stageReset++;
 		gameStatus = "run";
 	}
+	if (mouseX > width || mouseY < 0 || mouseY > height || mouseY < 0) {
+		tg2 = -1;
+	}
+	if (mouseX < width && mouseX > 0 && mouseY < height && mouseY > 0) {
+		if (tg2 < 0) {
+			tg2 = 0;
+		}
+	}
+	tg2++;
 }

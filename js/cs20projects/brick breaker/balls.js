@@ -85,13 +85,13 @@ function fireBalls() {
 	if (balls[0].ySpeed > -1.6 && chksume === 0) { // If ySpeed is lower than some amount, it will be changed before fire it.
 		if (balls[0].xSpeed > 0) {
 			for (var i = 0; i < balls.length; i++) {
-				balls[i].ySpeed = -1.6;
-				balls[i].xSpeed = 7.6;
+				balls[i].ySpeed = -0.2 * this.speed;
+				balls[i].xSpeed = 0.95 * this.speed;
 			}
 		} else if (balls[0].xSpeed < 0) {
 			for (var i = 0; i < balls.length; i++) {
-				balls[i].ySpeed = -1.6;
-				balls[i].xSpeed = -7.6;
+				balls[i].ySpeed = -0.2 * this.speed;
+				balls[i].xSpeed = -0.95 * this.speed;
 			}
 		}
 	}
