@@ -97,5 +97,6 @@ function fireBalls() {
 	}
 	if (timer % 4 === 0 && timer > 0) { // Fire balls every 4 frames except 0.
 		balls[timer/4 - 1].ballStatus = "fire";
+        ballCount++;
 	}
 }

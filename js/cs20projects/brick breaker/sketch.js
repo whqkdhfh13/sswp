@@ -66,7 +66,6 @@ function draw() {
 		ellipse(mouseX, mouseY, 15);
 
 		// Debugging
-		println(tg2);
 
 		if (gameStatus == "run") {
 			incSpeed -= 0.05; // Gravity of green item's hoop.
@@ -85,6 +84,7 @@ function draw() {
 		if (balls[balls.length-1].ballStatus == "fire") { // When last ball's status is fire, set toggle and swt to 0.
 			toggle = 0;
 			swt = 0;
+			ballCount = 0;
 		}
 
 		if (stageReset === 1) { // Run code when stageReset is 1. All bricks will move to 1 down and create new breaks.
@@ -243,7 +243,7 @@ function draw() {
 				fill(0, 0, 0, 50);
 				rect(this.x - 10, 540, 20, 10);
             fill(50, 165, 255);
-            text("X"+ balls.length - ballCount, balls[0].xSP, 554);
+            text("X"+ (balls.length - ballCount), balls[0].xSP, 554);
         }
 
 
@@ -292,7 +292,7 @@ function mouseReleased() { // Fire balls when mouse is Released, and all balls a
 			if (balls[i].ballStatus == "fire") {chksum++;} // If chksum = 0, it means all balls are at standby.
 			if (balls[i].ballStatus == "standby") {chksumc++;} // If chksumc = 0, it means all balls are at fire.
 		}
-		if (chksum === 0 && chksumc === balls.length) { // If all balls are at standby,
+		if (chksum === 0 && chksumc === balls.length && balls[0].y > mouseY) { // If all balls are at standby,
 			for (var j = 0; j < balls.length; j++) {
 				balls[j].defineSpeed(); // define speed and store it to each ball,
 				timer = 0; // set timer to 0 so it will start from 0 again (timer++ line is inside draw function).
