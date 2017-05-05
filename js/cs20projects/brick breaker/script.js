@@ -3,52 +3,77 @@ var password = [];
 var nickname = [];
 $(document).ready(function() {
 
+    if (localStorage.id !== undefined && localStorage.nickname !== undefined && localStorage.password !== undefined) {
+              id = localStorage.id.split(";");
+        nickname = localStorage.nickname.split(";");
+        password = localStorage.password.split(";");
+    }
+
     $("canvas").hide();
 
     $("#singin").click(function() {
-        $(".login").hide();
-        $("canvas").show();
-    });
-
-    $("#singup").click(function() {
-        loadData();
-        var tempUsername = prompt("Type id that you want to use.");
-        if (authorizations(tempUsername, "id")) {
-            alert("ID that you typed is already exist. \nPlease try again.");
-        } else if (tempUsername == "" || tempUsername == undefined) {
-
+        if (!authorizations($("#inputId").val(), "id")[0]) {
+            alert("ID is not exist.\nPlease Sign up first.");
         } else {
-            var tempNickname = prompt("Type nickname that you want to use.");
-            if (authorizations(tempNickname, "nickname")) {
-                alert("Nickname that you typed is already exist.\nPlease try again.");
-            } else if (tempNickname == "" || tempNickname == undefined) {
-
+            if (authorizations($("#inputId").val(), "id")[1] !== authorizations($("#inputPw").val(), "password")[1]) {
+                alert("Wrong password.\nPlease try again.");
             } else {
-                var tempPassword = prompt("Type password that you want to use.");
-                if (tempPassword !== "") {
-                    alert("Your signup was successfully done!");
-
-                    // Push datas to localStorage.
-                    id.push(tempUsername);
-                    localStorage.id = id.join(";");
-                    nickname.push(tempNickname);
-                    localStorage.nickname = nickname.join(";");
-                    password.push(tempPassword);
-                    localStorage.password = password.join(";");
-                }
+                alert("Welcome to my game, '" + nickname[authorizations($("#inputId").val(), "id")[1]] + "' !");
+                $(".login").hide();
+                $("canvas").show();
             }
-
         }
     });
 
+    $("#singup").click(function() {
+        var tempUsername = prompt("Type id that you want to use.");
+        if (authorizations(tempUsername, "id")[0]) {
+            alert("ID is already exist. \nPlease try again.");
+        } else if (tempUsername === "" || tempUsername === null) {
+            alert("Your signup has been cancled. \nPlease try again.");
+        } else if (spaceCheck(tempUsername)) {
+            alert("You can't have only spaces in your form.\nPlease try again.");
+        } else {
+            var tempNickname = prompt("Type nickname that you want to use.");
+            if (authorizations(tempNickname, "nickname")[0]) {
+                alert("Nickname is already exist.\nPlease try again.");
+            } else if (tempNickname === "" || tempNickname === null) {
+                alert("Your signup has been cancled.\n Please try again.");
+            } else if (spaceCheck(tempNickname)) {
+                alert("You can't have only spaces in your form. \nPlease try again.");
+            } else {
+                var tempPassword = prompt("Type password that you want to use.");
+                if (tempPassword === null) {
+                    alert("Your signup has been cancled. \nPlease try again.");
+                } else if (spaceCheck(tempPassword)) {
+                    alert("You can't have only spaces in your form. \nPlease try again.");
+                } else if (tempPassword == tempUsername) {
+                    alert("ID and Password shouldn't be equal. \nPlease try again.");
+                } else {
+                    // Push datas to localStorage.
+                    id.push(tempUsername);
+                    nickname.push(tempNickname);
+                    password.push(tempPassword);
+                    localStorage.id = id.join(";");
+                    localStorage.nickname = nickname.join(";");
+                    localStorage.password = password.join(";");
+
+                    alert("Your signup was successfully done!");
+                }
+            }
+        }
+    });
 });
 
 function authorizations(input, type) {
+    if (localStorage.getItem(type) === undefined) {
+        return false;
+    }
     var tempStr = localStorage.getItem(type);
     var authArray = tempStr.split(";");
-    for (var i = 0; i < authArray.length; i++) {
+    for (var i = authArray.length; i > 0; i--) {
         if (authArray[i] == input) {
-            return true;
+            return [true, i];
         }
     }
     return false;
@@ -65,15 +90,4 @@ function spaceCheck(input) {
     } else {
         return false;
     }
-}
-
-function loadData() {
-    if (localStorage.id == undefined || localStorage.id == "") {
-        localStorage.id = " ";
-        localStorage.nickname = " ";
-        localStorage.password = " ";
-    }
-    id = localStorage.id.split(";");
-    password = localStorage.password.split(";");
-    nickname = localStorage.nickname.split(";");
 }

@@ -240,8 +240,8 @@ function draw() {
         if (chksumd === balls.length || toggle === 1) { // When all balls are at standby, draw balls that player has.
             textSize(14);
 			noStroke();
-				fill(0, 0, 0, 50);
-				rect(this.x - 10, 540, 20, 10);
+			fill(0, 0, 0, 50);
+			rect(this.x - 10, 540, 20, 10);
             fill(50, 165, 255);
             text("X"+ (balls.length - ballCount), balls[0].xSP, 554);
         }
