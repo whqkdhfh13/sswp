@@ -66,12 +66,13 @@ $(document).ready(function() {
 });
 
 function authorizations(input, type) {
-    if (localStorage.getItem(type) === undefined) {
+    if (localStorage.getItem(type) === null || input === null) {
         return false;
     }
     var tempStr = localStorage.getItem(type);
     var authArray = tempStr.split(";");
-    for (var i = authArray.length; i > 0; i--) {
+
+    for (var i = authArray.length; i >= 0; i--) {
         if (authArray[i] == input) {
             return [true, i];
         }
