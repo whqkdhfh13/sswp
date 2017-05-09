@@ -190,12 +190,12 @@ function draw() {
 						rect(x * 69 + 6, 90 + y * 50, 68, 49);
 
 						// brick
-						if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 4) {
+						if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 3) {
 							fill(255,180,180);
 							twinkleArray[x][y]++;
 						} else if (twinkleArray[x][y] === 0) {
 							fill(255,50,50);
-						} else if (twinkleArray[x][y] === 4) {
+						} else if (twinkleArray[x][y] === 3) {
 							fill(255,180,180);
 							twinkleArray[x][y] = 0;
 						}
