@@ -1,6 +1,7 @@
 var id = [];
 var password = [];
 var nickname = [];
+var login = false;
 $(document).ready(function() {
 
     if (localStorage.id !== undefined && localStorage.nickname !== undefined && localStorage.password !== undefined) {
@@ -21,6 +22,7 @@ $(document).ready(function() {
                 alert("Welcome to my game, '" + nickname[authorizations($("#inputId").val(), "id")[1]] + "' !");
                 $(".login").hide();
                 $("canvas").show();
+                login = true;
             }
         }
     });

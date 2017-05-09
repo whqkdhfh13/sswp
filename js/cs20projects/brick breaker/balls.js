@@ -9,7 +9,7 @@ function ball(x, y) {
     this.swi = 0; // Variable to prevent that 1 ball decrease brick's life twice.
 
     this.update = function() {
-        if (this.x > 410 || this.x < 10) { // Bounce it when it touches the wall
+        if (this.x > 405 || this.x < 15) { // Bounce it when it touches the wall
             this.xSpeed *= -1;
         }
         if (this.y < 45) { // Bounce when it touches the top
@@ -78,23 +78,6 @@ function ball(x, y) {
 }
 
 function fireBalls() {
-	var chksume = 0;
-	for (var k = 0; k < balls.length; k++) {
-		if (balls[k].ballStatus == "fire") {chksume++;}
-	}
-	if (balls[0].ySpeed > -1.6 && chksume === 0) { // If ySpeed is lower than some amount, it will be changed before fire it.
-		if (balls[0].xSpeed > 0) {
-			for (var i = 0; i < balls.length; i++) {
-				balls[i].ySpeed = -0.2 * this.speed;
-				balls[i].xSpeed = 0.95 * this.speed;
-			}
-		} else if (balls[0].xSpeed < 0) {
-			for (var i = 0; i < balls.length; i++) {
-				balls[i].ySpeed = -0.2 * this.speed;
-				balls[i].xSpeed = -0.95 * this.speed;
-			}
-		}
-	}
 	if (timer % 4 === 0 && timer > 0) { // Fire balls every 4 frames except 0.
 		balls[timer/4 - 1].ballStatus = "fire";
         ballCount++;
