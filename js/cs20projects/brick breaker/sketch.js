@@ -59,6 +59,7 @@ function draw() {
 			background(255, 255, 255, 150);
 
 			// Mouse cursor
+			noStroke();
 			fill(0, 255, 255);
 			ellipse(mouseX, mouseY, 5);
 			noFill();
@@ -255,6 +256,13 @@ function draw() {
 			rect(0, 535, 420, 6);
 			fill (255);
 			rect(0, 0, 420, 30);
+
+			// User Interface
+			noStroke();
+			fill(0);
+			textSize(18);
+			textWidth(18);
+			text("Hi, "+nickname[authorizations($("#inputId").val(), "id")[1]]+"!", 60, 20);
 
 			// Pop up!
 			if (gameStatus == "menu") {
