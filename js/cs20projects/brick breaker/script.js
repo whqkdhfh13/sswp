@@ -1,6 +1,7 @@
 var id = [];
 var password = [];
 var nickname = [];
+var bestScore = [];
 var login = false;
 $(document).ready(function() {
 
@@ -8,6 +9,7 @@ $(document).ready(function() {
               id = localStorage.id.split(";");
         nickname = localStorage.nickname.split(";");
         password = localStorage.password.split(";");
+        bestScore = localStorage.bestScore.split(";");
     }
 
     $("canvas").hide();
@@ -56,9 +58,11 @@ $(document).ready(function() {
                     id.push(tempUsername);
                     nickname.push(tempNickname);
                     password.push(tempPassword);
+                    bestScore.push("0");
                     localStorage.id = id.join(";");
                     localStorage.nickname = nickname.join(";");
                     localStorage.password = password.join(";");
+                    localStorage.bestScore = bestScore.join(";");
 
                     alert("Your signup was successfully done!");
                 }

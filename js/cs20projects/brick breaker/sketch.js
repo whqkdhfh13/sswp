@@ -19,12 +19,14 @@ var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
 var sound;
 var tg2;
 var ballCount;
+var score;
 
 function preload() {
     sound = loadSound('bubble.mp3');
 }
 
 function setup() {
+	score = 0;
 	bricks = [
 		[], [], [], [], [], []
 	];
@@ -124,6 +126,7 @@ function draw() {
 				}
 				stageReset = 0; // Change stageReset value to 0 again.
 				currentStage++; // Add 1 to currentStage.
+				score++;
 			} // stageReset ends here.
 
 			var chksum2 = 0; // I will use this method so many times, it's beautiful.
@@ -262,7 +265,9 @@ function draw() {
 			fill(0);
 			textSize(18);
 			textWidth(18);
-			text("Hi, "+nickname[authorizations($("#inputId").val(), "id")[1]]+"!", 60, 20);
+			text("Hi, "+nickname[authorizations($("#inputId").val(), "id")[1]]+"! Your Current Score : ", width/2, 20);
+			fill(255, 0, 0);
+			text("     "+score + " !", 350, 20);
 
 			// Pop up!
 			if (gameStatus == "menu") {
@@ -281,6 +286,10 @@ function draw() {
 		stroke(255);
 		textSize(30);
 		text("YOU SUCH AN ALLISTER", width/2, 300);
+		if (bestScore[authorizations($("#inputId").val(), "id")[1]] < score) {
+			bestScore[authorizations($("#inputId").val(), "id")[1]] = score - 1;
+			localStorage.bestScore = bestScore.join(";");
+		}
 	}
 }
 
