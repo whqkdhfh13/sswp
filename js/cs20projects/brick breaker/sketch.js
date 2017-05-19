@@ -194,11 +194,12 @@ function draw() {
 						rect(x * 69 + 6, 90 + y * 50, 68, 49);
 
 						// brick
+						var diff = (currentStage - 1 - bricks[x][y]) / (currentStage - 1);
 						if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 3) {
 							fill(255,180,180);
 							twinkleArray[x][y]++;
 						} else if (twinkleArray[x][y] === 0) {
-							fill(255,50,50);
+							fill(255,50 + 150*diff,50);
 						} else if (twinkleArray[x][y] === 3) {
 							fill(255,180,180);
 							twinkleArray[x][y] = 0;
@@ -265,9 +266,7 @@ function draw() {
 			fill(0);
 			textSize(18);
 			textWidth(18);
-			text("Hi, "+nickname[authorizations($("#inputId").val(), "id")[1]]+"! Your Current Score : ", width/2, 20);
-			fill(255, 0, 0);
-			text("     "+score + " !", 350, 20);
+			text("User : "+nickname[authorizations($("#inputId").val(), "id")[1]]+"  ||   Score : "+score+"  ||  Record : "+bestScore[authorizations($("#inputId").val(), "id")[1]], width/2, 20);
 
 			// Pop up!
 			if (gameStatus == "menu") {

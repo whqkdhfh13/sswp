@@ -5,8 +5,16 @@ var bestScore = [];
 var login = false;
 $(document).ready(function() {
 
+    // window.onbeforeunload = function() {
+    //     return "You will lose all your data!";
+    // }
+
+    function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); alert("You can't! You can keep play my game!"); }
+    $(document).on("keydown", disableF5);
+
+
     if (localStorage.id !== undefined && localStorage.nickname !== undefined && localStorage.password !== undefined) {
-              id = localStorage.id.split(";");
+        id = localStorage.id.split(";");
         nickname = localStorage.nickname.split(";");
         password = localStorage.password.split(";");
         bestScore = localStorage.bestScore.split(";");
@@ -30,29 +38,35 @@ $(document).ready(function() {
     });
 
     $("#singup").click(function() {
-        var tempUsername = prompt("Type id that you want to use.");
+        var tempUsername = prompt("Type id that you want to use.\nIt should be longer than 3 characters.");
         if (authorizations(tempUsername, "id")[0]) {
             alert("ID is already exist. \nPlease try again.");
         } else if (tempUsername === "" || tempUsername === null) {
-            alert("Your signup has been cancled. \nPlease try again.");
+            alert("Your signup has been cancled.");
         } else if (spaceCheck(tempUsername)) {
             alert("You can't have only spaces in your form.\nPlease try again.");
+        } else if (tempUsername.length < 3) {
+            alert("Your ID is too short. \nPlease try again.");
         } else {
-            var tempNickname = prompt("Type nickname that you want to use.");
+            var tempNickname = prompt("Type nickname that you want to use.\nIt shouldn't be longer than 12 characters.");
             if (authorizations(tempNickname, "nickname")[0]) {
                 alert("Nickname is already exist.\nPlease try again.");
             } else if (tempNickname === "" || tempNickname === null) {
-                alert("Your signup has been cancled.\n Please try again.");
+                alert("Your signup has been cancled.");
             } else if (spaceCheck(tempNickname)) {
                 alert("You can't have only spaces in your form. \nPlease try again.");
+            } else if (tempNickname.length > 12) {
+                alert("Your nickname is too long. \nPlease try again.");
             } else {
-                var tempPassword = prompt("Type password that you want to use.");
-                if (tempPassword === null) {
-                    alert("Your signup has been cancled. \nPlease try again.");
+                var tempPassword = prompt("Type password that you want to use.\nIt should be longer than 3 characters.");
+                if (tempPassword === "" || tempPassword === null) {
+                    alert("Your signup has been cancled.");
                 } else if (spaceCheck(tempPassword)) {
                     alert("You can't have only spaces in your form. \nPlease try again.");
                 } else if (tempPassword == tempUsername) {
                     alert("ID and Password shouldn't be equal. \nPlease try again.");
+                } else if (tempPassword.length < 3) {
+                    alert("Your Password is too short. \nPlease try again.");
                 } else {
                     // Push datas to localStorage.
                     id.push(tempUsername);
