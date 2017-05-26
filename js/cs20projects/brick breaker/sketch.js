@@ -300,6 +300,7 @@ function keyPressed() { // Just to test that stageReset is working or not.
 			gameStatus = "run";
 		}
 	}
+	println(keyCode);
 }
 
 function mouseReleased() { // Fire balls when mouse is Released, and all balls are at standby.

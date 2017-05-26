@@ -5,11 +5,16 @@ var bestScore = [];
 var login = false;
 $(document).ready(function() {
 
-    // window.onbeforeunload = function() {
-    //     return "You will lose all your data!";
-    // }
+    window.onbeforeunload = function() {
+        return "You will lose all your data!";
+    }
 
-    function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); alert("You can't! You can keep play my game!"); }
+    function disableF5(e) {
+        if (e.which == 116 || e.keyCode == 116 || e.which == 82 || e.keyCode == 82) {
+            e.preventDefault();
+            alert("You can't refresh the page! \nYou may keep play my game!");
+        }
+    }
     $(document).on("keydown", disableF5);
 
 
