@@ -5,6 +5,7 @@ function setup() {
     world = createWorld();
 
     console.log(world);
+    console.log(world[1][2][3]);
 
 }
 
