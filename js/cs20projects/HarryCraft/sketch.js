@@ -5,8 +5,8 @@ var cons;
 function setup() {
     world = createWorld();
     player = new player();
-    cons = false;
-    createCanvas(1024,768);
+    cons = true;
+    createCanvas(1024, 768);
 }
 
 function draw() {
@@ -63,19 +63,26 @@ function player() {
 }
 
 function rotation() {
+	// Make sure to make if statement for squaring that have + and -.
     if (!(mouseX > width * 0.45 && mouseX < width * 0.55)) {
-        this.ax += mouseX - width/2;
+        player.ax += sq(((mouseX - width/2) / (width/2)));
     }
 
     if (!(mouseY > height * 0.45 && mouseY < height * 0.55)) {
-        this.ay -= mouseY - height/2;
+        player.ay -= sq (((mouseY - height/2) / (height/2)));
     }
 
-    if (ax < 0) {
-        ax = 360;
-    } else if (ax > 360) {
-        ax = 0;
+    if (player.ax < 0) {
+        player.ax += 360;
+    } else if (player.ax > 360) {
+        player.ax -= 360;
     }
+
+		if (player.ay > 180) {
+			player.ay = 180;
+		} else if (player.ay < 0) {
+			player.ay = 0;
+		}
 }
 
 function info() {
@@ -84,4 +91,5 @@ function info() {
     textSize(18);
     text("ax = "+player.ax, 5, 18);
     text("ay = "+player.ay, 5, 36);
+	 text (sq (((mouseY - height/2) / (height/2))), 5, 54)
 }
