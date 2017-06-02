@@ -5,16 +5,18 @@ var cons;
 function setup() {
     world = createWorld();
     player = new player();
-    cons = true;
+    cons = 1;
     createCanvas(1024, 768);
 }
 
 function draw() {
-    background(0);
-    if (cons === true) {
+    background(0,0,0,50);
+    if (cons === 1) {
         info();
     }
     rotation();
+	// I want this circle to be displayed between 300 and 60.
+	ellipse  ((width*(1-(player.ax+60)/120))-25, (height*(player.ay-30)/120)-25, 50);
 }
 
 
@@ -65,16 +67,24 @@ function player() {
 function rotation() {
 	// Make sure to make if statement for squaring that have + and -.
     if (!(mouseX > width * 0.45 && mouseX < width * 0.55)) {
-        player.ax += sq(((mouseX - width/2) / (width/2)));
+        if (mouseX-width/2 > 0) {
+					player.ax += sq(2*(mouseX - width/2) / (width/2));
+			} else if (mouseX-width/2 < 0) {
+					player.ax -= sq(2*(mouseX - width/2) / (width/2));
+			}
     }
 
     if (!(mouseY > height * 0.45 && mouseY < height * 0.55)) {
-        player.ay -= sq (((mouseY - height/2) / (height/2)));
+			if (mouseY-height/2 > 0) {
+					player.ay -= sq((mouseY - height/2) / (height/2));
+			} else if (mouseY-height/2 < 0) {
+					player.ay += sq((mouseY - height/2) / (height/2));
+			}
     }
 
-    if (player.ax < 0) {
+    if (player.ax < -180) {
         player.ax += 360;
-    } else if (player.ax > 360) {
+    } else if (player.ax > 180) {
         player.ax -= 360;
     }
 
@@ -91,5 +101,7 @@ function info() {
     textSize(18);
     text("ax = "+player.ax, 5, 18);
     text("ay = "+player.ay, 5, 36);
-	 text (sq (((mouseY - height/2) / (height/2))), 5, 54)
 }
+
+
+
