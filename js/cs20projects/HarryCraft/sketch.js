@@ -1,20 +1,36 @@
+var cnv;
 var world;
 var player;
 var cons;
+var extendedAngle;
 
 function setup() {
+    cnv = createCanvas(1024, 768);
+    centerCanvas();
     world = createWorld();
     player = new player();
-    cons = false;
-    createCanvas(1024,768);
+    cons = 1;
+    extendedAngle = 120;
+    angleMode(DEGREES);
 }
 
 function draw() {
-    background(0);
-    if (cons === true) {
+    background(0,0,0,50);
+    if (cons === 1) {
         info();
     }
-    rotation();
+    if (keyCode === 32 && keyIsPressed) {
+        player.ax = 0;
+        player.ay = 0;
+    } else {
+      rotation();
+    }
+    fill(0,255,255,50);
+    rect(width/2 - width/20, height/2 - height/20, width/10, height/10);
+	  // I want this circle to be displayed between 300 and 60.
+    fill(255);
+	  ellipse  ((width*(1-(player.ax+60)/120)), (height*(player.ay+60)/120), 50);
+
 }
 
 
@@ -46,7 +62,9 @@ function lender() {
         for (var j = 0; j < world[i].length; j++) {
             for (var k = 0; k < world[i][j].length; k++) {
                 if(world[i][j][k] == 1) {
-                    fill(255, 0, 51);
+                    var xpos = sin(90/extendedAngle*(atan(i/j) - player.ax) + 45);
+                    var ypos = sin(90/extendedAngle*(atan(k/j) - player.ay) + 45);
+
                 }
             }
         }
@@ -57,25 +75,40 @@ function player() {
     this.x = 0;
     this.y = 0;
     this.ax = 0;
-    this.ay = 90;
+    this.ay = 0;
     this.speed = 0;
 
 }
 
 function rotation() {
+	// Make sure to make if statement for squaring that have + and -.
     if (!(mouseX > width * 0.45 && mouseX < width * 0.55)) {
-        this.ax += mouseX - width/2;
+        if (mouseX-width/2 > 0) {
+				player.ax += sq(2*(mouseX - width/2) / (width/2));
+			} else if (mouseX-width/2 < 0) {
+				player.ax -= sq(2*(mouseX - width/2) / (width/2));
+			}
     }
 
     if (!(mouseY > height * 0.45 && mouseY < height * 0.55)) {
-        this.ay -= mouseY - height/2;
+			if (mouseY-height/2 > 0) {
+					player.ay -= sq(1.5*(mouseY - height/2) / (height/2));
+			} else if (mouseY-height/2 < 0) {
+					player.ay += sq(1.5*(mouseY - height/2) / (height/2));
+			}
     }
 
-    if (ax < 0) {
-        ax = 360;
-    } else if (ax > 360) {
-        ax = 0;
+    if (player.ax < -180) {
+        player.ax += 360;
+    } else if (player.ax > 180) {
+        player.ax -= 360;
     }
+
+		if (player.ay > 90) {
+			player.ay = 90;
+		} else if (player.ay < -90) {
+			player.ay = -90;
+		}
 }
 
 function info() {
@@ -84,4 +117,22 @@ function info() {
     textSize(18);
     text("ax = "+player.ax, 5, 18);
     text("ay = "+player.ay, 5, 36);
+}
+
+function centerCanvas() {
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  cnv.position(x, y);
+}
+
+function windowResized() {
+  centerCanvas();
+}
+
+function keyPressed() {
+    console.log(keyCode);
+}
+
+function calc3Dist(x1,y1,z1,x2,y2,z2) {
+    return sqrt(sq(x2 - x1) + sq(y2 - y1) + sq(z2 - z1));
 }
