@@ -12,6 +12,7 @@ function setup() {
     cons = 1;
     extendedAngle = 120;
     angleMode(DEGREES);
+    createCanvas(1024, 768);
 }
 
 function draw() {
@@ -92,9 +93,9 @@ function rotation() {
 
     if (!(mouseY > height * 0.45 && mouseY < height * 0.55)) {
 			if (mouseY-height/2 > 0) {
-					player.ay -= sq(1.5*(mouseY - height/2) / (height/2));
+				player.ay -= sq(1.5*(mouseY - height/2) / (height/2));
 			} else if (mouseY-height/2 < 0) {
-					player.ay += sq(1.5*(mouseY - height/2) / (height/2));
+				player.ay += sq(1.5*(mouseY - height/2) / (height/2));
 			}
     }
 
@@ -108,6 +109,7 @@ function rotation() {
 			player.ay = 90;
 		} else if (player.ay < -90) {
 			player.ay = -90;
+
 		}
 }
 
