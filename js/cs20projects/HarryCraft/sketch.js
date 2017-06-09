@@ -17,7 +17,7 @@ function setup() {
 
 function draw() {
     background(0, 0, 0 );
-    // world[3][0][0] = 1;
+    world[3][0][0] = 1;
     if (cons === 1) {
         info();
     }
@@ -68,9 +68,11 @@ function render() {
                 if (world[i][j][k] == 1) {
                     if ((abs(atan(i/j)-player.ax) < 75 && abs(atan(k/j)-player.ay) < 75) || calc3Dist(player.x, player.y, player.z, i, j, k) < 5) {
                         var xPos = map(tan(atan(i/j)-player.ax), -tan(60), tan(60), 0, width);
-                        var yPos = map(tan(atan(k/j)-player.ay), -tan(60), tan(60), 0, height);
-                        var rad = pow((1/2), calc3Dist(player.x, player.y, player.z, i, j, k)) + 0.03;
+                        var yPos = map(tan(atan(k/j)-player.ay), -tan(60), tan(60), height, 0);
+                        var rad = pow((6/10), calc3Dist(player.x, player.y, player.z, i, j, k)) + 0.03;
+                        fill(255,0,0);
                         ellipse(xPos, yPos, rad * width, rad * height);
+                        text(xPos, xPos, yPos);
                     }
                 }
             }

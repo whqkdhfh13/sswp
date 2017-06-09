@@ -54,9 +54,7 @@ function setup() {
 }
 
 function draw() {
-	if (gameStatus == "start") {
-
-	} else if (gameStatus == "run" || gameStatus == "menu") { // I'll make start and finish status as well, after I build my game successfully.
+	if (gameStatus == "run" || gameStatus == "menu") { // I'll make start and finish status as well, after I build my game successfully.
 		if (login) {
 			background(255, 255, 255, 150);
 
@@ -91,43 +89,9 @@ function draw() {
 				ballCount = 0;
 			}
 
-			if (stageReset === 1) { // Run code when stageReset is 1. All bricks will move to 1 down and create new breaks.
-				var chksum = 0;
-				if (chkball > 0) { // If player has touch the green item, push the ball [chkball] times.
-					for (var i = 0; i < chkball; chkball--) {
-						balls.push(new ball(balls[0].x, balls[0].y));
-					}
-				}
-
-				for (var i = 0; i < 6; i++) { // Move all bricks to 1 down. ex)bricks[0][0] -> bricks[0][1].
-					bricks[i].unshift(0);
-					if (bricks[i][8] > 0) { // Lose the game when any bricks hit the bottom
-						gameStatus = "finish";
-					}
-				}
-
-				var rn = random([0, 1, 2, 3, 4, 5]); // Make green item to random location.
-				if (bricks[rn][0] === 0) {
-					bricks[rn][0] = -1;
-				}
-
-				for (var i = 0; i < floor(random(2, 7)); i++) { // Make bricks random times, if no brick is already exist there.
-					var rn = random([0, 1, 2, 3, 4, 5]);
-					if (bricks[rn][0] === 0) {
-						bricks[rn][0] = currentStage;
-						chksum += bricks[rn][0]; // Add numbers to chksum.
-					}
-				}
-
-				if (chksum === 0 && bricks[0][0] === 0) { // If chksum is 0, which means there's no brick, make 1 brick.
-					bricks[0][0] = currentStage;
-				} else if (chksum === 0 && bricks[1][0] === 0) { // If green item is already exist at bricks[0][0], make brick at bricks[1][0].
-					bricks[1][0] = currentStage;
-				}
-				stageReset = 0; // Change stageReset value to 0 again.
-				currentStage++; // Add 1 to currentStage.
-				score++;
-			} // stageReset ends here.
+			if (stageReset === 1) {
+				Reset();
+			}
 
 			var chksum2 = 0; // I will use this method so many times, it's beautiful.
 			for (var i = 0; i < balls.length; i++) {
@@ -150,99 +114,14 @@ function draw() {
 				}
 			}
 
-			for (var i = 0; i < balls.length; i++) { // Loop for balls
-				if (gameStatus == "run") {
-					balls[i].update();
-				}
-				balls[i].display();
-
-				// Error detected at Line 130~155.
-				var chksuma = 0;
-				for (var j = 0; j < balls.length; j++) {
-					if (balls[j].ballStatus == "fire") {chksuma++;}
-				}
-				if (balls[0].ballStatus == "fire" && chksuma == 1) {
-					swt2 = 0;
-				}
-
-				// println("sp : " + balls[0].xSP + "\n swt2 : " + swt2 + "\n chksuma : " + chksuma);
-				if (balls[i].y > 525) { // Make its status to standby when it touches the line at the bottom
-					balls[i].ballStatus = "standby";
-					if (swt2 === 0 && chksuma == balls.length) { // Set savepoint of first ball when first ball touches the bottom
-						balls[0].xSP = balls[i].x;
-						swt2++;
-					}
-				}
-
-				// If all balls are standby, gather them to savepoint of the first ball
-				if (chksuma === 0 && balls.length > 1 ) {
-					for (var k = 0; k < balls.length; k++) {
-						if (balls[0].xSP < 5) {balls[0].xSP = 5;}
-						if (balls[0].xSP > 415) {balls[0].xSP = 415;}
-						balls[k].x = balls[0].xSP;
-					}
-				}
-
-			}
-
-			for (var x = 0; x < bricks.length; x++) { // Loop for bricks to draw them
-				for (var y = 0; y < 10; y++) {
-					if (bricks[x][y] > 0) { // If that index has an number of greater than 0, draw brick.
-						// brick shadow
-						noStroke();
-						fill(150, 150, 150, 80);
-						rect(x * 69 + 6, 90 + y * 50, 68, 49);
-
-						// brick
-						var diff = (currentStage - 1 - bricks[x][y]) / (currentStage - 1);
-						if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 3) {
-							fill(255,180,180);
-							twinkleArray[x][y]++;
-						} else if (twinkleArray[x][y] === 0) {
-							fill(255,50 + 150*diff,50);
-						} else if (twinkleArray[x][y] === 3) {
-							fill(255,180,180);
-							twinkleArray[x][y] = 0;
-						}
-						rect(x * 69 + 2, 85 + y * 50, 68, 49);
-
-						// text
-						strokeWeight(1);
-						stroke(255);
-						fill(255);
-						textSize(33);
-						text(bricks[x][y], 35 + x * 69, 120 + y * 50);
-					} else if (bricks[x][y] === -1) { // If that index has an number of -1, draw green item.
-						// inner shadow
-						noStroke();
-						fill(150, 150, 150, 80);
-						ellipse(x * 69 + 39, y * 50 + 114, 20);
-
-						// outer shadow
-						noFill();
-						stroke(150, 150, 150, 80);
-						strokeWeight(4);
-						ellipse(x * 69 + 39, y * 50 + 115, 24 + incNum);
-
-						// inner circle
-						noStroke();
-						fill(0, 230, 20);
-						ellipse(x * 69 + 35, y * 50 + 110, 20, 20);
-
-						// outer circle
-						noFill();
-						strokeWeight(4);
-						stroke(0, 230, 20);
-						ellipse(x * 69 + 35, y * 50 + 110, 24 + incNum);
-					}
-				}
-			}
+			loopBall(); // Loop for balls to display.
+			loopBrick(); // Loop for bricks to display.
 
 			var chksumd = 0;
 	        for (var j = 0; j < balls.length; j++) {
 	            if (balls[j].ballStatus == "standby") {chksumd++;}
 	        }
-				// Error detected that text appears when ball touches the ground and last ball didn't take off yet
+
 	        if (chksumd === balls.length || toggle === 1) { // When all balls are at standby, draw balls that player has.
 	            textSize(14);
 				noStroke();
@@ -284,7 +163,7 @@ function draw() {
 		background(0);
 		stroke(255);
 		textSize(30);
-		text("YOU SUCH AN ALLISTER", width/2, 300);
+		text("YOU SUCH AN LOSER", width/2, 300);
 		if (bestScore[authorizations($("#inputId").val(), "id")[1]] < score) {
 			bestScore[authorizations($("#inputId").val(), "id")[1]] = score - 1;
 			localStorage.bestScore = bestScore.join(";");
@@ -353,4 +232,134 @@ function mousePressed() { // run game again when gameStatus is finish and press 
 		}
 	}
 	tg2++;
+}
+
+function Reset() { // Run code when stageReset is 1. All bricks will move to 1 down and create new breaks.
+	var chksum = 0;
+	if (chkball > 0) { // If player has touch the green item, push the ball [chkball] times.
+		for (var i = 0; i < chkball; chkball--) {
+			balls.push(new ball(balls[0].x, balls[0].y));
+		}
+	}
+
+	for (var i = 0; i < 6; i++) { // Move all bricks to 1 down. ex)bricks[0][0] -> bricks[0][1].
+		bricks[i].unshift(0);
+		if (bricks[i][8] > 0) { // Lose the game when any bricks hit the bottom
+			gameStatus = "finish";
+		}
+	}
+
+	var rn = random([0, 1, 2, 3, 4, 5]); // Make green item to random location.
+	if (bricks[rn][0] === 0) {
+		bricks[rn][0] = -1;
+	}
+
+	for (var i = 0; i < floor(random(2, 7)); i++) { // Make bricks random times, if no brick is already exist there.
+		var rn = random([0, 1, 2, 3, 4, 5]);
+		if (bricks[rn][0] === 0) {
+			bricks[rn][0] = currentStage;
+			chksum += bricks[rn][0]; // Add numbers to chksum.
+		}
+	}
+
+	if (chksum === 0 && bricks[0][0] === 0) { // If chksum is 0, which means there's no brick, make 1 brick.
+		bricks[0][0] = currentStage;
+	} else if (chksum === 0 && bricks[1][0] === 0) { // If green item is already exist at bricks[0][0], make brick at bricks[1][0].
+		bricks[1][0] = currentStage;
+	}
+	stageReset = 0; // Change stageReset value to 0 again.
+	currentStage++; // Add 1 to currentStage.
+	score++;
+}
+
+function loopBall() {
+	for (var i = 0; i < balls.length; i++) { // Loop for balls
+		if (gameStatus == "run") {
+			balls[i].update();
+		}
+		balls[i].display();
+
+		// Error detected at Line 130~155.
+		var chksuma = 0;
+		for (var j = 0; j < balls.length; j++) {
+			if (balls[j].ballStatus == "fire") {chksuma++;}
+		}
+		if (balls[0].ballStatus == "fire" && chksuma == 1) {
+			swt2 = 0;
+		}
+
+		// println("sp : " + balls[0].xSP + "\n swt2 : " + swt2 + "\n chksuma : " + chksuma);
+		if (balls[i].y > 525) { // Make its status to standby when it touches the line at the bottom
+			balls[i].ballStatus = "standby";
+			if (swt2 === 0 && chksuma == balls.length) { // Set savepoint of first ball when first ball touches the bottom
+				balls[0].xSP = balls[i].x;
+				swt2++;
+			}
+		}
+
+		// If all balls are standby, gather them to savepoint of the first ball
+		if (chksuma === 0 && balls.length > 1 ) {
+			for (var k = 0; k < balls.length; k++) {
+				if (balls[0].xSP < 5) {balls[0].xSP = 5;}
+				if (balls[0].xSP > 415) {balls[0].xSP = 415;}
+				balls[k].x = balls[0].xSP;
+			}
+		}
+
+	}
+}
+
+function loopBrick() {
+	for (var x = 0; x < bricks.length; x++) { // Loop for bricks to draw them
+		for (var y = 0; y < 10; y++) {
+			if (bricks[x][y] > 0) { // If that index has an number of greater than 0, draw brick.
+				// brick shadow
+				noStroke();
+				fill(150, 150, 150, 80);
+				rect(x * 69 + 6, 90 + y * 50, 68, 49);
+
+				// brick
+				var diff = (currentStage - 1 - bricks[x][y]) / (currentStage - 1);
+				if (twinkleArray[x][y] > 0 && twinkleArray[x][y] < 3) {
+					fill(255,180,180);
+					twinkleArray[x][y]++;
+				} else if (twinkleArray[x][y] === 0) {
+					fill(255,50 + 150*diff,50);
+				} else if (twinkleArray[x][y] === 3) {
+					fill(255,180,180);
+					twinkleArray[x][y] = 0;
+				}
+				rect(x * 69 + 2, 85 + y * 50, 68, 49);
+
+				// text
+				strokeWeight(1);
+				stroke(255);
+				fill(255);
+				textSize(33);
+				text(bricks[x][y], 35 + x * 69, 120 + y * 50);
+			} else if (bricks[x][y] === -1) { // If that index has an number of -1, draw green item.
+				// inner shadow
+				noStroke();
+				fill(150, 150, 150, 80);
+				ellipse(x * 69 + 39, y * 50 + 114, 20);
+
+				// outer shadow
+				noFill();
+				stroke(150, 150, 150, 80);
+				strokeWeight(4);
+				ellipse(x * 69 + 39, y * 50 + 115, 24 + incNum);
+
+				// inner circle
+				noStroke();
+				fill(0, 230, 20);
+				ellipse(x * 69 + 35, y * 50 + 110, 20, 20);
+
+				// outer circle
+				noFill();
+				strokeWeight(4);
+				stroke(0, 230, 20);
+				ellipse(x * 69 + 35, y * 50 + 110, 24 + incNum);
+			}
+		}
+	}
 }
