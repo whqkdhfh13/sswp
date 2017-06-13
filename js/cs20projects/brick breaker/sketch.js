@@ -4,7 +4,7 @@ var bricks; // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9].
 var currentStage; // Number that will insert to brick after stageReset
 var stageReset = 1; // Switch to reset stage, will be subtracted after Reset has done and will be added after all balls are come back
 var incNum = 2, incSpeed = 1.2; // Number for bouncing hoop
-var gameStatus = "run"; // I don't need it for now.
+var gameStatus = "run"; // We don't need it for now.
 var balls; // Array for balls
 var timer; // Timer for fire balls, increasing every frames and will be reset to 0 when player start fire.
 			   // in balls.js, there's function called fireBalls(), each balls will fire every 4 timer except 0.
@@ -54,7 +54,7 @@ function setup() {
 }
 
 function draw() {
-	if (gameStatus == "run" || gameStatus == "menu") { // I'll make start and finish status as well, after I build my game successfully.
+	if (gameStatus == "run" || gameStatus == "menu") { // We'll make start and finish status as well, after I build my game successfully.
 		if (login) {
 			background(255, 255, 255, 150);
 
@@ -72,7 +72,7 @@ function draw() {
 			if (gameStatus == "run") {
 				incSpeed -= 0.05; // Gravity of green item's hoop.
 				incNum += incSpeed;
-				timer++; // As I said, timer will be added every frame.
+				timer++; // As We said, timer will be added every frame.
 			}
 
 			if (incNum < 0) {
@@ -93,7 +93,7 @@ function draw() {
 				Reset();
 			}
 
-			var chksum2 = 0; // I will use this method so many times, it's beautiful.
+			var chksum2 = 0; // We will use this method so many times, it's beautiful.
 			for (var i = 0; i < balls.length; i++) {
 				if (balls[i].ballStatus == "fire") {
 					chksum2++;

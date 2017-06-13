@@ -6,6 +6,10 @@ var login = false;
 $(document).ready(function() {
 
     window.onbeforeunload = function() {
+      if (bestScore[authorizations($("#inputId").val(), "id")[1]] < score) {
+  			bestScore[authorizations($("#inputId").val(), "id")[1]] = score - 1;
+  			localStorage.bestScore = bestScore.join(";");
+  		}
         return "You will lose all your data!";
     }
 

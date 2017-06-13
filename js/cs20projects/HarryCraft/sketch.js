@@ -3,6 +3,7 @@ var world;
 var player;
 var cons;
 var extendedAngle;
+var swt;
 
 function setup() {
     cnv = createCanvas(1024, 768);
@@ -13,48 +14,46 @@ function setup() {
     extendedAngle = 120;
     angleMode(DEGREES);
     createCanvas(1024, 768);
+    // frameRate(1);
+    swt = 1;
 }
 
 function draw() {
-    background(0, 0, 0 );
-    world[3][0][0] = 1;
-    if (cons === 1) {
-        info();
+    if (swt === 1) {
+        background(0, 0, 0, 50);
+        world[0][10][0] = 1;
+        world[3][10][0] = 1;
+        world[0][10][3] = 1;
+        if (cons === 1) {
+            info();
+        }
+        if (!(keyCode === 32 && keyIsPressed)) {
+            rotation();
+        }
+        // I want this circle to be displayed between 300 and 60.
+        fill(255);
+        // ellipse((width * (1 - (player.ax + 60) / 120)), (height * (player.ay + 60) / 120), 50);
+        render();
+        fill(0, 255, 255, 50);
+        rect(width / 2 - width / 20, height / 2 - height / 20, width / 10, height / 10);
     }
-    if (keyCode === 32 && keyIsPressed) {
-        player.ax = 0;
-        player.ay = 0;
-    } else {
-        rotation();
-    }
-    fill(0, 255, 255, 50);
-    rect(width / 2 - width / 20, height / 2 - height / 20, width / 10, height / 10);
-    // I want this circle to be displayed between 300 and 60.
-    fill(255);
-    ellipse((width * (1 - (player.ax + 60) / 120)), (height * (player.ay + 60) / 120), 50);
-    render();
 }
 
 
 function createWorld() {
-    // Make the world
-    var tWorld = [],
-        tLevel = [],
-        tArray = [];
-
-    // Make basic array that contains number of i
-    for (var i = 0; i < 10; i++) {
-        tArray.push("0");
-    }
-
-    // Push tArray to tLevel 100 times
-    for (var i = 0; i < 10; i++) {
-        tLevel.push(tArray);
-    }
-
-    // Push tLevel to tWorld 100 times
-    for (var level = 0; level < 10; level++) {
-        tWorld.push(tLevel);
+    var mapSize = 50;
+    // Make array that has 'mapSize' of x,y and 50 of z
+    var tWorld = [];
+    for (var i = 0; i < mapSize; i++) {
+        var tLevel = [];
+        for (var j = 0; j < mapSize; j++) {
+            var tRow = [];
+            for (var k = 0; k < 50; k++) {
+                tRow.push(0);
+            }
+            tLevel.push(tRow.slice());
+        }
+        tWorld.push(tLevel.slice());
     }
 
     // Return tWorld
@@ -64,15 +63,16 @@ function createWorld() {
 function render() {
     for (var i = 0; i < world.length; i++) {
         for (var j = 0; j < world[i].length; j++) {
-            for (var k = 0; k < world[i][j].length; k++) {
-                if (world[i][j][k] == 1) {
+            for (var k = -25; k < world[i][j].length - 25; k++) {
+                if (world[i][j][k] === 1) {
                     if ((abs(atan(i/j)-player.ax) < 75 && abs(atan(k/j)-player.ay) < 75) || calc3Dist(player.x, player.y, player.z, i, j, k) < 5) {
-                        var xPos = map(tan(atan(i/j)-player.ax), -tan(60), tan(60), 0, width);
-                        var yPos = map(tan(atan(k/j)-player.ay), -tan(60), tan(60), height, 0);
-                        var rad = pow((6/10), calc3Dist(player.x, player.y, player.z, i, j, k)) + 0.03;
-                        fill(255,0,0);
+                        var xPos = map(tan(90/extendedAngle*(atan(i/j)-player.ax)), -tan(45), tan(45), 0, width);
+                        var yPos = map(tan(90/extendedAngle*(atan(k/j)-player.ay)), -tan(45), tan(45), height, 0);
+                        var rad = pow((7/10), calc3Dist(player.x, player.y, player.z, i, j, k)) + 0.03;
+                        noStroke();
+                        fill(255);
                         ellipse(xPos, yPos, rad * width, rad * height);
-                        text(xPos, xPos, yPos);
+                        println("drawing");
                     }
                 }
             }
@@ -139,7 +139,7 @@ function windowResized() {
 }
 
 function keyPressed() {
-    console.log(keyCode);
+
 }
 
 function calc3Dist(x1, y1, z1, x2, y2, z2) {
