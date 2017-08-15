@@ -20,7 +20,7 @@ function setup() {
 
 function draw() {
     if (swt === 1) {
-        background(0, 0, 0, 50);
+        background(0, 0, 0);
         world[0][10][0] = 1;
         world[3][10][0] = 1;
         world[0][10][3] = 1;
@@ -34,8 +34,25 @@ function draw() {
         fill(255);
         // ellipse((width * (1 - (player.ax + 60) / 120)), (height * (player.ay + 60) / 120), 50);
         render();
+        noStroke();
         fill(0, 255, 255, 50);
         rect(width / 2 - width / 20, height / 2 - height / 20, width / 10, height / 10);
+
+        if (keyIsDown(87)) { // W
+            player.y += 1/60;
+        }
+
+        if (keyIsDown(83)) { // S
+            player.y -= 1/60;
+        }
+
+        if (keyIsDown(65)) { // A
+            player.x -= 1/60;
+        }
+
+        if (keyIsDown(68)) { // D
+            player.x += 1/60;
+        }
     }
 }
 
@@ -126,6 +143,8 @@ function info() {
     textSize(18);
     text("ax = " + player.ax, 5, 18);
     text("ay = " + player.ay, 5, 36);
+    text("x = " + player.x, 5, 54);
+    text("dist = " + calc3Dist(player.x, player.y, player.z, 0, 10, 0), 5, 72);
 }
 
 function centerCanvas() {
@@ -139,9 +158,26 @@ function windowResized() {
 }
 
 function keyPressed() {
-
+    println(keyCode);
 }
 
 function calc3Dist(x1, y1, z1, x2, y2, z2) {
-    return sqrt(sq(x2 - x1) + sq(y2 - y1) + sq(z2 - z1));
+    var temp1,temp2,temp3;
+    if (x2 - x1 > 0) {
+        temp1 = sq(x2 - x1);
+    } else {
+        temp1 = -sq(x2 - x1);
+    }
+    if (y2 - y1 > 0) {
+        temp2 = sq(y2 - y1);
+    } else {
+        temp2 = -sq(y2 - y1);
+    }
+    if (z2 - z1 > 0) {
+        temp3 = sq(z2 - z1);
+    } else {
+        temp3 = -sq(z2 - z1);
+    }
+
+    return sqrt(temp1 + temp2 + temp3);
 }
