@@ -82,7 +82,7 @@ function render() {
         for (var j = 0; j < world[i].length; j++) {
             for (var k = -25; k < world[i][j].length - 25; k++) {
                 if (world[i][j][k] === 1) {
-                    if ((abs(atan(i/j)-player.ax) < 75 && abs(atan(k/j)-player.ay) < 75) || calc3Dist(player.x, player.y, player.z, i, j, k) < 5) {
+                    if ((abs(atan(i/j)-player.ax) < 75 && abs(atan(k/j)-player.ay) < 75)) {
                         var xPos = map(tan(90/extendedAngle*(atan(i/j)-player.ax)), -tan(45), tan(45), 0, width);
                         var yPos = map(tan(90/extendedAngle*(atan(k/j)-player.ay)), -tan(45), tan(45), height, 0);
                         var rad = pow((7/10), calc3Dist(player.x, player.y, player.z, i, j, k)) + 0.03;
