@@ -1,5 +1,3 @@
-// twinkleArray Math Challange.
-
 var bricks; // bricks[x][y] = life of that brick; my game has [x|0~6], [y|0~9].
 var currentStage; // Number that will insert to brick after stageReset
 var stageReset = 1; // Switch to reset stage, will be subtracted after Reset has done and will be added after all balls are come back
