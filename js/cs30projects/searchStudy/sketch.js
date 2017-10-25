@@ -6,7 +6,7 @@ function setup() {
 }
 
 function draw() {
-    
+
 }
 
 function linearSearch(arr, inp) {
@@ -19,4 +19,28 @@ function linearSearch(arr, inp) {
         }
     }
     return -1;
+}
+
+function binarySearch(arr, inp, start) {
+  this.inp = inp;
+  this.arr = arr.slice();
+  this.upp = this.arr.length - 1;
+  if (!(start == undefined) || !(start == 0)) {
+    this.low = start;
+  } else {
+    this.low = 0;
+  }
+
+  while (!(this.low > this.upp)) {
+    this.mid = floor((this.low + this.upp) / 2);
+    if (this.inp === this.mid) {
+      return this.mid;
+    } else if (this.inp < this.mid){
+      this.upp = this.mid - 1;
+    } else {
+      this.low = this.mid + 1;
+    }
+  }
+
+  return -1;
 }
