@@ -30,7 +30,7 @@ function ball(x, y) {
                             bricks[j][k]--;
                             this.swi++;
                             twinkleArray[j][k] = 1;
-                            sound.play();
+                            // sound.play();
                         }
 					}
 				}
@@ -47,7 +47,7 @@ function ball(x, y) {
                             this.ySpeed *= -1;
                             twinkleArray[j][k] = 1;
                             bricks[j][k]--;
-                            sound.play();
+                            // sound.play();
                         }
 					}
 				}

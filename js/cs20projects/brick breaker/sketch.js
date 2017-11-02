@@ -14,13 +14,13 @@ var swt3 = 0; // Switch for menu.
 var twinkleArray = [ // Array to make bricks twinkle when ball hits the brick.
 	[], [], [], [], [], []
 ];
-var sound;
+// var sound;
 var tg2;
 var ballCount;
 var score;
 
 function preload() {
-    sound = loadSound('bubble.mp3');
+    // sound = loadSound('bubble.mp3');
 }
 
 function setup() {
