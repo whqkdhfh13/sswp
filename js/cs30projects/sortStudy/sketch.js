@@ -1,12 +1,45 @@
-function setup() {
+var lexi = [6, 7, 3, 1, 4, 5, 2];
+var ac = [
+    [], // Random Array
+    [], // Reversed Array
+    [], // Nearly Sorted Array
+    []  // Few Unique Array
+];
+var resArray = [];
 
+function setup() {
+    for (var i = 0; i < 10000; i++) {
+        ac[0].push(random(0, 10000));
+    }
+
+    for (var i = 10000; i > 0; i--) {
+        ac[1].push(i);
+    }
+
+    for (var i = 0; i < 8000; i++) {
+        ac[2].push(i);
+    }
+    for(var i = 0; i < 2000; i++) {
+        ac[2].splice(Math.floor(random(0, 8000)), 0, random(0, 10000));
+    }
+
+    for (var i = 0; i < 8000; i++) {
+        ac[3].push(5000);
+    }
+    for(var i = 0; i < 2000; i++) {
+        ac[3].splice(Math.floor(random(0, 8000)), 0, random(0, 10000));
+    }
+
+    createCanvas(10000, 500);
 }
 
 function draw() {
-
+    background(0);
+    fill(255, 0, 0);
+    for (var i = 0; i < ac[0].length; i++) {
+        rect(i, 500 - ac[0]/25, 1, ac[0]/25);
+    }
 }
-var lexi = [6, 7, 3, 1, 4, 5, 2];
-
 
 function bbsort(arr) { // Not working at all
     var fix = 0;
@@ -93,25 +126,31 @@ function isort(anArray) {
 }
 
 function testTime(anArray) {
-    var startTime = performance.now();
     var endTime;
+    var startTime = performance.now();
     for (var i = 0; i < 10; i++) {
-        bubbleSort(anArray);
+        this.anArray = anArray.slice();
+        bubbleSort(this.anArray);
     }
     endTime = performance.now();
-    console.log("Bubble sort : " + (startTime-endTime)/10 + "s.");
+    resArray.push(endTime - startTime);
+    console.log("Bubble sort : " + (endTime - startTime)/10 + "s.");
 
     startTime = performance.now();
     for (var i = 0; i < 10; i++) {
-        ssort(anArray);
+        this.anArray = anArray.slice();
+        ssort(this.anArray);
     }
     endTime = performance.now();
-    console.log("Selection sort : " + (startTime-endTime)/10 + "s.");
+    resArray.push(endTime - startTime);
+    console.log("Selection sort : " + (endTime - startTime)/10 + "s.");
 
     startTime = performance.now();
     for (var i = 0; i < 10; i++) {
-        ssort(anArray);
+        this.anArray = anArray.slice();
+        ssort(this.anArray);
     }
     endTime = performance.now();
-    console.log("Selection sort : " + (startTime-endTime)/10 + "s.");
+    resArray.push(endTime - startTime);
+    console.log("Insertion sort : " + (endTime - startTime)/10 + "s.");
 }

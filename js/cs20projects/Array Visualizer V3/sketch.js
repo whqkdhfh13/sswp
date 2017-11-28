@@ -23,6 +23,12 @@ var coppiedArray = [], booleanArray = 0;
 var MaxNum, MinNum;
 var RndNum;
 var prefix = 0;
+var ac = [
+    [], // Random Array
+    [], // Reversed Array
+    [], // Nearly Sorted Array
+    []  // Few Unique Array
+];
 
 // SETUP FUNCTION - Runs once at beginning of program
 function setup() {
@@ -35,7 +41,7 @@ function setup() {
     }
 
     // Find Maximum number of Array from start of the code
-    var cpArray = myArray.slice();
+    var cpArray = ac[1].slice();
     cpArray.sort(function(a, b) {
         return a - b
     });
@@ -43,13 +49,35 @@ function setup() {
     MaxNum = cpArray[cpArray.length - 1];
     MinNum = cpArray[0];
     outputStr = "|| Array Visualizer || / Maximum = " + MaxNum + " / Minimum = " + MinNum + " /";
+
+    for (var i = 0; i < 10000; i++) {
+        ac[0].push(random(0, 1000000));
+    }
+
+    for (var i = 10000; i > 0; i--) {
+        ac[1].push(i);
+    }
+
+    for (var i = 0; i < 8000; i++) {
+        ac[2].push(i);
+    }
+    for(var i = 0; i < 2000; i++) {
+        ac[2].splice(Math.floor(random(0, 8000)), 0, random(0, 100000));
+    }
+
+    for (var i = 0; i < 8000; i++) {
+        ac[3].push(5000);
+    }
+    for(var i = 0; i < 2000; i++) {
+        ac[3].splice(Math.floor(random(0, 8000)), 0, random(0, 10000));
+    }
 }
 
 // DRAW FUNCTION - Loops @ 60FPS by default
 function draw() {
     background(0);
-    drawArray(myArray, 0 + prefix, MaxNum + scaleDraw, scaleDraw);
-    drawHzLine(average(myArray), 0 + prefix, MaxNum + scaleDraw, color(255, 0, 0));
+    drawArray(ac[1], 0 + prefix, MaxNum + scaleDraw, scaleDraw);
+    drawHzLine(average(ac[1]), 0 + prefix, MaxNum + scaleDraw, color(255, 0, 0));
 }
 
 function keyPressed() {
