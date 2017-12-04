@@ -20,7 +20,7 @@ function setup() {
         ac[2].push(i);
     }
     for(var i = 0; i < 2000; i++) {
-        ac[2].splice(Math.floor(random(0, 8000)), 0, random(0, 10000));
+        ac[2].push(Math.floor(random(0, 8000)), 0, random(0, 10000));
     }
 
     for (var i = 0; i < 8000; i++) {
@@ -34,11 +34,7 @@ function setup() {
 }
 
 function draw() {
-    background(0);
-    fill(255, 0, 0);
-    for (var i = 0; i < ac[0].length; i++) {
-        rect(i, 500 - ac[0]/25, 1, ac[0]/25);
-    }
+
 }
 
 function bbsort(arr) { // Not working at all
@@ -153,4 +149,28 @@ function testTime(anArray) {
     endTime = performance.now();
     resArray.push(endTime - startTime);
     console.log("Insertion sort : " + (endTime - startTime)/10 + "s.");
+}
+
+function drawScreenshot(num) {
+    background(0);
+    stroke(255, 0, 0);
+    fill(255, 0, 0);
+    for (var i = 0; i < ac[num].length; i++) {
+        rect(i, 450 + ac[num][i]/-25, 1, ac[num][i]/25);
+    }
+}
+
+function keyPressed() {
+    if (keyCode === 49) {
+        drawScreenshot(0);
+    }
+    if (keyCode === 50) {
+        drawScreenshot(1);
+    }
+    if (keyCode === 51) {
+        drawScreenshot(2);
+    }
+    if (keyCode === 52) {
+        drawScreenshot(3);
+    }
 }
