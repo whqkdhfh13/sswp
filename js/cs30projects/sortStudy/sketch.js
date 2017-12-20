@@ -20,7 +20,7 @@ function setup() {
         ac[2].push(i);
     }
     for(var i = 0; i < 2000; i++) {
-        ac[2].splice(Math.floor(random(0, 8000)), 0, random(0, 10000));
+        ac[2].push(Math.floor(random(8000, 10000)));
     }
 
     for (var i = 0; i < 8000; i++) {
@@ -36,9 +36,6 @@ function setup() {
 function draw() {
     background(0);
     fill(255, 0, 0);
-    for (var i = 0; i < ac[0].length; i++) {
-        rect(i, 500 - ac[0]/25, 1, ac[0]/25);
-    }
 }
 
 function bbsort(arr) { // Not working at all
@@ -128,29 +125,23 @@ function isort(anArray) {
 function testTime(anArray) {
     var endTime;
     var startTime = performance.now();
-    for (var i = 0; i < 10; i++) {
         this.anArray = anArray.slice();
         bubbleSort(this.anArray);
-    }
     endTime = performance.now();
     resArray.push(endTime - startTime);
-    console.log("Bubble sort : " + (endTime - startTime)/10 + "s.");
+    console.log("Bubble sort : " + (endTime - startTime) + "s.");
 
     startTime = performance.now();
-    for (var i = 0; i < 10; i++) {
         this.anArray = anArray.slice();
         ssort(this.anArray);
-    }
     endTime = performance.now();
     resArray.push(endTime - startTime);
-    console.log("Selection sort : " + (endTime - startTime)/10 + "s.");
+    console.log("Selection sort : " + (endTime - startTime) + "s.");
 
     startTime = performance.now();
-    for (var i = 0; i < 10; i++) {
         this.anArray = anArray.slice();
         ssort(this.anArray);
-    }
     endTime = performance.now();
     resArray.push(endTime - startTime);
-    console.log("Insertion sort : " + (endTime - startTime)/10 + "s.");
+    console.log("Insertion sort : " + (endTime - startTime) + "s.");
 }
