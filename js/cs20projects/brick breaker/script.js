@@ -3,6 +3,7 @@ var password = [];
 var nickname = [];
 var bestScore = [];
 var login = false;
+
 $(document).ready(function() {
 
     window.onbeforeunload = function() {

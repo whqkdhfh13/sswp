@@ -6,9 +6,9 @@ var gameStatus = "intro";
 var chklife = 0;
 var timer = 0;
 
-function preload() {
-    intersectSound = loadSound("intersect.mp3");
-}
+// function preload() {
+//     intersectSound = loadSound("intersect.mp3");
+// }
 
 function setup() {
     createCanvas(800, 600);
@@ -20,9 +20,9 @@ function setup() {
     timer = 0;
 
     // Initialize game objects
-    // JumpingPlayer(startingX, startingY, leftKC, upKC, rightKC, downKC, playerColour, maxJump, distBtwLife, lifeStartX,  lifeStartY)
-    player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 5, 30, 20, 540));
-    player.push(new JumpingPlayer(400, 25, 37, 38, 39, 40, color(255, 0, 0), 5, -30, 760, 540));
+    // JumpingPlayer(startingX, startingY, leftKC, upKC, rightKC, downKC, playerColour, mwwwwwwwaxJump, distBtwLife, lifeStartX,  lifeStartY)
+    player.push(new JumpingPlayer(200, 25, 65, 87, 68, 83, color(0, 0, 255), 2, 30, 20, 540));
+    player.push(new JumpingPlayer(400, 25, 37, 38, 39, 40, color(255, 0, 0), 2, -30, 760, 540));
     platforms.push(new Platform(350, 450));
     platforms.push(new Platform(450, 350));
     platforms.push(new Platform(250, 150));
