@@ -11,15 +11,15 @@ public class a {
 //			
 //		}
 		
-		System.out.println("hello");
-		
 		ArrayList<String> a = new ArrayList<String>();
 		a.add(0, "World");
 		a.add(1, "Hello ");
 		a.add(2, "!");
 		a.add(1, "insert");
 		
-		System.out.println(a.get(0) + a.get(1) + a.get(2));
+		for(String str: a) {
+			System.out.println(str);
+		}
 
 	}
 
