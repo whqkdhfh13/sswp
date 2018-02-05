@@ -4,6 +4,10 @@ public class Animal {
 	String name;
 	static int a = 1;
 	
+	public Animal(String name) {
+		this.setName(name);
+	}
+	
 	public static int addone(int x) {
 		x++;
 		return x;
@@ -18,18 +22,25 @@ public class Animal {
 	}
 	
 	public static void main(String[] args) {
-        Animal cat = new Animal();
-        cat.setName("Lexi");
+        Animal cat = new Animal("lora");
         System.out.println(cat.name);
-        Animal horse = new Animal();
+        Animal horse = new Animal("ceilheb");
         
         
         System.out.println(cat.a);
         addone(cat.a);
         addone(horse.a);
-        addone(horse.a);
         System.out.println(cat.a);
         
+        int[][] arr = new int[3][];
+        arr[0] = new int[2];
+        arr[1] = new int[2];
+        arr[1][0] = 4;
+        
     }
+	
+	public interface Predator {
+		public String getFood();
+	}
 }
 

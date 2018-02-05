@@ -12,7 +12,7 @@ public class GameLoopTest extends JFrame implements ActionListener
    private JButton pauseButton = new JButton("Pause");
    private boolean running = false;
    private boolean paused = false;
-   private int fps = 60;
+   private int fps = 120;
    private int frameCount = 0;
    
    public GameLoopTest()
@@ -176,7 +176,7 @@ public class GameLoopTest extends JFrame implements ActionListener
    private class GamePanel extends JPanel
    {
       float interpolation;
-      float ballX, ballY, lastBallX, lastBallY;
+      float ballX, ballY,  , lastBallY;
       int ballWidth, ballHeight;
       float ballXVel, ballYVel;
       float ballSpeed;
