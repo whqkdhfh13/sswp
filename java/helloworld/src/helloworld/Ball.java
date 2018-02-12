@@ -1,8 +1,8 @@
 package helloworld;
 
 public class Ball {
-	private float x;
-	private float y;
+	private float x = 0;
+	private float y = 0;
 	private float xSpeed = 2;
 	private float ySpeed = 2;
 	
@@ -29,7 +29,8 @@ public class Ball {
 	
 	public static void main(String[] args) {
 		Ball abc = new Ball(3,4,2,2);
-		abc.getPos();
+		System.out.println(abc.getPos(1));
+		System.out.println("x = " + abc.getPos()[0] + " | y = " + abc.getPos()[1]);
 	}
 }
 
