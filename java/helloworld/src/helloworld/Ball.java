@@ -1,5 +1,7 @@
 package helloworld;
 
+import java.util.ArrayList;
+
 public class Ball {
 	private float x = 0;
 	private float y = 0;
@@ -31,6 +33,19 @@ public class Ball {
 		Ball abc = new Ball(3,4,2,2);
 		System.out.println(abc.getPos(1));
 		System.out.println("x = " + abc.getPos()[0] + " | y = " + abc.getPos()[1]);
+		
+		ArrayList<int[]> a = new ArrayList<int[]>();
+		
+		for (int i = 0; i < 5; i++) {
+			a.add( i);
+		}
+		
+		System.out.println("/////////////////////////////////////////////");
+		System.out.println(a.indexOf(3));
+		
+		Object[] b = a.toArray();
+		
+		System.out.println(b.length);
 	}
 }
 
