@@ -45,7 +45,7 @@ public class NewJFrame extends javax.swing.JFrame {
         enc = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lora <3");
+        setTitle("Lora");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -125,23 +125,29 @@ public class NewJFrame extends javax.swing.JFrame {
         String tempStr = a.getText();
         List<String> tempList2 = new ArrayList<>();
         int j = 0;
+        String recognitionString = "hd35ojpdwj1p";
         
         if (encSelected == 0) {
             // encryped code will have form of int + encrypted code;
-            List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split("")));
+            List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
             System.out.println(tempList);
             
             // Abstract only front numbers from input
-            while (Integer.parseInt(tempList.get(0)) > 0) {
+            while (Integer.valueOf(tempList.get(0)) > 0) {
                 // Decrypting Code
-                int tempNum = Integer.parseInt(tempList.get(0));
                 
-                if (tempNum == 0) {
+                // Controlling initial number
+                int tempNum = Integer.parseInt(tempList.get(0));
+                                
+                if (tempNum == 1) {
                     tempList.remove(0);
+                    break;
                 } else {
-                    tempList.set(0, (tempNum - 1));
+                    tempList.set(0, String.valueOf(tempNum - 1));
                 }
             }
+            
+            System.out.println(tempList);
             
         } else {
             
