@@ -36,6 +36,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jSlider1 = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +56,18 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jSlider1.setForeground(new java.awt.Color(255, 204, 51));
+        jSlider1.setMajorTickSpacing(2);
+        jSlider1.setMaximum(5);
+        jSlider1.setMinimum(1);
+        jSlider1.setMinorTickSpacing(1);
+        jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setSnapToTicks(true);
+        jSlider1.setValue(1);
+        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 35, -1, 90));
 
         jLabel1.setBackground(new java.awt.Color(222, 222, 222));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -77,7 +90,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         b.setEditable(false);
-        b.setColumns(20);
+        b.setColumns(5);
         b.setLineWrap(true);
         b.setRows(5);
         jScrollPane1.setViewportView(b);
@@ -159,7 +172,9 @@ public class NewJFrame extends javax.swing.JFrame {
             }            
             b.setText(tempStr);
         } else {
-            // encryped code will have form of int + encrypted code;          
+            System.out.println(jSlider1.getValue());
+            for (int sd = 0; sd < jSlider1.getValue(); sd++) {
+                // encryped code will have form of int + encrypted code;          
             List<String> tempList;
             List<String> temp = new ArrayList<>();
             
@@ -195,7 +210,9 @@ public class NewJFrame extends javax.swing.JFrame {
             String text = String.join("", temp);
             
             System.out.println(num + " / " + text);
-            b.setText(text + num);
+            tempStr = text + num;
+            }
+        b.setText(tempStr);
         }
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -254,5 +271,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
 }
