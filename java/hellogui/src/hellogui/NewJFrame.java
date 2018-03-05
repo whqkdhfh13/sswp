@@ -148,6 +148,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
             
             System.out.println(tempList);
+            b.setText(tempList.toString());
             
         } else {
             
@@ -201,6 +202,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         
+        System.out.println(4 == 4);
         System.out.println(ThreadLocalRandom.current().nextInt(1, 10 + 1));
     }
 
