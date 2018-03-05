@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  *
@@ -35,6 +36,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jSlider1 = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +57,18 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jSlider1.setForeground(new java.awt.Color(255, 204, 51));
+        jSlider1.setMajorTickSpacing(2);
+        jSlider1.setMaximum(5);
+        jSlider1.setMinimum(1);
+        jSlider1.setMinorTickSpacing(1);
+        jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setSnapToTicks(true);
+        jSlider1.setValue(1);
+        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 35, -1, 90));
+
         jLabel1.setBackground(new java.awt.Color(222, 222, 222));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Input");
@@ -68,7 +82,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 jButton1MousePressed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 35, 85, 91));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 85, 91));
 
         jLabel2.setBackground(new java.awt.Color(222, 222, 222));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,11 +90,12 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         b.setEditable(false);
-        b.setColumns(20);
+        b.setColumns(5);
+        b.setLineWrap(true);
         b.setRows(5);
         jScrollPane1.setViewportView(b);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 420, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 410, -1));
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -94,16 +109,16 @@ public class NewJFrame extends javax.swing.JFrame {
         a.setSelectedTextColor(new java.awt.Color(30, 18, 49));
         jScrollPane2.setViewportView(a);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 35, 255, 90));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 35, 230, 90));
 
         enc.setForeground(new java.awt.Color(255, 255, 255));
-        enc.setText("Enc");
+        enc.setText("Decrypt");
         enc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 encActionPerformed(evt);
             }
         });
-        jPanel1.add(enc, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 35, 68, 91));
+        jPanel1.add(enc, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 80, 91));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,40 +138,87 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         String tempStr = a.getText();
-        List<String> tempList2 = new ArrayList<>();
-        int j = 0;
-        String recognitionString = "hd35ojpdwj1p";
+        String recognitionString = "fasdlfnbjdalsjkfnblaks";
         
-        if (encSelected == 0) {
-            // encryped code will have form of int + encrypted code;
+        if (encSelected == 1) { // Error Detected when decrypting code that has been encrypted multiple times          
             List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
-            System.out.println(tempList);
-            
+            System.out.println("0 = " + tempList);
             // Abstract only front numbers from input
             while (Integer.valueOf(tempList.get(0)) > 0) {
                 // Decrypting Code
+                tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
+                System.out.println("1 = " + tempList);
+                List<String> text = new ArrayList<>(Arrays.asList(tempList.get(1).split("")));
+                System.out.println("2 = " + text.size());
+                List<String> order = new ArrayList<>(Arrays.asList(tempList.get(2).split(",")));    
+                System.out.println("3 = " + order.size());
+                List<String> temp = new ArrayList<>();
                 
-                // Controlling initial number
-                int tempNum = Integer.parseInt(tempList.get(0));
-                                
-                if (tempNum == 1) {
+                for (int i = 0; i < text.size(); i++) {
+                    temp.add(text.get(order.indexOf(String.valueOf(i))));
+                }
+                tempList.set(1, String.join("", temp));
+                tempList.remove(2);              
+                // Controlling initial number                                
+                if (Integer.parseInt(tempList.get(0)) == 1) {
                     tempList.remove(0);
+                    tempStr = String.join("",tempList);  
                     break;
                 } else {
-                    tempList.set(0, String.valueOf(tempNum - 1));
+                    tempList.set(0, String.valueOf(Integer.parseInt(tempList.get(0)) - 1));
                 }
+                tempStr = String.join("",tempList);
+                System.out.println("4 = " + tempStr);
+            }            
+            b.setText(tempStr);
+        } else {
+            System.out.println(jSlider1.getValue());
+            for (int sd = 0; sd < jSlider1.getValue(); sd++) {
+                // encryped code will have form of int + encrypted code;          
+            List<String> tempList;
+            List<String> temp = new ArrayList<>();
+            
+            int in = 0;
+            List<String> chk = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
+            if (chk.size() > 1) {
+                in = Integer.parseInt(chk.get(0));
+                chk.remove(0);
+                tempList = new ArrayList<>(Arrays.asList((recognitionString + chk.get(0) + recognitionString + chk.get(1)).split("")));
+            } else {
+                tempList = new ArrayList<>(Arrays.asList(tempStr.split("")));
             }
             
+<<<<<<< HEAD
             System.out.println(tempList);
             b.setText(tempList.toString());
+=======
+            while(temp.size() < tempList.size()) {
+                int tr = ThreadLocalRandom.current().nextInt(0, tempList.size());
+                if (temp.indexOf(String.valueOf(tr)) == -1) {
+                    temp.add(String.valueOf(tr));
+                }
+            }
+            System.out.println(temp);
+            String num = recognitionString + String.join(",", temp);
+                        
+            for (int i = 0; i < tempList.size(); i++) {
+                temp.set(temp.indexOf(String.valueOf(i)), tempList.get(i));
+            }
+>>>>>>> f90ae377b05d537518f40bc39cb7c545f94cf84c
             
-        } else {
+            if (in == 0) {
+                temp.add(0, "1" + recognitionString);
+            } else {
+                in++;
+                temp.add(0, String.valueOf(in) + recognitionString);
+            }
+            String text = String.join("", temp);
             
+            System.out.println(num + " / " + text);
+            tempStr = text + num;
+            }
+        b.setText(tempStr);
         }
-
-        System.out.println(tempList2);
-
-        b.setText(String.join("",tempList2));
     }//GEN-LAST:event_jButton1MousePressed
 
     private void encActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encActionPerformed
@@ -201,8 +263,11 @@ public class NewJFrame extends javax.swing.JFrame {
                 new NewJFrame().setVisible(true);
             }
         });
+<<<<<<< HEAD
         
         System.out.println(4 == 4);
+=======
+>>>>>>> f90ae377b05d537518f40bc39cb7c545f94cf84c
         System.out.println(ThreadLocalRandom.current().nextInt(1, 10 + 1));
     }
 
@@ -216,5 +281,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
 }
