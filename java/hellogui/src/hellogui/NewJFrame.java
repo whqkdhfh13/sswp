@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  *
@@ -24,7 +23,7 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    private int encSelected = 0;
+    private int decSelected = 0;
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,10 +139,10 @@ public class NewJFrame extends javax.swing.JFrame {
         String tempStr = a.getText();
         String recognitionString = "fasdlfnbjdalsjkfnblaks";
         
-        if (encSelected == 1) { // Error Detected when decrypting code that has been encrypted multiple times          
+        if (decSelected == 1) { // Error Detected when decrypting code that has been encrypted multiple times          
             List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
             System.out.println("0 = " + tempList);
-            // Abstract only front numbers from input
+            
             while (Integer.valueOf(tempList.get(0)) > 0) {
                 // Decrypting Code
                 tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
@@ -153,7 +152,20 @@ public class NewJFrame extends javax.swing.JFrame {
                 List<String> order = new ArrayList<>(Arrays.asList(tempList.get(2).split(",")));    
                 System.out.println("3 = " + order.size());
                 List<String> temp = new ArrayList<>();
-                
+                boolean error = false;
+                for (String tn : order) {
+                    try {
+                        Integer.valueOf(tn);
+                    } catch (NumberFormatException nfe){
+                        error = true;
+                    }
+                }
+                if (!(tempList.size() == 3) || !(text.size() == order.size()) || error) {
+                    tempStr = "Error; Wrong code";
+                    break;
+
+                }
+
                 for (int i = 0; i < text.size(); i++) {
                     temp.add(text.get(order.indexOf(String.valueOf(i))));
                 }
@@ -169,7 +181,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
                 tempStr = String.join("",tempList);
                 System.out.println("4 = " + tempStr);
-            }            
+            }
             b.setText(tempStr);
         } else {
             System.out.println(jSlider1.getValue());
@@ -188,10 +200,6 @@ public class NewJFrame extends javax.swing.JFrame {
                 tempList = new ArrayList<>(Arrays.asList(tempStr.split("")));
             }
             
-<<<<<<< HEAD
-            System.out.println(tempList);
-            b.setText(tempList.toString());
-=======
             while(temp.size() < tempList.size()) {
                 int tr = ThreadLocalRandom.current().nextInt(0, tempList.size());
                 if (temp.indexOf(String.valueOf(tr)) == -1) {
@@ -204,7 +212,6 @@ public class NewJFrame extends javax.swing.JFrame {
             for (int i = 0; i < tempList.size(); i++) {
                 temp.set(temp.indexOf(String.valueOf(i)), tempList.get(i));
             }
->>>>>>> f90ae377b05d537518f40bc39cb7c545f94cf84c
             
             if (in == 0) {
                 temp.add(0, "1" + recognitionString);
@@ -223,10 +230,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void encActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encActionPerformed
         // TODO add your handling code here:
-        if (encSelected == 0) {
-            encSelected++;
+        if (decSelected == 0) {
+            decSelected++;
         } else {
-            encSelected--;
+            decSelected--;
         }        
     }//GEN-LAST:event_encActionPerformed
 
@@ -263,11 +270,6 @@ public class NewJFrame extends javax.swing.JFrame {
                 new NewJFrame().setVisible(true);
             }
         });
-<<<<<<< HEAD
-        
-        System.out.println(4 == 4);
-=======
->>>>>>> f90ae377b05d537518f40bc39cb7c545f94cf84c
         System.out.println(ThreadLocalRandom.current().nextInt(1, 10 + 1));
     }
 
