@@ -143,7 +143,6 @@ function testTime(anArray) {
     startTime = performance.now();
         this.anArray = anArray.slice();
         isort(this.anArray);
-    }
     endTime = performance.now();
     resArray.push(endTime - startTime);
     console.log("Insertion sort : " + (endTime - startTime)/10 + "ms.");
@@ -156,7 +155,6 @@ function drawScreenshot(num) {
     for (var i = 0; i < ac[num].length; i++) {
         rect(i * width / length, 450 + ac[num][i]/(length/-400), width / length, ac[num][i]/(length/400));
     }
-    console.log(ac[0].length * width / length);
 }
 
 function keyPressed() {

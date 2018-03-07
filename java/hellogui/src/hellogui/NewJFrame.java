@@ -183,7 +183,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     tempStr = String.join("",tempList);
                     System.out.println("4 = " + tempStr);
                 }
-            } catch(NumberFormatException nfe) {
+            } catch(NumberFormatException | ArrayIndexOutOfBoundsException nfe) {
                 tempStr = "Error; Wrong code";
             }
             b.setText(tempStr);

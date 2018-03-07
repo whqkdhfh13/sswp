@@ -17,7 +17,7 @@ $.get("data/AliceInWonderLandCh1.txt", function (data) {
             for (var k = 0; k < tempA.length; k++) {
                 if (tempA[k] === "." || tempA[k] === "\"" || tempA[k] === "\," || tempA[k] === "?" ||
                     tempA[k] === "\'" || tempA[k] === "!" || tempA[k] === "(" || tempA[k] === ")" ||
-                    tempA[k] === "-" || tempA[k] === "*" || tempA[k] === ":") {
+                    tempA[k] === "-" || tempA[k] === "*" || tempA[k] === ":" || tempA[k] === ";") {
                     console.log(tempA[k]);
                     tempA.splice(k, 1);
                 }
