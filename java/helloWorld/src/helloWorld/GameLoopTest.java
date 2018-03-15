@@ -176,7 +176,7 @@ public class GameLoopTest extends JFrame implements ActionListener
    private class GamePanel extends JPanel
    {
       float interpolation;
-      float ballX, ballY,  , lastBallY;
+      float ballX, ballY, lastBallX, lastBallY;
       int ballWidth, ballHeight;
       float ballXVel, ballYVel;
       float ballSpeed;
