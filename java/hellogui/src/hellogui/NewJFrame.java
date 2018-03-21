@@ -56,6 +56,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jSlider1.setBackground(new java.awt.Color(255, 255, 255));
         jSlider1.setForeground(new java.awt.Color(255, 204, 51));
         jSlider1.setMajorTickSpacing(2);
         jSlider1.setMaximum(5);
@@ -108,7 +109,7 @@ public class NewJFrame extends javax.swing.JFrame {
         a.setSelectedTextColor(new java.awt.Color(30, 18, 49));
         jScrollPane2.setViewportView(a);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 35, 230, 90));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 35, 200, 90));
 
         enc.setForeground(new java.awt.Color(255, 255, 255));
         enc.setText("Decrypt");
@@ -137,98 +138,12 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         String tempStr = a.getText();
-        String recognitionString = "fasdlfnbjdalsjkfnblaks";
+        String rString = "fasdlfnbjdalsjkfnblaks";
         
-        if (decSelected == 1) { // Error Detected when decrypting code that has been encrypted multiple times          
-            List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
-            System.out.println("0 = " + tempList);
-            boolean error = false;
-            
-            try {
-                while (Integer.valueOf(tempList.get(0)) > 0) {
-                    // Decrypting Code
-                    tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
-                    System.out.println("1 = " + tempList);
-                    List<String> text = new ArrayList<>(Arrays.asList(tempList.get(1).split("")));
-                    System.out.println("2 = " + text.size());
-                    List<String> order = new ArrayList<>(Arrays.asList(tempList.get(2).split(",")));    
-                    System.out.println("3 = " + order.size());
-                    List<String> temp = new ArrayList<>();
-                    for (String tn : order) {
-                        try {
-                            Integer.valueOf(tn);
-                        } catch (NumberFormatException nfe){
-                            error = true;
-                        }
-                    }
-                    System.out.println(tempList.size());
-                    if (!(tempList.size() == 3) || !(text.size() == order.size()) || error) {
-                        tempStr = "Error; Wrong code";
-                        break;
-                    }
-
-                    for (int i = 0; i < text.size(); i++) {
-                        temp.add(text.get(order.indexOf(String.valueOf(i))));
-                    }
-                    tempList.set(1, String.join("", temp));
-                    tempList.remove(2);              
-                    // Controlling initial number                                
-                    if (Integer.parseInt(tempList.get(0)) == 1) {
-                        tempList.remove(0);
-                        tempStr = String.join("",tempList);  
-                        break;
-                    } else {
-                        tempList.set(0, String.valueOf(Integer.parseInt(tempList.get(0)) - 1));
-                    }
-                    tempStr = String.join("",tempList);
-                    System.out.println("4 = " + tempStr);
-                }
-            } catch(NumberFormatException | ArrayIndexOutOfBoundsException nfe) {
-                tempStr = "Error; Wrong code";
-            }
-            b.setText(tempStr);
+        if (decSelected == 1) { 
+            b.setText(decrypt(tempStr, rString));
         } else {
-            System.out.println(jSlider1.getValue());
-            for (int sd = 0; sd < jSlider1.getValue(); sd++) {
-                // encryped code will have form of int + encrypted code;          
-            List<String> tempList;
-            List<String> temp = new ArrayList<>();
-            
-            int in = 0;
-            List<String> chk = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
-            if (chk.size() > 1) {
-                in = Integer.parseInt(chk.get(0));
-                chk.remove(0);
-                tempList = new ArrayList<>(Arrays.asList((recognitionString + chk.get(0) + recognitionString + chk.get(1)).split("")));
-            } else {
-                tempList = new ArrayList<>(Arrays.asList(tempStr.split("")));
-            }
-            
-            while(temp.size() < tempList.size()) {
-                int tr = ThreadLocalRandom.current().nextInt(0, tempList.size());
-                if (temp.indexOf(String.valueOf(tr)) == -1) {
-                    temp.add(String.valueOf(tr));
-                }
-            }
-            System.out.println(temp);
-            String num = recognitionString + String.join(",", temp);
-                        
-            for (int i = 0; i < tempList.size(); i++) {
-                temp.set(temp.indexOf(String.valueOf(i)), tempList.get(i));
-            }
-            
-            if (in == 0) {
-                temp.add(0, "1" + recognitionString);
-            } else {
-                in++;
-                temp.add(0, String.valueOf(in) + recognitionString);
-            }
-            String text = String.join("", temp);
-            
-            System.out.println(num + " / " + text);
-            tempStr = text + num;
-            }
-        b.setText(tempStr);
+            b.setText(encrypt(tempStr, rString, jSlider1.getValue()));
         }
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -275,6 +190,112 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         System.out.println(ThreadLocalRandom.current().nextInt(1, 10 + 1));
+    }
+    
+    public String decrypt(String tempStr, String recognitionString) {
+        final String storedString = tempStr;
+        List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
+        System.out.println("0 = " + tempList);
+        boolean error = false;
+        String errorStr = tempStr;
+
+        try {
+            while (Integer.valueOf(tempList.get(0)) > 0) {
+                tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
+                System.out.println("1 = " + tempList);
+                List<String> text = new ArrayList<>(Arrays.asList(tempList.get(1).split("")));
+                System.out.println("2 = " + text.size());
+                List<String> order = new ArrayList<>(Arrays.asList(tempList.get(2).split(",")));    
+                System.out.println("3 = " + order.size());
+                List<String> temp = new ArrayList<>();
+                
+                for (String tn : order) {
+                    try {
+                        Integer.valueOf(tn);
+                    } catch (NumberFormatException nfe){
+                        error = true;
+                    }
+                }
+                
+                if (!(tempList.size() == 3) || !(text.size() == order.size()) || error) {
+                    if (storedString.equals(errorStr)) {
+                        tempStr = "Error; Wrong code";
+                    } else {
+                        tempStr = "// Error detected while looping; Stopped with code below : \n\n" + errorStr;
+                    }
+                    break;
+                }
+
+                for (int i = 0; i < text.size(); i++) {
+                    temp.add(text.get(order.indexOf(String.valueOf(i))));
+                }
+                tempList.set(1, String.join("", temp));
+                tempList.remove(2);              
+                
+                // Controlling initial number                                
+                if (Integer.parseInt(tempList.get(0)) == 1) {
+                    tempList.remove(0);
+                    tempStr = String.join("",tempList);  
+                    break;
+                } else {
+                    tempList.set(0, String.valueOf(Integer.parseInt(tempList.get(0)) - 1));
+                }
+                
+                tempStr = String.join("",tempList);
+                System.out.println("4 = " + tempStr);
+                errorStr = tempStr;
+            }
+        } catch(NumberFormatException | ArrayIndexOutOfBoundsException nfe) {
+            if (storedString.equals(errorStr)) {
+                tempStr = "Error; Wrong code";
+            } else {
+                tempStr = "// Error detected while looping; Stopped with code below : \n\n" + errorStr;
+            }
+        }
+        return tempStr;
+    }
+    
+    public String encrypt (String tempStr, String recognitionString, int howMany) {
+        for (int sd = 0; sd < howMany; sd++) {
+            List<String> tempList;
+            List<String> temp = new ArrayList<>();
+
+            int in = 0;
+            List<String> chk = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
+            if (chk.size() > 1) {
+                in = Integer.parseInt(chk.get(0));
+                chk.remove(0);
+                tempList = new ArrayList<>(Arrays.asList((recognitionString + chk.get(0) + recognitionString + chk.get(1)).split("")));
+            } else {
+                tempList = new ArrayList<>(Arrays.asList(tempStr.split("")));
+            }
+
+            while(temp.size() < tempList.size()) {
+                int tr = ThreadLocalRandom.current().nextInt(0, tempList.size());
+                if (temp.indexOf(String.valueOf(tr)) == -1) {
+                    temp.add(String.valueOf(tr));
+                }
+            }
+            System.out.println(temp);
+            String num = recognitionString + String.join(",", temp);
+
+            for (int i = 0; i < tempList.size(); i++) {
+                temp.set(temp.indexOf(String.valueOf(i)), tempList.get(i));
+            }
+
+            if (in == 0) {
+                temp.add(0, "1" + recognitionString);
+            } else {
+                in++;
+                temp.add(0, String.valueOf(in) + recognitionString);
+            }
+            String text = String.join("", temp);
+
+            System.out.println(num + " / " + text);
+            tempStr = text + num;
+        }
+        
+        return tempStr;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
