@@ -141,9 +141,18 @@ public class NewJFrame extends javax.swing.JFrame {
         String rString = "fasdlfnbjdalsjkfnblaks";
         
         if (decSelected == 1) { 
-            b.setText(decrypt(tempStr, rString));
-        } else {
-            b.setText(encrypt(tempStr, rString, jSlider1.getValue()));
+            if (tempStr.equals("")) {
+                b.setText("// Error - No code to be decrypted;\n// Please Type something and try again.");
+            } else {
+                b.setText(decrypt(tempStr, rString));
+            }
+        }
+        if (decSelected == 0) {
+            if (tempStr.equals("")) {
+                b.setText("// Error - No code to be encrypted;\n// Please Type something and try again.");
+            } else {
+                b.setText(encrypt(tempStr, rString, jSlider1.getValue()));
+            }
         }
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -192,7 +201,7 @@ public class NewJFrame extends javax.swing.JFrame {
         System.out.println(ThreadLocalRandom.current().nextInt(1, 10 + 1));
     }
     
-    public String decrypt(String tempStr, String recognitionString) {
+    private String decrypt(String tempStr, String recognitionString) {
         final String storedString = tempStr;
         List<String> tempList = new ArrayList<>(Arrays.asList(tempStr.split(recognitionString)));
         System.out.println("0 = " + tempList);
@@ -219,9 +228,9 @@ public class NewJFrame extends javax.swing.JFrame {
                 
                 if (!(tempList.size() == 3) || !(text.size() == order.size()) || error) {
                     if (storedString.equals(errorStr)) {
-                        tempStr = "Error; Wrong code";
+                        tempStr = "// Error - Wrong code: \n\n" + tempStr;
                     } else {
-                        tempStr = "// Error detected while looping; Stopped with code below : \n\n" + errorStr;
+                        tempStr = "// Error while looping; Stopped with code below: \n\n" + errorStr;
                     }
                     break;
                 }
@@ -247,15 +256,15 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         } catch(NumberFormatException | ArrayIndexOutOfBoundsException nfe) {
             if (storedString.equals(errorStr)) {
-                tempStr = "Error; Wrong code";
+                tempStr = "// Error - Wrong code: \n\n" + tempStr;
             } else {
-                tempStr = "// Error detected while looping; Stopped with code below : \n\n" + errorStr;
+                tempStr = "// Error while looping; Stopped with code below : \n\n" + errorStr;
             }
         }
         return tempStr;
     }
     
-    public String encrypt (String tempStr, String recognitionString, int howMany) {
+    private String encrypt (String tempStr, String recognitionString, int howMany) {
         for (int sd = 0; sd < howMany; sd++) {
             List<String> tempList;
             List<String> temp = new ArrayList<>();
