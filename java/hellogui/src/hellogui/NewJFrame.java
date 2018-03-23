@@ -56,14 +56,14 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jSlider1.setBackground(new java.awt.Color(255, 255, 255));
-        jSlider1.setForeground(new java.awt.Color(255, 204, 51));
-        jSlider1.setMajorTickSpacing(2);
+        jSlider1.setBackground(new java.awt.Color(51, 51, 51));
+        jSlider1.setForeground(new java.awt.Color(204, 255, 255));
+        jSlider1.setMajorTickSpacing(1);
         jSlider1.setMaximum(5);
         jSlider1.setMinimum(1);
         jSlider1.setMinorTickSpacing(1);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
-        jSlider1.setPaintTicks(true);
+        jSlider1.setPaintLabels(true);
         jSlider1.setSnapToTicks(true);
         jSlider1.setValue(1);
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -230,7 +230,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     if (storedString.equals(errorStr)) {
                         tempStr = "// Error - Wrong code: \n\n" + tempStr;
                     } else {
-                        tempStr = "// Error while looping; Stopped with code below: \n\n" + errorStr;
+                        tempStr = "// Error while looping; Stopped with the code below: \n\n" + errorStr;
                     }
                     break;
                 }
@@ -258,7 +258,7 @@ public class NewJFrame extends javax.swing.JFrame {
             if (storedString.equals(errorStr)) {
                 tempStr = "// Error - Wrong code: \n\n" + tempStr;
             } else {
-                tempStr = "// Error while looping; Stopped with code below : \n\n" + errorStr;
+                tempStr = "// Error while looping; Stopped with the code below : \n\n" + errorStr;
             }
         }
         return tempStr;
