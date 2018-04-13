@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 /**
  *
  * @author j.cho18
@@ -19,7 +21,7 @@ public class RandomStuff {
      * @param args the command line arguments
      */
     
-    public static List<String> parenthesisPairs(int n) {
+    public static List<String> parenthesisPairs(int n){
         List<String> ans = new ArrayList();
         recurse(ans, "", 0, 0, n);
         return ans;
@@ -38,21 +40,20 @@ public class RandomStuff {
         }
     }
     
-    public static boolean isPalindrome(int n) {
-        if (n % 10 == 0) return false;
+    public static boolean isPalindrome(long n) {
         List<String> temp = new ArrayList<>(Arrays.asList(String.valueOf(n).split("")));
         int a = 0;
-        if (temp.size() > 1) {
-            for (int i = 0; i < temp.size()/2; i++) {
-                if (temp.get(i).equals(temp.get(temp.size() - (i + 1)))) a++;
-            }
-            if ((temp.size() / 2 ) == a) return true;
+        for (int i = 0; i < temp.size()/2; i++) {
+            if (temp.get(i).equals(temp.get(temp.size() - (i + 1)))) a++;
         }
-        return false;
+        return n > 100 && n % 10 != 0 || (temp.size() / 2 ) == a;
     }
     
-    public static void main(String[] args) {
-//        System.out.println(parenthesisPairs(3));
-        System.out.println(isPalindrome(123210));
+    public static void main(String[] args){
+        long st = System.nanoTime();
+        System.out.println(parenthesisPairs(7));
+        System.out.println(isPalindrome(101));
+        long ft = System.nanoTime();
+        System.out.println(String.format("Elapsed Time = %s µs", (ft - st)/1000));
     }
 }
