@@ -41,18 +41,34 @@ public class RandomStuff {
     }
     
     public static boolean isPalindrome(long n) {
+        if (0 <= n && n < 10) return true;
         List<String> temp = new ArrayList<>(Arrays.asList(String.valueOf(n).split("")));
-        int a = 0;
         for (int i = 0; i < temp.size()/2; i++) {
-            if (temp.get(i).equals(temp.get(temp.size() - (i + 1)))) a++;
+            if (!temp.get(i).equals(temp.get(temp.size() - (i + 1)))) return false;
         }
-        return n > 100 && n % 10 != 0 || (temp.size() / 2 ) == a;
+        return true;
+    }
+    
+    public static boolean isPalindromeWithOnlyInt(int n) {
+        if (0 <= n && n < 10) return true;
+        int length = (int)(Math.log10(n) + 1);
+        int tempNum = n;
+        int[] tempArr = new int[length];
+        for (int i = 0; i < length; i++) {
+            tempArr[i] = tempNum % 10;
+            tempNum -= tempArr[i];
+            tempNum /= 10;
+        }
+        for (int i = 0; i < (tempArr.length) / 2; i++) {
+            if (tempArr[i] != tempArr[length - (i + 1)]) return false;
+        }
+        return true;
     }
     
     public static void main(String[] args){
         long st = System.nanoTime();
         System.out.println(parenthesisPairs(7));
-        System.out.println(isPalindrome(101));
+        System.out.println(isPalindromeWithOnlyInt(1111));
         long ft = System.nanoTime();
         System.out.println(String.format("Elapsed Time = %s µs", (ft - st)/1000));
     }
