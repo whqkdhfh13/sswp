@@ -5,9 +5,7 @@
  */
 package randomstuff;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 
@@ -24,6 +22,7 @@ public class RandomStuff {
     public static List<String> parenthesisPairs(int n){
         List<String> ans = new ArrayList();
         recurse(ans, "", 0, 0, n);
+        System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
     
@@ -65,10 +64,19 @@ public class RandomStuff {
         return true;
     }
     
+    public static List<Integer> FindP(int n) {
+        List<Integer> temp = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (isPalindromeWithOnlyInt(i)) temp.add(i);
+        }
+        System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n));
+        return temp;
+    }
+    
     public static void main(String[] args){
         long st = System.nanoTime();
-        System.out.println(parenthesisPairs(7));
-        System.out.println(isPalindromeWithOnlyInt(1111));
+        System.out.println(FindP(2000000));
+        System.out.println(parenthesisPairs(3));
         long ft = System.nanoTime();
         System.out.println(String.format("Elapsed Time = %s µs", (ft - st)/1000));
     }
