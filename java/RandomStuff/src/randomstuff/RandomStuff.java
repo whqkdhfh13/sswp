@@ -19,6 +19,11 @@ public class RandomStuff {
      * @param args the command line arguments
      */
     
+    public interface Command 
+    {
+        public void execute(Object data);
+    }
+    
     public static List<String> parenthesisPairs(int n){
         List<String> ans = new ArrayList();
         recurse(ans, "", 0, 0, n);
@@ -39,7 +44,7 @@ public class RandomStuff {
         }
     }
     
-    public static boolean isPalindrome(long n) {
+    public static boolean isPalindrome(int n) {
         if (0 <= n && n < 10) return true;
         List<String> temp = new ArrayList<>(Arrays.asList(String.valueOf(n).split("")));
         for (int i = 0; i < temp.size()/2; i++) {
@@ -58,7 +63,7 @@ public class RandomStuff {
             tempNum -= tempArr[i];
             tempNum /= 10;
         }
-        for (int i = 0; i < (tempArr.length) / 2; i++) {
+        for (int i = 0; i < length / 2; i++) {
             if (tempArr[i] != tempArr[length - (i + 1)]) return false;
         }
         return true;
@@ -73,11 +78,24 @@ public class RandomStuff {
         return temp;
     }
     
+    public static int msT(int howMany, Command aFunc, int para) {
+        if (howMany < 1) {
+            howMany = 1;
+        }
+        long st = System.nanoTime();
+        for (int i = 0; i < howMany; i++) {
+            aFunc(para);
+        }
+        long ft = System.nanoTime();
+        return (int)((ft - st) / 1000);
+    }
+    
     public static void main(String[] args){
         long st = System.nanoTime();
         System.out.println(FindP(2000000));
-        System.out.println(parenthesisPairs(3));
+//        System.out.println(parenthesisPairs(3));
         long ft = System.nanoTime();
         System.out.println(String.format("Elapsed Time = %s µs", (ft - st)/1000));
     }
+
 }
