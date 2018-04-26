@@ -21,13 +21,13 @@ public class RandomStuff {
     
     public interface Command 
     {
-        public void execute(int d1, int d2);
+        public void execute(int... d1);
     }
     
-    public static List<String> parenthesisPairs(int n, int a){
+    public static List<String> parenthesisPairs(int... n){
         List<String> ans = new ArrayList();
-        recurse(ans, "", 0, 0, n);
-        if (a == 1) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
+        recurse(ans, "", 0, 0, n[0]);
+        if (n.length > 1) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
     
@@ -69,25 +69,28 @@ public class RandomStuff {
         return true;
     }
     
-    public static List<Integer> FindP(int n, int a) {
+    public static List<Integer> FindP(int... n) {
         List<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n[0]; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
-        if (a == 1) System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n));
+        if (n.length > 1) System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n[0]));
         return temp;
     }
     
-    public static int msT(int howMany, Command aFunc, int p1, int p2) {
+    public static float msT(int howMany, Command aFunc, int... p) {
+        float a = 0; 
         if (howMany < 1) {
             howMany = 1;
         }
-        long st = System.nanoTime();
         for (int i = 0; i < howMany; i++) {
-            aFunc.execute(p1, p2);
+            float st = System.nanoTime() / 10^3;
+            aFunc.execute(p);
+            float ft = System.nanoTime() / 10^3;
+            a += ft - st;
+            System.out.println(a);
         }
-        long ft = System.nanoTime();
-        return (int)((ft - st) / (1000 * howMany));
+        return a / howMany;
     }
     
     public static void main(String[] args){
@@ -95,7 +98,18 @@ public class RandomStuff {
 //        System.out.println(FindP(2000000));
 //        System.out.println(parenthesisPairs(3));
 //        long ft = System.nanoTime();
-        System.out.println(String.format("Elapsed Time = %s µs", msT(100, RandomStuff::FindP, 2000000, 1)));
+//        float b = msT(100, RandomStuff::FindP, 2000000);
+//        System.out.println(String.format("Elapsed Time = %s µs = %s ms", b, b/1000));
+        System.out.println("Elapsed Time = " + new Command() {
+            public String execute() {
+                return "hi";
+            }
+
+            @Override
+            public void execute(int... d1) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
     }
 
 }
