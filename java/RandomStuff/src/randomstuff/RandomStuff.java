@@ -21,13 +21,13 @@ public class RandomStuff {
     
     public interface Command 
     {
-        public void execute(Object data);
+        public void execute(int d1, int d2);
     }
     
-    public static List<String> parenthesisPairs(int n){
+    public static List<String> parenthesisPairs(int n, int a){
         List<String> ans = new ArrayList();
         recurse(ans, "", 0, 0, n);
-        System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
+        if (a == 1) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
     
@@ -69,33 +69,33 @@ public class RandomStuff {
         return true;
     }
     
-    public static List<Integer> FindP(int n) {
+    public static List<Integer> FindP(int n, int a) {
         List<Integer> temp = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
-        System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n));
+        if (a == 1) System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n));
         return temp;
     }
     
-    public static int msT(int howMany, Command aFunc, int para) {
+    public static int msT(int howMany, Command aFunc, int p1, int p2) {
         if (howMany < 1) {
             howMany = 1;
         }
         long st = System.nanoTime();
         for (int i = 0; i < howMany; i++) {
-            aFunc(para);
+            aFunc.execute(p1, p2);
         }
         long ft = System.nanoTime();
-        return (int)((ft - st) / 1000);
+        return (int)((ft - st) / (1000 * howMany));
     }
     
     public static void main(String[] args){
-        long st = System.nanoTime();
-        System.out.println(FindP(2000000));
+//        long st = System.nanoTime();
+//        System.out.println(FindP(2000000));
 //        System.out.println(parenthesisPairs(3));
-        long ft = System.nanoTime();
-        System.out.println(String.format("Elapsed Time = %s µs", (ft - st)/1000));
+//        long ft = System.nanoTime();
+        System.out.println(String.format("Elapsed Time = %s µs", msT(100, RandomStuff::FindP, 2000000, 1)));
     }
 
 }
