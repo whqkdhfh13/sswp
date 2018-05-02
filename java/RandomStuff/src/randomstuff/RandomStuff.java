@@ -21,13 +21,13 @@ public class RandomStuff {
     
     public interface Command 
     {
-        public void execute(int... d1);
+        public void execute(Object[] d);
     }
     
-    public static List<String> parenthesisPairs(int... n){
+    public static List<String> parenthesisPairs(Object... n){
         List<String> ans = new ArrayList();
-        recurse(ans, "", 0, 0, n[0]);
-        if (n.length > 1) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
+        recurse(ans, "", 0, 0, (int)n[0]);
+        if (n.length > 3) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
     
@@ -69,48 +69,47 @@ public class RandomStuff {
         return true;
     }
     
-    public static List<Integer> FindP(int... n) {
+    public static List<Integer> FindP(Object... n) {
         List<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < n[0]; i++) {
+        for (int i = 0; i < (int)n[0]; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
-        if (n.length > 1) System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n[0]));
+        if (n.length > 3) 
+            System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n[0]));
         return temp;
     }
     
-    public static float msT(int howMany, Command aFunc, int... p) {
+    public static Object msT(int howMany, Command aFunc, Object... p) {
         float a = 0; 
         if (howMany < 1) {
             howMany = 1;
         }
+        System.out.println("Started measuring time...");
         for (int i = 0; i < howMany; i++) {
-            float st = System.nanoTime() / 10^3;
+            float st = System.nanoTime();
             aFunc.execute(p);
-            float ft = System.nanoTime() / 10^3;
-            a += ft - st;
-            System.out.println(a);
+            float ft = System.nanoTime();
+            a += (ft - st);
+            if (p.length > 3)
+                System.out.println(a);
         }
-        return a / howMany;
+        float b = (int)p[0] >> 6;
+        
+        if (p.length > 2)
+            return String.valueOf(a / (howMany * (float)p[1])) + p[2];
+        return a / (howMany * (float)p[1]);
+    }
+
+    public static void pl(Object... a) {
+        System.out.println(Arrays.toString(a));
     }
     
     public static void main(String[] args){
-//        long st = System.nanoTime();
-//        System.out.println(FindP(2000000));
-//        System.out.println(parenthesisPairs(3));
-//        long ft = System.nanoTime();
-//        float b = msT(100, RandomStuff::FindP, 2000000);
-//        System.out.println(String.format("Elapsed Time = %s µs = %s ms", b, b/1000));
-        System.out.println("Elapsed Time = " + new Command() {
-            public String execute() {
-                return "hi";
-            }
-
-            @Override
-            public void execute(int... d1) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
+        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
+        pl(
+                "Elapsed Time for each calculation = " + b + "ms");
+        pl(
+                "Elapsed Time = " + msT(100, p -> FindP(p), 2000000, 1e6f, "ms"));
     }
-    // What's going on here!!?
-
+    // https://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer?rq=1
 }
