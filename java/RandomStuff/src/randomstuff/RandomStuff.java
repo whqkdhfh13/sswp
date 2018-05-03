@@ -79,8 +79,27 @@ public class RandomStuff {
         return temp;
     }
     
+    public static List<Object[]> arrCheck(Object[] x) {
+        List<Object[]> temp = new ArrayList<>();
+        for (int i = 0; i < x.length; i++) {
+            boolean tempNum = false;
+            if (x[i] instanceof Integer && i == 2)
+                tempNum = true; 
+            if (x[i] instanceof String && i == 1)
+                tempNum = true;
+            if (x[i] instanceof Float && i == 4)
+                tempNum = true; 
+            if (x[i] instanceof Boolean && i == 0)
+                tempNum = true; 
+            if (x[i] instanceof Double && i == 3)
+                tempNum = true; 
+            temp.add(new Object[] {tempNum, i});
+        }
+        return temp;
+    }
+    
     public static Object msT(int howMany, Command aFunc, Object... p) {
-        float a = 0; 
+        float a = 0;
         if (howMany < 1) {
             howMany = 1;
         }
@@ -90,13 +109,16 @@ public class RandomStuff {
             aFunc.execute(p);
             float ft = System.nanoTime();
             a += (ft - st);
-            if (p.length > 3)
+            if ((boolean)arrCheck(p).get(0)[0])
                 System.out.println(a);
         }
-        float b = (int)p[0] >> 6;
         
-        if (p.length > 2)
+        
+        if ((boolean)arrCheck(p).get(1)[0]) {
+            pl("Yes, there is!!!");
             return String.valueOf(a / (howMany * (float)p[1])) + p[2];
+        }
+        
         return a / (howMany * (float)p[1]);
     }
 
@@ -105,11 +127,11 @@ public class RandomStuff {
     }
     
     public static void main(String[] args){
-        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
+//        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
+//        pl(
+//                "Elapsed Time for each calculation = " + b + "ms");
         pl(
-                "Elapsed Time for each calculation = " + b + "ms");
-        pl(
-                "Elapsed Time = " + msT(100, p -> FindP(p), 2000000, 1e6f, "ms"));
+                "Elapsed Time = " + msT(100, p -> FindP(p), 2000000, true, 1e6f, "ms"));
     }
     // https://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer?rq=1
 }
