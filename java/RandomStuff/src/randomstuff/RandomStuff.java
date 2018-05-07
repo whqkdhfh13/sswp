@@ -27,7 +27,7 @@ public class RandomStuff {
     public static List<String> parenthesisPairs(Object... n){
         List<String> ans = new ArrayList();
         recurse(ans, "", 0, 0, (int)n[0]);
-        if (n.length > 3) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
+        if ((boolean)((Object[])arrCheck(n)[0])[0]) System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
     
@@ -71,31 +71,39 @@ public class RandomStuff {
     
     public static List<Integer> FindP(Object... n) {
         List<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < (int)n[0]; i++) {
+        for (int i = 0; i < (int)n[(int)((Object[])arrCheck(n)[2])[1]]; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
-        if (n.length > 3) 
-            System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), n[0]));
+        if ((boolean)((Object[])arrCheck(n)[0])[0]) 
+            System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), (int)n[(int)((Object[])arrCheck(n)[2])[1]]));
         return temp;
     }
     
-    public static List<Object[]> arrCheck(Object[] x) {
+    public static Object[] arrCheck(Object... x) {
         List<Object[]> temp = new ArrayList<>();
-        for (int i = 0; i < x.length; i++) {
+        for (int i = 0; i < 5; i++) {
             boolean tempNum = false;
-            if (x[i] instanceof Integer && i == 2)
-                tempNum = true; 
-            if (x[i] instanceof String && i == 1)
-                tempNum = true;
-            if (x[i] instanceof Float && i == 4)
-                tempNum = true; 
-            if (x[i] instanceof Boolean && i == 0)
-                tempNum = true; 
-            if (x[i] instanceof Double && i == 3)
-                tempNum = true; 
-            temp.add(new Object[] {tempNum, i});
+            int tnum = 0;
+            for (int j = 0; j < x.length; j++) {
+                if (x[j] instanceof Integer && i == 2) {
+                    tempNum = true; tnum = j;
+                }
+                if (x[j] instanceof String && i == 1) {
+                    tempNum = true; tnum = j;
+                }
+                if (x[j] instanceof Float && i == 4) {
+                    tempNum = true; tnum = j;
+                }
+                if (x[j] instanceof Boolean && i == 0) {
+                    tempNum = true; tnum = j;
+                }
+                if (x[j] instanceof Double && i == 3) {
+                    tempNum = true; tnum = j;
+                }
+            }
+            temp.add(new Object[] {tempNum, tnum});
         }
-        return temp;
+        return temp.toArray();
     }
     
     public static Object msT(int howMany, Command aFunc, Object... p) {
@@ -109,17 +117,17 @@ public class RandomStuff {
             aFunc.execute(p);
             float ft = System.nanoTime();
             a += (ft - st);
-            if ((boolean)arrCheck(p).get(0)[0])
+            if ((boolean)((Object[])arrCheck(p)[0])[0])
                 System.out.println(a);
         }
         
         
-        if ((boolean)arrCheck(p).get(1)[0]) {
-            pl("Yes, there is!!!");
-            return String.valueOf(a / (howMany * (float)p[1])) + p[2];
+        if ((boolean)((Object[])arrCheck(p)[1])[0]) {
+            return String.valueOf(a / (howMany * (float)p[(int)((Object[])arrCheck(p)[4])[1]]))
+                    + (String)p[(int)((Object[])arrCheck(p)[1])[1]];
         }
         
-        return a / (howMany * (float)p[1]);
+        return a / (howMany * (float)p[(int)((Object[])arrCheck(p)[4])[1]]);
     }
 
     public static void pl(Object... a) {
@@ -130,8 +138,8 @@ public class RandomStuff {
 //        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
 //        pl(
 //                "Elapsed Time for each calculation = " + b + "ms");
-        pl(
-                "Elapsed Time = " + msT(100, p -> FindP(p), 2000000, true, 1e6f, "ms"));
+        pl("Elapsed Time = " + msT(10, p -> FindP(p), 2000000, true, 1e6f, "ms"));
+//        pl(Arrays.toString(arrCheck(3, 1e6f, "ms", true, 123d)));
     }
     // https://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer?rq=1
 }
