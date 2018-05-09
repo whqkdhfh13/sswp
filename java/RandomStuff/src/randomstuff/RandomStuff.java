@@ -74,31 +74,32 @@ public class RandomStuff {
         return temp;
     }
     
-    public static Object[] arrCheck(Object... x) {
+    public static Object[] arrCheck(int a, Object... x) {
         Object[] temp = new Object[5];
         for (int i = 0; i < 5; i++) {
             boolean tempNum = false;
-            int tnum = 0;
-            for (int j = 0; j < x.length; j++) {
+            ArrayList<Object> tNums = new ArrayList<>();
+            for (int j = 1; j < x.length; j++) {
                 if (x[j] instanceof Boolean && i == 0) {
-                    tempNum = true; tnum = j;
+                    tempNum = true; tNums.add(j);
                 }
                 if (x[j] instanceof String && i == 1) {
-                    tempNum = true; tnum = j;
+                    tempNum = true; tNums.add(j);
                 }
                 if (x[j] instanceof Integer && i == 2) {
-                    tempNum = true; tnum = j;
+                    tempNum = true; tNums.add(j);
                 }
                 if (x[j] instanceof Double && i == 3) {
-                    tempNum = true; tnum = j;
+                    tempNum = true; tNums.add(j);
                 }
                 if (x[j] instanceof Float && i == 4) {
-                    tempNum = true; tnum = j;
+                    tempNum = true; tNums.add(j);
                 }
             }
-            temp[i] = new Object[] {tempNum, tnum};
+            tNums.add(0, tempNum);
+            temp[i] = tNums.toArray();
         }
-        return temp;
+        return (Object[])temp[a];
     }
     
     public static Object msT(int howMany, Command aFunc, Object... p) {
@@ -107,7 +108,7 @@ public class RandomStuff {
         if (howMany < 1) {
             howMany = 1;
         }
-        System.out.println("Started measuring time...");
+        System.out.print("Started measuring time...");
         for (int i = 0; i < howMany; i++) {
             float st = System.nanoTime();
             aFunc.execute(p);
@@ -133,16 +134,21 @@ public class RandomStuff {
 //        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
 //        pl(
 //                "Elapsed Time for each calculation = " + b + "ms");
-        pl("Elapsed Time = " + msT(100, p -> FindP(p), 2000000, 1e6f, "ms"));
+        pl("Elapsed Time = " + msT(50, p -> FindP(p), 2000000, 1e6f, "ms"));
+//        pl((boolean)((Object[])arrCheck("ms", 1e6f, 74d, 34, 27)[2])[0]);
+//        return - [ [false], [true, 0], [true, 3, 4], [true, 2], [true, 1] ]
     }
 }
 /*
 Generics
 2D Arrays
-Strict Way of Defining Types
+Strict Way of Defining Data Types
 Lambda Expressions (Functions as parameters)
 Java Data Types - Boolean, String, Integer, Double, Float
 Returning Types
 Interfaces
-ArrayLists
+ArrayLists - Different than arrays, I have to specify the length of the array when I define them
+Loops are similar
+Functions - I have to specify whether the function returns something, and if it does, what types
+            of data it returns. I have to specify the data type of input as well. 
 */
