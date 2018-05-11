@@ -20,7 +20,7 @@ public class RandomStuff {
     public static List<String> parenthesisPairs(Object... n){
         List<String> ans = new ArrayList<>();
         recurse(ans, "", 0, 0, (int)n[0]);
-        if ((boolean)((Object[])arrCheck(n)[0])[0]) 
+        if ((boolean)(arrCheck(0, n))[0]) 
             System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
@@ -65,7 +65,7 @@ public class RandomStuff {
     
     public static List<Integer> FindP(Object... n) {
         List<Integer> temp = new ArrayList<>();
-        int j = (int)n[(int)((Object[])arrCheck(n)[2])[1]];
+        int j = (int)n[(int)(arrCheck(2, n))[1]];
         for (int i = 0; i < j; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
