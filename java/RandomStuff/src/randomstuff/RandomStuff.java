@@ -5,22 +5,31 @@
  *
  * @author j.cho18
  */
-// https://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer?rq=1
+/*  List of helpful url
+https://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer?rq=1
+https://stackoverflow.com/questions/30005243/how-to-make-a-2d-array-in-java
+https://stackoverflow.com/questions/4685563/how-to-pass-a-function-as-a-parameter-in-java
+https://stackoverflow.com/questions/1611735/java-casting-object-to-array-type
+*/
 package randomstuff;
 
 import java.util.*;
 
-public class RandomStuff {
+public final class RandomStuff {
+    
+    static {
+        pl("// Running Under \"RandomStuff\" class.");
+    }
     
     public interface Command 
     {
-        public void execute(Object[] d);
+        public void execute(int n, Object[] d);
     }
     
-    public static List<String> parenthesisPairs(Object... n){
+    public static List<String> parenthesisPairs(int a, Object... n){
         List<String> ans = new ArrayList<>();
-        recurse(ans, "", 0, 0, (int)n[0]);
-        if ((boolean)(arrCheck(0, n))[0]) 
+        recurse(ans, "", 0, 0, a);
+        if ((boolean)arrCheck(0, n)[0]) 
             System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
@@ -63,23 +72,23 @@ public class RandomStuff {
         return true;
     }
     
-    public static List<Integer> FindP(Object... n) {
+    public static List<Integer> FindP(int j, Object... n) {
         List<Integer> temp = new ArrayList<>();
-        int j = (int)n[(int)(arrCheck(2, n))[1]];
         for (int i = 0; i < j; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
-        if ((boolean)((Object[])arrCheck(n)[0])[0]) 
-            System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), (int)n[(int)((Object[])arrCheck(n)[2])[1]]));
+        if ((boolean)arrCheck(0, n)[0]) 
+            System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), j));
         return temp;
     }
     
     public static Object[] arrCheck(int a, Object... x) {
+        if (a > 5) throw new Error();
         Object[] temp = new Object[5];
         for (int i = 0; i < 5; i++) {
             boolean tempNum = false;
             ArrayList<Object> tNums = new ArrayList<>();
-            for (int j = 1; j < x.length; j++) {
+            for (int j = 0; j < x.length; j++) {
                 if (x[j] instanceof Boolean && i == 0) {
                     tempNum = true; tNums.add(j);
                 }
@@ -102,28 +111,28 @@ public class RandomStuff {
         return (Object[])temp[a];
     }
     
-    public static Object msT(int howMany, Command aFunc, Object... p) {
+    public static Object msT(int howMany, Command aFunc, int n, Object... p) {
         float a = 0;
-        boolean isTrue = (boolean)((Object[])arrCheck(p)[0])[0];
+        boolean isTrue = (boolean)arrCheck(0, p)[0];
         if (howMany < 1) {
             howMany = 1;
         }
         System.out.print("Started measuring time...");
         for (int i = 0; i < howMany; i++) {
             float st = System.nanoTime();
-            aFunc.execute(p);
+            aFunc.execute(n, p);
             float ft = System.nanoTime();
             a += (ft - st);
             if (isTrue)
                 System.out.println(a);
         }
         
-        if ((boolean)((Object[])arrCheck(p)[1])[0]) {
-            return String.valueOf(a / (howMany * (float)p[(int)((Object[])arrCheck(p)[4])[1]]))
-                    + (String)p[(int)((Object[])arrCheck(p)[1])[1]];
+        if ((boolean)arrCheck(1, p)[0]) {
+            return 
+            String.valueOf(a / (howMany * (float)p[(int)arrCheck(4, p)[1]]))+ (String)p[(int)arrCheck(1, p)[1]];
         }
         
-        return a / (howMany * (float)p[(int)((Object[])arrCheck(p)[4])[1]]);
+        return a / (howMany * (float)p[(int)arrCheck(4, p)[1]]);
     }
 
     public static void pl(Object a) {
@@ -134,8 +143,9 @@ public class RandomStuff {
 //        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
 //        pl(
 //                "Elapsed Time for each calculation = " + b + "ms");
-        pl("Elapsed Time = " + msT(50, p -> FindP(p), 2000000, 1e6f, "ms"));
-//        pl((boolean)((Object[])arrCheck("ms", 1e6f, 74d, 34, 27)[2])[0]);
+//        pl("Elapsed Time = " + msT(10, (p, j) -> FindP(p, j), 2000000, 1e6f, "ms"));
+        pl("Elapsed Time = " + msT(1000000, (p, j) -> arrCheck(p, j), 6, "ms", 1e6f, 74d, 34, 27));
+//        pl((boolean)arrCheck(2, "ms", 1e6f, 74d, 34, 27)[0]);
 //        return - [ [false], [true, 0], [true, 3, 4], [true, 2], [true, 1] ]
     }
 }
