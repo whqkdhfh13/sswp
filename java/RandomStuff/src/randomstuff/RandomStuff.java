@@ -29,8 +29,9 @@ public final class RandomStuff {
     public static List<String> parenthesisPairs(int a, Object... n){
         List<String> ans = new ArrayList<>();
         recurse(ans, "", 0, 0, a);
-        if ((boolean)arrCheck(0, n)[0]) 
-            System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
+        if ((boolean)arrCheck(0, n)[0])
+                if ((boolean)n[(int)arrCheck(0, n)[1]])
+                    System.out.println(String.format("There are %s combinations of matching parentheses.", ans.size()));
         return ans;
     }
     
@@ -77,13 +78,14 @@ public final class RandomStuff {
         for (int i = 0; i < j; i++) {
             if (isPalindromeWithOnlyInt(i)) temp.add(i);
         }
-        if ((boolean)arrCheck(0, n)[0]) 
-            System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), j));
+        if ((boolean)arrCheck(0, n)[0])
+                if ((boolean)n[(int)arrCheck(0, n)[1]])
+                    System.out.println(String.format("There are %s palindromes below the number %s.", temp.size(), j));
         return temp;
     }
     
     public static Object[] arrCheck(int a, Object... x) {
-        if (a > 5) throw new Error();
+        if (a > 5) throw new ArrayIndexOutOfBoundsException();
         Object[] temp = new Object[5];
         for (int i = 0; i < 5; i++) {
             boolean tempNum = false;
@@ -113,7 +115,6 @@ public final class RandomStuff {
     
     public static Object msT(int howMany, Command aFunc, int n, Object... p) {
         float a = 0;
-        boolean isTrue = (boolean)arrCheck(0, p)[0];
         if (howMany < 1) {
             howMany = 1;
         }
@@ -123,15 +124,22 @@ public final class RandomStuff {
             aFunc.execute(n, p);
             float ft = System.nanoTime();
             a += (ft - st);
-            if (isTrue)
-                System.out.println(a);
+            if ((boolean)arrCheck(0, n)[0])
+                if ((boolean)p[(int)arrCheck(0, p)[1]])
+                    System.out.println(a);
         }
         
         if ((boolean)arrCheck(1, p)[0]) {
-            return 
-            String.valueOf(a / (howMany * (float)p[(int)arrCheck(4, p)[1]]))+ (String)p[(int)arrCheck(1, p)[1]];
+            String tempS = "";
+            for (int i = 1; i < arrCheck(1, p).length; i++) {
+                tempS += p[(int)arrCheck(1, p)[i]];
+            }
+            String[] tempArr = tempS.split("");
+            for (String s : tempArr) {
+                if (s.equals("s"))
+                    return String.valueOf(a / (howMany * (float)p[(int)arrCheck(4, p)[1]]))+ (String)p[(int)arrCheck(1, p)[1]];
+            }            
         }
-        
         return a / (howMany * (float)p[(int)arrCheck(4, p)[1]]);
     }
 
@@ -139,14 +147,14 @@ public final class RandomStuff {
         System.out.println(a);
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) {
 //        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
 //        pl(
 //                "Elapsed Time for each calculation = " + b + "ms");
 //        pl("Elapsed Time = " + msT(10, (p, j) -> FindP(p, j), 2000000, 1e6f, "ms"));
-        pl("Elapsed Time = " + msT(1000000, (p, j) -> arrCheck(p, j), 6, "ms", 1e6f, 74d, 34, 27));
+        pl( String.format("Elapsed Time = %.16fms", msT(1000, (p, j) -> arrCheck(p, j), 3, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", "I am Jayden. Nice to meet you") ) );
 //        pl((boolean)arrCheck(2, "ms", 1e6f, 74d, 34, 27)[0]);
-//        return - [ [false], [true, 0], [true, 3, 4], [true, 2], [true, 1] ]
+//        return - [true, 3, 4]
     }
 }
 /*
