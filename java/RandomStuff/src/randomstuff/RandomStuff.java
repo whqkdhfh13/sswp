@@ -154,7 +154,8 @@ public final class RandomStuff {
 //        pl("Elapsed Time = " + msT(10, (p, j) -> FindP(p, j), 2000000, 1e6f, "ms"));
         pl( String.format("Elapsed Time = %.16fms", msT(1000, (p, j) -> arrCheck(p, j), 3, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", "I am Jayden. Nice to meet you") ) );
 //        pl((boolean)arrCheck(2, "ms", 1e6f, 74d, 34, 27)[0]);
-//        return - [true, 3, 4]
+//        return - [true, 3, 4] 
+//        Test string for checking git bash in HOME.
     }
 }
 /*
