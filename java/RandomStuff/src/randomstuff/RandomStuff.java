@@ -14,8 +14,13 @@ https://stackoverflow.com/questions/1611735/java-casting-object-to-array-type
 package randomstuff;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public final class RandomStuff {
+    
+    static float aa = 0;
     
     static {
         pl("// Running Under \"RandomStuff\" class.");
@@ -119,6 +124,7 @@ public final class RandomStuff {
     public static Object msT(int howMany, Command aFunc, int n, Object... p) {
         float a = 0;
         boolean isTrue = false;
+        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         
         if (howMany < 1) {
             howMany = 1;
@@ -132,16 +138,30 @@ public final class RandomStuff {
         
         pl("Started measuring time...");
         
+        
         for (int i = 0; i < howMany; i++) {
             float st = System.nanoTime();
             aFunc.execute(n, p);
             float ft = System.nanoTime();
-            a += (ft - st);
+            aa += (ft - st);
             
             if (isTrue) {
-                pl(a);
+                executorService.scheduleAtFixedRate(RandomStuff::myTask, 300, 30, TimeUnit.MILLISECONDS);
+//                try        
+//                {
+//                    System.out.print(a);
+//                    TimeUnit.MILLISECONDS.sleep(100);
+//                    System.out.print(".");
+//                    System.out.print("\033[2K");
+//                } 
+//                catch(InterruptedException ex) 
+//                {
+//                    Thread.currentThread().interrupt();
+//                }
             }
+            
         }
+        System.out.println();
         
         if ((boolean)arrCheck(1, p)[0]) {
             String tempS = "";
@@ -156,6 +176,11 @@ public final class RandomStuff {
         }
         return a / (howMany * (float)p[(int)arrCheck(4, p)[1]]);
     }
+    
+    public static void myTask() {
+        System.out.print("\033[2K");
+        System.out.print(aa);
+    }
 
     public static void pl(Object a) {
         System.out.println(a);
@@ -166,7 +191,7 @@ public final class RandomStuff {
 //        pl(
 //                "Elapsed Time for each calculation = " + b + "ms");
 //        pl("Elapsed Time = " + msT(10, (p, j) -> FindP(p, j), 2000000, 1e6f, "ms"));
-        pl( String.format("Elapsed Time = %.16fms", msT(100, (p, j) -> FindP(p, j), 2000000, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", true, "I am Jayden. Nice to meet you") ) );
+        pl( String.format("Elapsed Time = %.16fms", msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", true, "I am Jayden. Nice to meet you") ) );
 //        pl((boolean)arrCheck(2, "ms", 1e6f, 74d, 34, 27)[0]);
 //        return - [true, 3, 4] 
 //        Test string for checking git bash in HOME ...
