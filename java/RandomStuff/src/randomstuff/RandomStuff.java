@@ -14,13 +14,11 @@ https://stackoverflow.com/questions/1611735/java-casting-object-to-array-type
 package randomstuff;
 
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public final class RandomStuff {
     
-    static float aa = 0;
+//    static float aa = 0;
     
     static {
         pl("// Running Under \"RandomStuff\" class.");
@@ -124,7 +122,6 @@ public final class RandomStuff {
     public static Object msT(int howMany, Command aFunc, int n, Object... p) {
         float a = 0;
         boolean isTrue = false;
-        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         
         if (howMany < 1) {
             howMany = 1;
@@ -143,21 +140,10 @@ public final class RandomStuff {
             float st = System.nanoTime();
             aFunc.execute(n, p);
             float ft = System.nanoTime();
-            aa += (ft - st);
+            a += (ft - st);
             
             if (isTrue) {
-                executorService.scheduleAtFixedRate(RandomStuff::myTask, 300, 30, TimeUnit.MILLISECONDS);
-//                try        
-//                {
-//                    System.out.print(a);
-//                    TimeUnit.MILLISECONDS.sleep(100);
-//                    System.out.print(".");
-//                    System.out.print("\033[2K");
-//                } 
-//                catch(InterruptedException ex) 
-//                {
-//                    Thread.currentThread().interrupt();
-//                }
+                System.out.println(a);
             }
             
         }
@@ -177,10 +163,10 @@ public final class RandomStuff {
         return a / (howMany * (float)p[(int)arrCheck(4, p)[1]]);
     }
     
-    public static void myTask() {
-        System.out.print("\033[2K");
-        System.out.print(aa);
-    }
+//    public static void myTask() {
+//        System.out.print("\033[2K");
+//        System.out.print(aa);
+//    }
 
     public static void pl(Object a) {
         System.out.println(a);
