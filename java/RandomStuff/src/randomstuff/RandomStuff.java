@@ -143,7 +143,13 @@ public final class RandomStuff {
             a += (ft - st);
             
             if (isTrue) {
-                System.out.println(a);
+                try {
+                    System.out.print(a);
+                    TimeUnit.MILLISECONDS.sleep(30);
+                    System.out.print("\033[2K");
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
             
         }
@@ -172,16 +178,16 @@ public final class RandomStuff {
         System.out.println(a);
     }
     
-    public static void main(String[] args) {
-//        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
-//        pl(
-//                "Elapsed Time for each calculation = " + b + "ms");
-//        pl("Elapsed Time = " + msT(10, (p, j) -> FindP(p, j), 2000000, 1e6f, "ms"));
-        pl( String.format("Elapsed Time = %.16fms", msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", true, "I am Jayden. Nice to meet you") ) );
-//        pl((boolean)arrCheck(2, "ms", 1e6f, 74d, 34, 27)[0]);
-//        return - [true, 3, 4] 
-//        Test string for checking git bash in HOME ...
-    }
+//    public static void main(String[] args) {
+////        Object b = msT(100, RandomStuff::FindP, 2000000, 1e6f);
+////        pl(
+////                "Elapsed Time for each calculation = " + b + "ms");
+////        pl("Elapsed Time = " + msT(10, (p, j) -> FindP(p, j), 2000000, 1e6f, "ms"));
+//        pl( String.format("Elapsed Time = %.16fms", msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", true, "I am Jayden. Nice to meet you") ) );
+////        pl((boolean)arrCheck(2, "ms", 1e6f, 74d, 34, 27)[0]);
+////        return - [true, 3, 4] 
+////        Test string for checking git bash in HOME ...
+//    }
 }
 /*
 Generics
