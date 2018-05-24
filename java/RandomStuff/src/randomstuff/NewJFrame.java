@@ -17,6 +17,7 @@ import static randomstuff.RandomStuff.pl;
 public class NewJFrame extends javax.swing.JFrame {
     
     static boolean isPaused = false;
+    static boolean isFinished = false;
     static private final Object pauseLock = new Object();
 
     /**
@@ -86,34 +87,29 @@ public class NewJFrame extends javax.swing.JFrame {
         pl("Started measuring time...");
         
         
-        for (int i = 0; i < howMany; i++) {
-//            if (isPaused) {
-//                try {
-//                    synchronized (pauseLock) {
-//                        pauseLock.wait();
-//                    }
-//                }
-//                catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                }
-//            } else {
-//                synchronized(pauseLock) {
-//                    pauseLock.notify();
-//                }
-//            }
-            while (!isPaused) {
-                float st = System.nanoTime();
-                aFunc.execute(n, p);
-                float ft = System.nanoTime();
-                a += (ft - st);
+        for (int i = 1; i < howMany + 1; i++) {
+            float st = System.nanoTime();
+            aFunc.execute(n, p);
+            float ft = System.nanoTime();
+            a += (ft - st);
 
-                if (isTrue) {
-                    abc.setText("  Total elapsed time = "+String.valueOf(a/1e6f)+"ms");
-                    abd.setText("Average elapsed time = "+String.valueOf(a/(1e6f * i))+"ms");
-                    acc.setValue(i);
+            if (isTrue) {
+                abc.setText("  Total elapsed time = "+String.valueOf(a/1e6f)+"ms");
+                abd.setText("Average elapsed time = "+String.valueOf(a/(1e6f * i))+"ms");
+                abe.setText("Progress - " + i + " / " + howMany);
+                acc.setValue(i);
+            }        
+            
+            if (isPaused) {
+                try {
+                    synchronized (pauseLock) {
+                        pauseLock.wait();
+                    }
+                }
+                catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
-            
         }
         System.out.println();
         
@@ -141,28 +137,41 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         acc = new javax.swing.JProgressBar();
-        jLabel1 = new javax.swing.JLabel();
+        abe = new javax.swing.JLabel();
         abc = new javax.swing.JLabel();
         abd = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         acc.setForeground(new java.awt.Color(0, 204, 255));
 
-        jLabel1.setText("Progess");
+        abe.setText("Progess");
 
         abc.setText("Value");
 
         abd.setText("jLabel2");
 
         jCheckBox1.setText("Close when done");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jToggleButton1.setText("Pause");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Exit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -174,14 +183,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(abc)
-                    .addComponent(jLabel1)
+                    .addComponent(abe)
                     .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(abd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBox1)
-                    .addComponent(jToggleButton1))
-                .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToggleButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,10 +207,12 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(abd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)
+                        .addComponent(abe)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jToggleButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jToggleButton1)
+                        .addComponent(jButton1)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -207,8 +221,24 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
+            synchronized(pauseLock) {
+                pauseLock.notify();
+            }
             isPaused = !isPaused;
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (isFinished) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        pl("つO.0っ");
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,14 +283,16 @@ public class NewJFrame extends javax.swing.JFrame {
         if (jCheckBox1.isSelected()) {
             System.exit(0);
         }
+        isFinished = true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel abc;
     private static javax.swing.JLabel abd;
+    private static javax.swing.JLabel abe;
     private static javax.swing.JProgressBar acc;
+    private static javax.swing.JButton jButton1;
     private static javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
