@@ -7,8 +7,8 @@ package randomstuff;
 
 import java.util.ArrayList;
 import java.util.List;
-import static randomstuff.RandomStuff.isPalindromeWithOnlyInt;
-import static randomstuff.RandomStuff.pl;
+import java.util.concurrent.TimeUnit;
+import static randomstuff.RandomStuff.*;
 
 /**
  *
@@ -86,34 +86,28 @@ public class NewJFrame extends javax.swing.JFrame {
         pl("Started measuring time...");
         
         
-        for (int i = 0; i < howMany; i++) {
-//            if (isPaused) {
-//                try {
-//                    synchronized (pauseLock) {
-//                        pauseLock.wait();
-//                    }
-//                }
-//                catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                }
-//            } else {
-//                synchronized(pauseLock) {
-//                    pauseLock.notify();
-//                }
-//            }
-            while (!isPaused) {
-                float st = System.nanoTime();
-                aFunc.execute(n, p);
-                float ft = System.nanoTime();
-                a += (ft - st);
-
-                if (isTrue) {
-                    abc.setText("  Total elapsed time = "+String.valueOf(a/1e6f)+"ms");
-                    abd.setText("Average elapsed time = "+String.valueOf(a/(1e6f * i))+"ms");
-                    acc.setValue(i);
+        for (int i = 1; i < howMany + 1; i++) {
+            if (isPaused) {
+                try {
+                    synchronized (pauseLock) {
+                        pauseLock.wait();
+                    }
+                }
+                catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
-            
+            float st = System.nanoTime();
+            aFunc.execute(n, p);
+            float ft = System.nanoTime();
+            a += (ft - st);
+
+            if (isTrue) {
+                abc.setText("  Total elapsed time = "+String.valueOf(a/1e6f)+"ms");
+                abd.setText("Average elapsed time = "+String.valueOf(a/(1e6f * i))+"ms");
+                abe.setText("Progress - " + i + " / " + howMany);
+                acc.setValue(100*i/howMany);
+            }        
         }
         System.out.println();
         
@@ -141,17 +135,20 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         acc = new javax.swing.JProgressBar();
-        jLabel1 = new javax.swing.JLabel();
+        abe = new javax.swing.JLabel();
         abc = new javax.swing.JLabel();
         abd = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(1, 1, 10, 10));
+        setFocusable(false);
 
-        acc.setForeground(new java.awt.Color(0, 204, 255));
+        acc.setForeground(new java.awt.Color(51, 255, 51));
+        acc.setStringPainted(true);
 
-        jLabel1.setText("Progess");
+        abe.setText("Progess");
 
         abc.setText("Value");
 
@@ -174,10 +171,10 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(abc)
-                    .addComponent(jLabel1)
+                    .addComponent(abe)
                     .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(abd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBox1)
                     .addComponent(jToggleButton1))
@@ -195,11 +192,11 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(abd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)
+                        .addComponent(abe)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jToggleButton1))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,7 +204,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-            isPaused = !isPaused;
+        synchronized(pauseLock) {
+            pauseLock.notifyAll();
+        }
+        isPaused = !isPaused;
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
@@ -245,22 +245,24 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         
         try {
-            msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, 12525, 1e7d, false, false, false, "hellooooowwererr", true, "I am Jayden. Nice to meet you");
+            pl(msT(1000, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr"));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         
-        if (jCheckBox1.isSelected()) {
-            System.exit(0);
+        while(true) {
+            if (jCheckBox1.isSelected()) {
+                System.exit(0);
+            }
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel abc;
     private static javax.swing.JLabel abd;
+    private static javax.swing.JLabel abe;
     private static javax.swing.JProgressBar acc;
     private static javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
