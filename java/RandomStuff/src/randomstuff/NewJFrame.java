@@ -1,13 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//﻿/*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
 package randomstuff;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static randomstuff.RandomStuff.*;
 
 /**
@@ -17,7 +19,8 @@ import static randomstuff.RandomStuff.*;
 public class NewJFrame extends javax.swing.JFrame {
     
     static boolean isPaused = false;
-    static private final Object pauseLock = new Object();
+    static boolean isFinished = false;
+    static final Object PAUSELCK = new Object();
 
     /**
      * Creates new form NewJFrame
@@ -69,7 +72,7 @@ public class NewJFrame extends javax.swing.JFrame {
         return (Object[])temp[a];
     }
     
-    public static Object msT(int howMany, RandomStuff.Command aFunc, int n, Object... p) throws InterruptedException {
+    public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Object... p) throws InterruptedException {
         float a = 0;
         boolean isTrue = false;
         
@@ -86,30 +89,31 @@ public class NewJFrame extends javax.swing.JFrame {
         pl("Started measuring time...");
         
         
-        for (int i = 1; i < howMany + 1; i++) {
+        for (double i = 1; i < howMany + 1; i++) {
             if (isPaused) {
                 try {
-                    synchronized (pauseLock) {
-                        pauseLock.wait();
+                    synchronized (PAUSELCK) {
+                        PAUSELCK.wait();
                     }
                 }
                 catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }
+            
             float st = System.nanoTime();
             aFunc.execute(n, p);
             float ft = System.nanoTime();
             a += (ft - st);
 
             if (isTrue) {
-                abc.setText("  Total elapsed time = "+String.valueOf(a/1e6f)+"ms");
-                abd.setText("Average elapsed time = "+String.valueOf(a/(1e6f * i))+"ms");
-                abe.setText("Progress - " + i + " / " + howMany);
-                acc.setValue(100*i/howMany);
+                abc.setText("Total elapsed time = "+String.format("%.5f", a/1e6f)+"ms");
+                abd.setText("Average elapsed time = "+String.format("%.5f", a/(1e6f * i))+"ms");
+                abe.setText("Progress - " + (int)i + " / " + (int)howMany);
+                acc.setValue((int) (10000*i/howMany));
+                acc.setString(String.format("%.2f", 100 * i / howMany) + "%");
             }        
         }
-        System.out.println();
         
         if ((boolean)arrCheck(1, p)[0]) {
             String tempS = "";
@@ -140,21 +144,40 @@ public class NewJFrame extends javax.swing.JFrame {
         abd = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new java.awt.Rectangle(1, 1, 10, 10));
+        setBackground(new java.awt.Color(153, 255, 255));
+        setBounds(new java.awt.Rectangle(1, 1, 30, 30));
         setFocusable(false);
 
-        acc.setForeground(new java.awt.Color(51, 255, 51));
+        acc.setBackground(new java.awt.Color(204, 0, 0));
+        acc.setForeground(new java.awt.Color(255, 153, 0));
+        acc.setMaximum(10000);
+        acc.setBorder(null);
+        acc.setBorderPainted(false);
         acc.setStringPainted(true);
 
         abe.setText("Progess");
 
+        abc.setForeground(new java.awt.Color(0, 0, 0));
+        abc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         abc.setText("Value");
+        abc.setToolTipText("");
+        abc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        abc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        abc.setMaximumSize(new java.awt.Dimension(300, 16));
 
+        abd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         abd.setText("jLabel2");
+        abd.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jCheckBox1.setText("Close when done");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jToggleButton1.setText("Pause");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,39 +186,55 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Restart");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(abc)
-                    .addComponent(abe)
-                    .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(abd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jToggleButton1))
-                .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jCheckBox1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jToggleButton1)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(abd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(abc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(acc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(abe)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(abc)
-                    .addComponent(jCheckBox1))
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(abd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(abe)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(acc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jToggleButton1))
+                        .addGap(2, 2, 2)
+                        .addComponent(abe)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(abc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(abd)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jToggleButton1)
+                        .addComponent(jCheckBox1))
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,16 +243,35 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        synchronized(pauseLock) {
-            pauseLock.notifyAll();
+        synchronized(PAUSELCK) {
+            PAUSELCK.notifyAll();
         }
         isPaused = !isPaused;
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (isFinished && jCheckBox1.isSelected()) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        pl("つO.0っ");
+        Thread.currentThread().interrupt();
+        initComponents();
+        try {
+            main(new String[] {"restart"});
+        } catch (InterruptedException | InvocationTargetException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String... args) throws InterruptedException, InvocationTargetException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -221,7 +279,7 @@ public class NewJFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -238,21 +296,29 @@ public class NewJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+//        if (args.length == 0) {
+            java.awt.EventQueue.invokeLater(() -> {
                 new NewJFrame().setVisible(true);
-            }
-        });
+            });
+//        } else {
+//            java.awt.EventQueue.invokeLater(() -> {});
+//        }
         
         try {
-            pl(msT(1000, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr"));
+            pl(msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr"));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         
+        if (jCheckBox1.isSelected()) {
+            System.exit(0);
+        }
+        isFinished = true;
+        boolean isPrinted = false;
         while(true) {
-            if (jCheckBox1.isSelected()) {
-                System.exit(0);
+            if (!isPrinted) {
+                pl("Waiting for user's input");
+                isPrinted = true;
             }
         }
     }
@@ -262,6 +328,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private static javax.swing.JLabel abd;
     private static javax.swing.JLabel abe;
     private static javax.swing.JProgressBar acc;
+    private static javax.swing.JButton jButton1;
     private static javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
