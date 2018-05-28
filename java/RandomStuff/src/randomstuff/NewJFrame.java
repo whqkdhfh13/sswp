@@ -8,8 +8,6 @@ package randomstuff;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static randomstuff.RandomStuff.*;
 
 /**
@@ -21,6 +19,7 @@ public class NewJFrame extends javax.swing.JFrame {
     static boolean isPaused = false;
     static boolean isFinished = false;
     static final Object PAUSELCK = new Object();
+    static boolean swt = false;
 
     /**
      * Creates new form NewJFrame
@@ -72,7 +71,7 @@ public class NewJFrame extends javax.swing.JFrame {
         return (Object[])temp[a];
     }
     
-    public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Object... p) throws InterruptedException {
+    public static Object msT(double howMany, Command aFunc, int n, Object... p) throws InterruptedException {
         float a = 0;
         boolean isTrue = false;
         
@@ -80,16 +79,36 @@ public class NewJFrame extends javax.swing.JFrame {
             howMany = 1;
         }
         
+//        if (jButton1.getText() == "Start") {
+//            jButton1.setText("Restart");
+//        }
+        
         if ((boolean)arrCheck(0, p)[0]) {
             for (int j = 1; j < arrCheck(0, p).length; j++) {
-                if ((boolean)p[(int)arrCheck(0, p)[j]]) isTrue = true;
+                if ((boolean)p[(int)arrCheck(0, p)[j]]) isTrue = true;                
             }
         }
+        
+        if (!isTrue) new NewJFrame().setVisible(false);
         
         pl("Started measuring time...");
         
         
         for (double i = 1; i < howMany + 1; i++) {
+                        
+            float st = System.nanoTime();
+            aFunc.execute(n, p);
+            float ft = System.nanoTime();
+            a += (ft - st);            
+
+            if (isTrue) {
+                abc.setText("Total elapsed time = "+String.format("%.5f", a/1e6f)+"ms");
+                abd.setText("Average elapsed time = "+String.format("%.5f", a/(1e6f * i))+"ms");
+                abe.setText("Progress - " + (int)i + " / " + (int)howMany);
+                acc.setValue((int) (10000*i/howMany));
+                acc.setString(String.format("%.2f", 100 * i / howMany) + "%");
+            }            
+                      
             if (isPaused) {
                 try {
                     synchronized (PAUSELCK) {
@@ -99,20 +118,27 @@ public class NewJFrame extends javax.swing.JFrame {
                 catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
+            }            
+            if (i == howMany) {
+                isFinished = true;
+                if (jCheckBox1.isSelected()) {
+                    System.exit(0);
+                }
+                try {
+                    synchronized (PAUSELCK) {
+                        PAUSELCK.wait();
+                    }
+                }
+                catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            if (swt) {
+                i = 1;
+                a = 0;
+                swt = !swt;
             }
             
-            float st = System.nanoTime();
-            aFunc.execute(n, p);
-            float ft = System.nanoTime();
-            a += (ft - st);
-
-            if (isTrue) {
-                abc.setText("Total elapsed time = "+String.format("%.5f", a/1e6f)+"ms");
-                abd.setText("Average elapsed time = "+String.format("%.5f", a/(1e6f * i))+"ms");
-                abe.setText("Progress - " + (int)i + " / " + (int)howMany);
-                acc.setValue((int) (10000*i/howMany));
-                acc.setString(String.format("%.2f", 100 * i / howMany) + "%");
-            }        
         }
         
         if ((boolean)arrCheck(1, p)[0]) {
@@ -156,6 +182,7 @@ public class NewJFrame extends javax.swing.JFrame {
         acc.setMaximum(10000);
         acc.setBorder(null);
         acc.setBorderPainted(false);
+        acc.setString("");
         acc.setStringPainted(true);
 
         abe.setText("Progess");
@@ -186,7 +213,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Restart");
+        jButton1.setText("Start");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -214,7 +241,7 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(acc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addComponent(abe)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +270,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        synchronized(PAUSELCK) {
-            PAUSELCK.notifyAll();
+        if(!isFinished) {
+            synchronized(PAUSELCK) {
+                PAUSELCK.notifyAll();
+            }
         }
         isPaused = !isPaused;
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -259,17 +288,27 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         pl("つO.0っ");
-        Thread.currentThread().interrupt();
-        initComponents();
-        try {
-            main(new String[] {"restart"});
-        } catch (InterruptedException | InvocationTargetException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        jButton1.setText("Restart");
+        if (isPaused) {
+            jToggleButton1.doClick();
         }
+        synchronized(PAUSELCK) {
+            PAUSELCK.notifyAll();
+        }
+        swt = true;
+//        Thread.currentThread().interrupt();
+//        initComponents();
+//        try {
+//            main(new String[] {"restart"});
+//        } catch (InterruptedException | InvocationTargetException ex) {
+//            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.InterruptedException
+     * @throws java.lang.reflect.InvocationTargetException
      */
     public static void main(String... args) throws InterruptedException, InvocationTargetException {
         /* Set the Nimbus look and feel */
@@ -296,31 +335,16 @@ public class NewJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        if (args.length == 0) {
-            java.awt.EventQueue.invokeLater(() -> {
-                new NewJFrame().setVisible(true);
-            });
-//        } else {
-//            java.awt.EventQueue.invokeLater(() -> {});
-//        }
+        java.awt.EventQueue.invokeLater(() -> {
+            new NewJFrame().setVisible(true);
+        });
         
         try {
-            pl(msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr"));
+            msT(100, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         
-        if (jCheckBox1.isSelected()) {
-            System.exit(0);
-        }
-        isFinished = true;
-        boolean isPrinted = false;
-        while(true) {
-            if (!isPrinted) {
-                pl("Waiting for user's input");
-                isPrinted = true;
-            }
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
