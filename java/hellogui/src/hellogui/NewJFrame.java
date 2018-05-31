@@ -49,6 +49,7 @@ public class NewJFrame extends javax.swing.JFrame {
         setTitle("Lora");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 50));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -56,7 +57,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jSlider1.setBackground(new java.awt.Color(51, 51, 51));
+        jSlider1.setBackground(new java.awt.Color(0, 0, 50));
         jSlider1.setForeground(new java.awt.Color(204, 255, 255));
         jSlider1.setMajorTickSpacing(1);
         jSlider1.setMaximum(5);
@@ -66,7 +67,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jSlider1.setPaintLabels(true);
         jSlider1.setSnapToTicks(true);
         jSlider1.setValue(1);
-        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 35, -1, 90));
 
         jLabel1.setBackground(new java.awt.Color(222, 222, 222));
@@ -74,7 +75,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel1.setText("Input");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 13, -1, -1));
 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Convert");
         jButton1.setBorder(null);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,7 +112,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 35, 200, 90));
 
-        enc.setForeground(new java.awt.Color(255, 255, 255));
+        enc.setForeground(new java.awt.Color(0, 0, 0));
         enc.setText("Decrypt");
         enc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +177,7 @@ public class NewJFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
