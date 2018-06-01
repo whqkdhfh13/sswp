@@ -3,6 +3,7 @@ package randomstuff;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class NewJFrame extends javax.swing.JFrame {
@@ -72,6 +73,7 @@ public static Object[] arrCheck(int a, Object... x) {
 public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Object... p) throws InterruptedException {
     float a = 0;
     boolean isTrue = false;
+    
 
     if (howMany < 1) {
 	howMany = 1;
@@ -86,28 +88,28 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
     if (!isTrue) new NewJFrame().setVisible(false);
 
     pl("Started measuring time...");
-
-    if (!isStarted) {
-	try {
-	    synchronized (PAUSELCK) {
-		PAUSELCK.wait();
-	    }
-	}
-	catch (InterruptedException e) {
-	    Thread.currentThread().interrupt();
-	}
-    }  
+    
+    // Prevent the error 
+    TimeUnit.MILLISECONDS.sleep(50);
 
     for (double i = 1; i < howMany + 1; i++) {
-
+        
+        String progressStr = (int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * (i - 1)/ (howMany - 1)) + "%";
+               
+        if (!isStarted) {
+            pl("hello");
+            i = 1;
+	    a = 0;
+            abc.setText("Total elapsed time will be shown here...");
+            abd.setText("Average elapsed time will be shown here...");
+            abe.setText("◆ " + progressStr);
+            acc.setValue(0);
+            acc.setString("Waiting for user's input...");
+            isStarted = true;
+            isPaused = true;
+        }
+        
 	if (isPaused) {
-	    if (!isStarted) {
-		abc.setText("Total elapsed time will be shown here...");
-		abd.setText("Average elapsed time will be shown here...");
-		abe.setText("Ready to run " + (int)howMany + " times...");
-		acc.setValue(0);
-		acc.setString("Waiting for user's input...");
-	    }
 	    try {
 		synchronized (PAUSELCK) {
 		    PAUSELCK.wait();
@@ -118,29 +120,38 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	    }
 	    isPaused = false;
 	} 
-	if (!isStarted) {
-	    a = 0;
-	    isStarted = true;
-	}
-
-
+	
 	float st = System.nanoTime();
 	aFunc.execute(n, p);
 	float ft = System.nanoTime();
-	a += (ft - st);            
+	a += (ft - st);    
+
+        if (isPaused) {
+            abe.setText("● " + progressStr);
+	    try {
+		synchronized (PAUSELCK) {
+		    PAUSELCK.wait();
+		}
+	    }
+	    catch (InterruptedException e) {
+		Thread.currentThread().interrupt();
+	    }
+	    isPaused = false;
+	} 
 
 	if (isTrue) {
 	    abc.setText("Total elapsed time = "+String.format("%.5f", a/1e6f)+"ms");
 	    abd.setText("Average elapsed time = "+String.format("%.5f", a/(1e6f * i))+"ms");
-	    abe.setText("Running...");
+	    acc.setString("Running...");
 	    acc.setValue((int) (10000*i/howMany));
-	    acc.setString((int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * i / howMany) + "%");
-//                acc.setString(String.format("%.2f", 100 * i / howMany) + "% - " + (int)i + " / " + (int)howMany);
+	    abe.setText("◎ " + progressStr);
+//            acc.setString(String.format("%.2f", 100 * i / howMany) + "% - " + (int)i + " / " + (int)howMany);
 	}           
 
 	if (i == howMany) {
 	    isFinished = true;
-	    abe.setText("Done!");
+	    acc.setString("Done!");
+            abe.setText("◆ " + progressStr);
 	    if (jCheckBox1.isSelected()) {
 		System.exit(0);
 	    }
@@ -152,12 +163,11 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	    catch (InterruptedException e) {
 		Thread.currentThread().interrupt();
 	    }
-	}      
+	}     
 	if (swt) {
 	    i = 1;
-	    a = 0;
 	    swt = !swt;
-	}            
+	}
     }
 
     if ((boolean)arrCheck(1, p)[0]) {
@@ -201,7 +211,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         jPanel1.setPreferredSize(new java.awt.Dimension(380, 152));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        abe.setText("Ready to run " + (int)howMany + " times...");
+        abe.setText("Prepared for " + (int)howMany + " rounds...");
         jPanel1.add(abe, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 6, 130, 19));
 
         abc.setForeground(new java.awt.Color(0, 0, 0));
@@ -221,7 +231,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         acc.setBorder(null);
         acc.setBorderPainted(false);
         acc.setRequestFocusEnabled(false);
-        acc.setString("Waiting for user's input...");
+        acc.setString("○ Waiting for user's input...");
         acc.setStringPainted(true);
         acc.setVerifyInputWhenFocusTarget(false);
         jPanel1.add(acc, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 6, 200, -1));
@@ -282,6 +292,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         if(isStarted && !isFinished) {
             isPaused = true;
             sb.setText("Resume");
+            acc.setString("Waiting for user's input...");
         }
     }//GEN-LAST:event_pbActionPerformed
 
@@ -293,9 +304,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         }
 
         if (isStarted && !isPaused){
-            pl("WHAT?");
             swt = true;
-            isPaused = true;
             isStarted = false;
             isFinished = false;
             sb.setText("Start");
