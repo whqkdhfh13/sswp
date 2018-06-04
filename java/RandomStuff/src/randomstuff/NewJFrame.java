@@ -14,7 +14,7 @@ static boolean isStarted = false;
 static boolean isPaused = false;
 static boolean swt = false;
 static final Object PAUSELCK = new Object();
-static int howMany = 38;
+static int howMany = 10;
 
 // Initialize Swing GUI's own variables
 public NewJFrame() {
@@ -90,15 +90,15 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
     pl("Started measuring time...");
     
     // Prevent the error 
-    TimeUnit.MILLISECONDS.sleep(50);
+    TimeUnit.MILLISECONDS.sleep(200);
 
-    for (double i = 1; i < howMany + 1; i++) {
+    for (double i = 1, h = 0; i < howMany + 1; i++) {
         
-        String progressStr = (int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * (i - 1)/ (howMany - 1)) + "%";
-               
+        String progressStr = (int)h + " / " + (int)howMany + " - " + String.format("%.2f", 100 * h / howMany) + "%";
+        
         if (!isStarted) {
-            pl("hello");
             i = 1;
+	    h = 0;
 	    a = 0;
             abc.setText("Total elapsed time will be shown here...");
             abd.setText("Average elapsed time will be shown here...");
@@ -125,6 +125,8 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	aFunc.execute(n, p);
 	float ft = System.nanoTime();
 	a += (ft - st);    
+	h++;
+	progressStr = (int)h + " / " + (int)howMany + " - " + String.format("%.2f", 100 * h / howMany) + "%";
 
         if (isPaused) {
             abe.setText("● " + progressStr);
@@ -143,7 +145,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	    abc.setText("Total elapsed time = "+String.format("%.5f", a/1e6f)+"ms");
 	    abd.setText("Average elapsed time = "+String.format("%.5f", a/(1e6f * i))+"ms");
 	    acc.setString("Running...");
-	    acc.setValue((int) (10000*i/howMany));
+	    acc.setValue((int) (10000*h/howMany));
 	    abe.setText("◎ " + progressStr);
 //            acc.setString(String.format("%.2f", 100 * i / howMany) + "% - " + (int)i + " / " + (int)howMany);
 	}           
