@@ -62,6 +62,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="abe">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="&quot;Prepared for &quot; + (int)howMany + &quot; rounds...&quot;" type="code"/>
             </Property>
@@ -85,7 +86,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#xae30;&#xbcf8; &#xcee4;&#xc11c;"/>
+              <Color id="Default Cursor"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[210, 16]"/>

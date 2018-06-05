@@ -14,7 +14,7 @@ static boolean isStarted = false;
 static boolean isPaused = false;
 static boolean swt = false;
 static final Object PAUSELCK = new Object();
-static int howMany = 10;
+static int howMany = 189;
 
 // Initialize Swing GUI's own variables
 public NewJFrame() {
@@ -73,6 +73,7 @@ public static Object[] arrCheck(int a, Object... x) {
 public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Object... p) throws InterruptedException {
     float a = 0;
     boolean isTrue = false;
+    String addedStr;
     
 
     if (howMany < 1) {
@@ -92,21 +93,36 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
     // Prevent the error 
     TimeUnit.MILLISECONDS.sleep(200);
 
-    for (double i = 1, h = 0; i < howMany + 1; i++) {
-        
-        String progressStr = (int)h + " / " + (int)howMany + " - " + String.format("%.2f", 100 * h / howMany) + "%";
+    for (double i = 0; i < howMany; i++) {
+
+        switch ((int)i % 4) {
+            default:
+                addedStr = "● ";
+                break;
+            case 1:
+                addedStr = "●● ";
+                break;
+            case 2:
+                addedStr = "●●● ";
+                break;
+            case 3:
+                addedStr = "●●●● ";
+                break;
+        }
+                
+        String progressStr = (int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * i / howMany) + "%";
         
         if (!isStarted) {
-            i = 1;
-	    h = 0;
+            i = 0;
 	    a = 0;
+            isStarted = true;
+            isPaused = true;
+            progressStr = (int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * i / howMany) + "%";
             abc.setText("Total elapsed time will be shown here...");
             abd.setText("Average elapsed time will be shown here...");
             abe.setText("◆ " + progressStr);
             acc.setValue(0);
             acc.setString("Waiting for user's input...");
-            isStarted = true;
-            isPaused = true;
         }
         
 	if (isPaused) {
@@ -125,11 +141,9 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	aFunc.execute(n, p);
 	float ft = System.nanoTime();
 	a += (ft - st);    
-	h++;
-	progressStr = (int)h + " / " + (int)howMany + " - " + String.format("%.2f", 100 * h / howMany) + "%";
 
         if (isPaused) {
-            abe.setText("● " + progressStr);
+            abe.setText(addedStr+ progressStr);
 	    try {
 		synchronized (PAUSELCK) {
 		    PAUSELCK.wait();
@@ -145,15 +159,15 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	    abc.setText("Total elapsed time = "+String.format("%.5f", a/1e6f)+"ms");
 	    abd.setText("Average elapsed time = "+String.format("%.5f", a/(1e6f * i))+"ms");
 	    acc.setString("Running...");
-	    acc.setValue((int) (10000*h/howMany));
-	    abe.setText("◎ " + progressStr);
+	    acc.setValue((int) (10000*i/howMany));
+	    abe.setText(addedStr + progressStr);
 //            acc.setString(String.format("%.2f", 100 * i / howMany) + "% - " + (int)i + " / " + (int)howMany);
 	}           
 
-	if (i == howMany) {
+	if (i + 1 == howMany) {
 	    isFinished = true;
 	    acc.setString("Done!");
-            abe.setText("◆ " + progressStr);
+            abe.setText("◆ " + (int)howMany + " / " + (int)howMany + " - 100.00%");
 	    if (jCheckBox1.isSelected()) {
 		System.exit(0);
 	    }
@@ -204,8 +218,6 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 255));
         setBounds(new java.awt.Rectangle(1, 1, 30, 30));
-        setMaximumSize(new java.awt.Dimension(443, 180));
-        setPreferredSize(new java.awt.Dimension(380, 180));
         setResizable(false);
         setSize(new java.awt.Dimension(380, 180));
 
@@ -213,6 +225,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         jPanel1.setPreferredSize(new java.awt.Dimension(380, 152));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        abe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         abe.setText("Prepared for " + (int)howMany + " rounds...");
         jPanel1.add(abe, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 6, 130, 19));
 
