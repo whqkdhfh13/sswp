@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class NewJFrame extends javax.swing.JFrame {
+public final class ETMT extends javax.swing.JFrame {
     
 // Initialize boolean variables and pause object
 static boolean isFinished = false;
@@ -14,10 +14,42 @@ static boolean isStarted = false;
 static boolean isPaused = false;
 static boolean swt = false;
 static final Object PAUSELCK = new Object();
-static int howMany = 189;
+static int howMany = 20;
+
+public static void main(String... args) throws InterruptedException, InvocationTargetException {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ETMT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new ETMT().setVisible(true);	    
+        });
+        
+        try {
+            msT(howMany, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        
+}
 
 // Initialize Swing GUI's own variables
-public NewJFrame() {
+public ETMT() {
     initComponents();
 }
 
@@ -86,7 +118,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	}
     }
 
-    if (!isTrue) new NewJFrame().setVisible(false);
+    if (!isTrue) new ETMT().setVisible(false);
 
     pl("Started measuring time...");
     
@@ -96,16 +128,16 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
     for (double i = 0; i < howMany; i++) {
 
         switch ((int)i % 4) {
-            default:
+            case 1:
                 addedStr = "● ";
                 break;
-            case 1:
+            case 2:
                 addedStr = "●● ";
                 break;
-            case 2:
+            case 3:
                 addedStr = "●●● ";
                 break;
-            case 3:
+            default:
                 addedStr = "●●●● ";
                 break;
         }
@@ -115,7 +147,6 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         if (!isStarted) {
             i = 0;
 	    a = 0;
-            isStarted = true;
             isPaused = true;
             progressStr = (int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * i / howMany) + "%";
             abc.setText("Total elapsed time will be shown here...");
@@ -135,6 +166,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 		Thread.currentThread().interrupt();
 	    }
 	    isPaused = false;
+            if (!isStarted) isStarted = true;
 	} 
 	
 	float st = System.nanoTime();
@@ -167,6 +199,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	if (i + 1 == howMany) {
 	    isFinished = true;
 	    acc.setString("Done!");
+            acc.setValue(10000);
             abe.setText("◆ " + (int)howMany + " / " + (int)howMany + " - 100.00%");
 	    if (jCheckBox1.isSelected()) {
 		System.exit(0);
@@ -340,36 +373,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 
           // </editor-fold>
     
-    public static void main(String... args) throws InterruptedException, InvocationTargetException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new NewJFrame().setVisible(true);	    
-        });
-        
-        try {
-            msT(howMany, RandomStuff::FindP, 2000000, 1e6f, 374, "ms", 12525, 1e7d, false, false, false, "hellooooowwererr", true, "Oysterr");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        
-    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel abc;
@@ -384,5 +388,3 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
     private static javax.swing.JButton sb;
     // End of variables declaration//GEN-END:variables
 }
-
-
