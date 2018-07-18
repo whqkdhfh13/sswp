@@ -115,7 +115,6 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         if (!isStarted) {
             i = 0;
 	    a = 0;
-            isStarted = true;
             isPaused = true;
             progressStr = (int)i + " / " + (int)howMany + " - " + String.format("%.2f", 100 * i / howMany) + "%";
             abc.setText("Total elapsed time will be shown here...");
@@ -135,6 +134,9 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 		Thread.currentThread().interrupt();
 	    }
 	    isPaused = false;
+	    if (!isStarted) {
+		isStarted = true;
+	    }
 	} 
 	
 	float st = System.nanoTime();
@@ -240,7 +242,7 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
         abc.setPreferredSize(new java.awt.Dimension(210, 16));
         jPanel1.add(abc, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 44, -1, -1));
 
-        acc.setBackground(new java.awt.Color(15, 191, 186));
+        acc.setBackground(new java.awt.Color(15, 190, 189));
         acc.setForeground(new java.awt.Color(255, 153, 0));
         acc.setMaximum(10000);
         acc.setBorder(null);
