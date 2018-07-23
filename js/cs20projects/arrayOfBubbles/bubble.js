@@ -2,7 +2,7 @@ function Bubble(x, y, col) {
     // Properties (State)
     this.x = x;
     this.y = y;
-    this.r = random(24, 64);
+    this.r = random(2.4, 6.4);
     this.col = col;
     this.magic = function(i) {
         this.col = rcolors[i];

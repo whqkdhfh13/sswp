@@ -11,7 +11,7 @@ function setup() {
     // Initialize Variables
     bubbles = [];
     rcolors = [];
-    for (var n = 0; n < 20; n++) {
+    for (var n = 0; n < 200; n++) {
         rcolors.push(color(random(255), random(255), random(255), 180));
         bubbles.push(new Bubble(random(width), random(height), rcolors[n]));
     }

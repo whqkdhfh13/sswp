@@ -20,10 +20,18 @@ function draw() { // 60fps
     } else if (y < 50) {
         ySpeed *= -0.8;
     }
+    lora(color(255, 200, 200), 200, 200, 200);
 }
 
+function lora(color, x, y, d) {
+    this.color = color;
+    fill(this.color);
+    ellipse(x, y, d);
+}
 
-
+var temp1 = new lora(color(255, 200, 200), 200, 200, 200);
+var temp2 = new lora(color(0), 200, 200, 200);
+var temp3 = new lora(temp1.color, 200, 200, 200);
 // if (something) { }
 // y = y + ySpeed;
 // y += ySpeed;
