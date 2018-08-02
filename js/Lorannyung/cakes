@@ -1,0 +1,363 @@
+{
+  "type" : "WeatherTemplate",
+  "token" : "f651fc7f-6e61-47c7-9cd0-a048b649d0bf",
+  "lowTemperature" : {
+    "value" : "12°",
+    "arrow" : {
+      "contentDescription" : "Down arrow",
+      "sources" : [ {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/currentWeatherIcon/down_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/currentWeatherIcon/down.png"
+      }, {
+        "widthPixels" : 256,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/currentWeatherIcon/down_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 233,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/currentWeatherIcon/down.png"
+      }, {
+        "widthPixels" : 305,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/currentWeatherIcon/down_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 278,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/currentWeatherIcon/down.png"
+      } ]
+    }
+  },
+  "title" : {
+    "subTitle" : "Wednesday, August 1, 2018",
+    "mainTitle" : "Edmonton, Canada"
+  },
+  "currentWeatherIcon" : {
+    "contentDescription" : "Partly cloudy",
+    "sources" : [ {
+      "widthPixels" : 88,
+      "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/currentWeatherIcon/partly_cloudy_bb.png",
+      "size" : "SMALL",
+      "heightPixels" : 80,
+      "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/currentWeatherIcon/partly_cloudy.png"
+    }, {
+      "widthPixels" : 256,
+      "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/currentWeatherIcon/partly_cloudy_bb.png",
+      "size" : "MEDIUM",
+      "heightPixels" : 233,
+      "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/currentWeatherIcon/partly_cloudy.png"
+    }, {
+      "widthPixels" : 305,
+      "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/currentWeatherIcon/partly_cloudy_bb.png",
+      "size" : "LARGE",
+      "heightPixels" : 278,
+      "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/currentWeatherIcon/partly_cloudy.png"
+    } ]
+  },
+  "weatherForecast" : [ {
+    "highTemperature" : "24°",
+    "date" : "Aug 2",
+    "lowTemperature" : "10°",
+    "image" : {
+      "contentDescription" : "Lightning",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/lightning_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/lightning.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/lightning_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/lightning.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/lightning_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/lightning.png"
+      } ]
+    },
+    "day" : "Thu"
+  }, {
+    "highTemperature" : "21°",
+    "date" : "Aug 3",
+    "lowTemperature" : "12°",
+    "image" : {
+      "contentDescription" : "Lightning",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/lightning_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/lightning.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/lightning_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/lightning.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/lightning_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/lightning.png"
+      } ]
+    },
+    "day" : "Fri"
+  }, {
+    "highTemperature" : "23°",
+    "date" : "Aug 4",
+    "lowTemperature" : "8°",
+    "image" : {
+      "contentDescription" : "Partly cloudy",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy.png"
+      } ]
+    },
+    "day" : "Sat"
+  }, {
+    "highTemperature" : "24°",
+    "date" : "Aug 5",
+    "lowTemperature" : "10°",
+    "image" : {
+      "contentDescription" : "Partly cloudy",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy.png"
+      } ]
+    },
+    "day" : "Sun"
+  }, {
+    "highTemperature" : "27°",
+    "date" : "Aug 6",
+    "lowTemperature" : "11°",
+    "image" : {
+      "contentDescription" : "Partly cloudy",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy.png"
+      } ]
+    },
+    "day" : "Mon"
+  }, {
+    "highTemperature" : "28°",
+    "date" : "Aug 7",
+    "lowTemperature" : "12°",
+    "image" : {
+      "contentDescription" : "Partly cloudy",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/partly_cloudy.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/partly_cloudy.png"
+      } ]
+    },
+    "day" : "Tue"
+  }, {
+    "highTemperature" : "23°",
+    "date" : "Aug 8",
+    "lowTemperature" : "9°",
+    "image" : {
+      "contentDescription" : "Rainy",
+      "sources" : [ {
+        "widthPixels" : 44,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/rainy_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 40,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/weatherForecast/rainy.png"
+      }, {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/rainy_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/weatherForecast/rainy.png"
+      }, {
+        "widthPixels" : 132,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/rainy_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 123,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/weatherForecast/rainy.png"
+      } ]
+    },
+    "day" : "Wed"
+  } ],
+  "description" : "Times of clouds and sun",
+  "highTemperature" : {
+    "value" : "26°",
+    "arrow" : {
+      "contentDescription" : "Up arrow",
+      "sources" : [ {
+        "widthPixels" : 88,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/currentWeatherIcon/up_bb.png",
+        "size" : "SMALL",
+        "heightPixels" : 80,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/small/currentWeatherIcon/up.png"
+      }, {
+        "widthPixels" : 256,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/currentWeatherIcon/up_bb.png",
+        "size" : "MEDIUM",
+        "heightPixels" : 233,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/medium/currentWeatherIcon/up.png"
+      }, {
+        "widthPixels" : 305,
+        "darkBackgroundUrl" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/currentWeatherIcon/up_bb.png",
+        "size" : "LARGE",
+        "heightPixels" : 278,
+        "url" : "https://images-na.ssl-images-amazon.com/images/G/01/alexa/avs/gui/large/currentWeatherIcon/up.png"
+      } ]
+    }
+  },
+  "currentWeather" : "23°"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "type" : "ListTemplate1",
+  "token" : "d28629f2-bf87-446c-a0d0-c859487cb9e6",
+  "listItems" : [ {
+    "leftTextField" : "All Day",
+    "rightTextField" : "The Royal St John's Regatta (Regatta Day) (Newfoundland and Labrador)"
+  } ],
+  "title" : {
+    "subTitle" : "Wed, Aug 1",
+    "mainTitle" : "Calendar"
+  }
+}
+
+
+
+
+
+
+
+
+{
+  "type" : "ListTemplate1",
+  "token" : "1cd669c7-301f-482e-9e1b-3900d8ae222b",
+  "listItems" : [ {
+    "leftTextField" : "9:00 AM",
+    "rightTextField" : "Sing a dermatologist"
+  } ],
+  "title" : {
+    "subTitle" : "Thu, Aug 2",
+    "mainTitle" : "Calendar"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
