@@ -14,7 +14,7 @@ static boolean isStarted = false;
 static boolean isPaused = false;
 static boolean swt = false;
 static final Object PAUSELCK = new Object();
-static int howMany = 20;
+static int howMany = 134;
 
 public static void main(String... args) throws InterruptedException, InvocationTargetException {
         /* Set the Nimbus look and feel */
@@ -32,7 +32,6 @@ public static void main(String... args) throws InterruptedException, InvocationT
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ETMT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -117,8 +116,6 @@ public static Object msT(double howMany, RandomStuff.Command aFunc, int n, Objec
 	    if ((boolean)p[(int)arrCheck(0, p)[j]]) isTrue = true;                
 	}
     }
-
-    if (!isTrue) new ETMT().setVisible(false);
 
     pl("Started measuring time...");
     

@@ -3,7 +3,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(displayWidth, displayHeight);
+  createCanvas(displayWidth, 500);
   textFont('Helvetica');
   currentTemp = weather.main.temp;
   intMonth = integerMonth();

@@ -13,8 +13,8 @@ function setup() {
     // Initialize Variables
     bubblesX = [];
     bubblesY = [];
-    speed = 0.05;
-    for (var num = 0; num < 60; num++) {
+    speed = 1;
+    for (var num = 0; num < 1200; num++) {
         bubblesX.push(random(0, width));
         bubblesY.push(random(0, height));
     }
@@ -40,7 +40,7 @@ function display() {
     strokeWeight(4);
     noFill();
     for (var i = 0; i < bubblesX.length; i++) {
-        ellipse(bubblesX[i], bubblesY[i], 24, 24);
+        ellipse(bubblesX[i], bubblesY[i], 6);
     }
 
 }
