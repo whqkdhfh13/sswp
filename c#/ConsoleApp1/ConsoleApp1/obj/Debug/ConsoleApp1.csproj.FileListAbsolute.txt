@@ -1,0 +1,6 @@
+F:\Computer Technology Skills\sswp\c#\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
+F:\Computer Technology Skills\sswp\c#\ConsoleApp1\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+F:\Computer Technology Skills\sswp\c#\ConsoleApp1\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+F:\Computer Technology Skills\sswp\c#\ConsoleApp1\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+F:\Computer Technology Skills\sswp\c#\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+F:\Computer Technology Skills\sswp\c#\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
