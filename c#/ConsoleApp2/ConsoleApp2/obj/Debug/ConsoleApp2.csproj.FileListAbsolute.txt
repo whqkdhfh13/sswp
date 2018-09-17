@@ -1,0 +1,9 @@
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\bin\Debug\GDIDrawer.dll
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csprojAssemblyReference.cache
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csproj.CoreCompileInputs.cache
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csproj.CopyComplete
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+F:\Computer Technology Skills\sswp\c#\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
