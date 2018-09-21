@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/altimpl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/custom" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/evolvenewsuper" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/evolveserial" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/externpers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/externsuper" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/nonexternsuper" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/nonserialsuper" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sockets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/symbol" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
