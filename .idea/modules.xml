@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sswp.iml" filepath="$PROJECT_DIR$/.idea/sswp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/HelloTF/HelloTF.iml" filepath="$PROJECT_DIR$/java/HelloTF/HelloTF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/RandomStuff/RandomStuff.iml" filepath="$PROJECT_DIR$/java/RandomStuff/RandomStuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/helloWorld/helloWorld.iml" filepath="$PROJECT_DIR$/java/helloWorld/helloWorld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/hellogui/hellogui.iml" filepath="$PROJECT_DIR$/java/hellogui/hellogui.iml" />
     </modules>
   </component>
 </project>

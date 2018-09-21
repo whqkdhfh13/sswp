@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="awtextra">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/java/hellogui/lib/awtextra" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

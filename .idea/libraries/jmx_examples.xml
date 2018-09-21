@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jmx_examples">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/java/docs/technotes/guides/jmx/examples/jmx_examples.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

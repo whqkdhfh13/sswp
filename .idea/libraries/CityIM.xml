@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CityIM">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/java/docs/technotes/guides/imf/spi-sample/CityIM.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

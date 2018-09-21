@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="rmi-iiop2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/java/docs/technotes/guides/rmi-iiop/RMIHelloPOA.zip!/" />
+      <root url="jar://$PROJECT_DIR$/java/docs/technotes/guides/rmi-iiop/HelloRMIIIOP.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

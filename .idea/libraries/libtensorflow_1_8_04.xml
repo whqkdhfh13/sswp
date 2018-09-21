@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="libtensorflow-1.8.04">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/java/HelloTF/lib/libtensorflow-1.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
