@@ -75,7 +75,7 @@ namespace ConsoleApp2 {
 					y += (int)ySpeed;
 				}
 
-				if (400 > pCoord.X - 100 && 400 < pCoord.X + 100 && y + r > pCoord.Y - 10 && y + r < pCoord.Y + 60) {
+				if (450 > pCoord.X - 100 && 450 < pCoord.X + 100 && y + r > pCoord.Y && y + r < pCoord.Y + 60) {
 					y = pCoord.Y - 10 - r;
 					ySpeed = -Math.Abs(ySpeed);
 				}
