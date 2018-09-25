@@ -10,27 +10,32 @@ using System.Diagnostics;
 
 namespace ConsoleApp2 {
 
-    class Program {
-		static Ball bcBall = new Ball();
+    class Program {        
+		Ball bcBall = new Ball();
         
-        static void Main(string[] args) {                      
-			bcBall.run();            
+        static void Main(string[] args) {
+            Program p = new Program();
+            p.bcBall.run();
+
+            int[][] ar = new int[2][];
+            ar[0] = new int[] { 1, 2, 3 };
+            ar[1] = new int[] { 4, 5, 6 };
         }
     }
 
-	class Ball {
-		// Variable Declaration
-		CDrawer dp = new CDrawer(800, 600);
-		Point pCoord;
-		Point mClick;
-		int elapsedFrame = 0;
-		readonly int r = 50;
-		readonly double gravity = 0.2;
-		Stopwatch stopwatch = new Stopwatch();
-		int y = 400;
-		double ySpeed = 10;
-		bool swt = false;
-
+    class Ball {
+        // Variable Declaration
+        CDrawer dp = new CDrawer(800, 600);
+        Point pCoord;
+        Point mClick;
+        int elapsedFrame = 0;
+        readonly int r = 50;
+        readonly double gravity = 0.2;
+        readonly Stopwatch stopwatch = new Stopwatch();
+        int y = 400;
+        double ySpeed = 10;
+        bool swt = false;
+        
         void initSettings () {
             dp.ContinuousUpdate = false;
             stopwatch.Start();
@@ -80,6 +85,7 @@ namespace ConsoleApp2 {
 					ySpeed = -Math.Abs(ySpeed);
 				}
 
+                // Draw
 				rend();
 			}
 		}
