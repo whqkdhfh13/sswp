@@ -7,24 +7,24 @@ using System.Drawing;
 using GDIDrawer;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
 
 namespace ConsoleApp2 {
 
     class Program {        
-		Ball bcBall = new Ball();
+		static Ball bcBall = new Ball();
         
         static void Main(string[] args) {
-            Program p = new Program();
-            p.bcBall.run();
+            bcBall.run();
 
             int[][] ar = new int[2][];
-            ar[0] = new int[] { 1, 2, 3 };
-            ar[1] = new int[] { 4, 5, 6 };
+            ar[0] = new int[] {1, 2, 3};
+            ar[1] = new int[] {4, 5, 6, 7};
         }
     }
 
     class Ball {
-        // Variable Declaration
+        // Variable Declaration and initialization 
         CDrawer dp = new CDrawer(800, 600);
         Point pCoord;
         Point mClick;
@@ -39,6 +39,7 @@ namespace ConsoleApp2 {
         void initSettings () {
             dp.ContinuousUpdate = false;
             stopwatch.Start();
+            Console.WriteLine("Test\nHi");
         }
 
 		void rend () {
@@ -58,7 +59,14 @@ namespace ConsoleApp2 {
 			dp.Clear();
 		}
 
-		public void run () {
+        void ClearCurrentConsoleLine () {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
+
+        public void run () {
             // Initial settings
             initSettings();
 
@@ -85,9 +93,15 @@ namespace ConsoleApp2 {
 					ySpeed = -Math.Abs(ySpeed);
 				}
 
+                // Print current y value for debugging purpose
+                Console.SetCursorPosition(0, Console.CursorTop - 2);
+                ClearCurrentConsoleLine();
+                ClearCurrentConsoleLine();
+                Console.WriteLine("Current y = {0}\nCurrent ySpeed = {1}", y, ySpeed.ToString("0.##"));
+
                 // Draw
-				rend();
-			}
+                rend();                
+            }
 		}
 	}
 }
