@@ -15,7 +15,7 @@ namespace ConsoleApp2 {
 		static Ball bcBall = new Ball();
         
         static void Main(string[] args) {
-            bcBall.run();
+            bcBall.Run();
 
             int[][] ar = new int[2][];
             ar[0] = new int[] {1, 2, 3};
@@ -36,13 +36,13 @@ namespace ConsoleApp2 {
         double ySpeed = 10;
         bool swt = false;
         
-        void initSettings () {
+        void InitSettings () {
             dp.ContinuousUpdate = false;
             stopwatch.Start();
             Console.WriteLine("Test\nHi");
         }
 
-		void rend () {
+		void Rend () {
 			// Graphics
 			dp.AddRectangle(700, 0, 100, 100, Color.FromArgb(100, 255, 0, 0));
 			dp.AddEllipse(400, ( y += (int)Math.Round(ySpeed += gravity) ) - r, 2 * r, 2 * r, Color.FromArgb(255, 255, 0, 255));
@@ -66,9 +66,9 @@ namespace ConsoleApp2 {
             Console.SetCursorPosition(0, currentLineCursor);
         }
 
-        public void run () {
+        public void Run () {
             // Initial settings
-            initSettings();
+            InitSettings();
 
 			while (true) {
 				// Variable Declaration
@@ -97,10 +97,10 @@ namespace ConsoleApp2 {
                 Console.SetCursorPosition(0, Console.CursorTop - 2);
                 ClearCurrentConsoleLine();
                 ClearCurrentConsoleLine();
-                Console.WriteLine("Current y = {0}\nCurrent ySpeed = {1}", y, ySpeed.ToString("0.##"));
+                Console.WriteLine("Current y = {0}\nCurrent ySpeed = {1:F4}", y, ySpeed.ToString("F"));
 
                 // Draw
-                rend();                
+                Rend();                
             }
 		}
 	}
