@@ -64,51 +64,80 @@ namespace ConsoleApp3 {
             System.Diagnostics.Process.Start("CMD.exe", executeCmd);
         }
 
-        private static void ICA27() {
-            string[] aTemp;
+        private static void ICA27(ref bool toMain) {
+            string[] aTemp = MakeInsults(sName, sVerb, sObject, 1);
+
             while (true) {
-                Console.Write("!! Insult Generator !!\n\nPlease submit the number of insults that you want to make: ");
+                Console.Write("!! Insult Generator !!\n\nPlease submit the number of insults that you want to make.\nIf you want to proceed to the main menu, please press Enter: ");
                 try {
                     uint sNum = uint.Parse(Console.ReadLine());
                     aTemp = MakeInsults(sName, sVerb, sObject, (int)sNum);
-                    Console.WriteLine("\n// List of insults\n");
                     break;
                 }
-                catch (Exception e) {
-                    Console.Clear();
-                    Console.WriteLine("Wrong input. Please try again with the integer number greater than 0.\n\n" + e + "\n");
+                catch (System.FormatException) {
+                    toMain = true;
+                    break;
                 }
+                catch (System.OverflowException e) { // Both catch occurs when string is typed. Need to be fixed.
+                    toMain = false;
+                    Console.Clear();
+                    Console.WriteLine("Wrong input. Please try again with the natural number.\n\n" + e + "\n");
+                }
+
             }
 
+            if (toMain) return;
+
+
+            Console.WriteLine("\n// List of insults\n");
             for (int i = 0; i < aTemp.Length; i++) {
                 Console.WriteLine((i + 1) + ". " + aTemp[i]);
             }
+
             while (true) {
                 try {
-                    Console.WriteLine("\nIf you want to save this in a new file, please type the name of the file. If not, Please press Enter.");
+                    Console.WriteLine("\nIf you want to save this in a new file, please type the name of the file. \nIf you want to proceed to the main menu, please press Enter:");
                     string sTemp = Console.ReadLine();
 
-                    if (sTemp.Length > 0) {
+                    if (sTemp.Length > 0)
                         SaveInsults(sTemp, aTemp);
-                        Console.WriteLine("\nPlease press Enter to exit...");
-                        Console.ReadLine();
-                    }
+
+                    toMain = true;
                     break;
-                }
-                catch (Exception e) {
-                    Console.WriteLine("Wrong File Name. Please avoid any special characters.\n\n" + e + "\n");
+                }                
+                catch (System.OverflowException e) {
+                    Console.WriteLine("Wrong File Name. Please avoid any special characters.\n\n" + e.InnerException + "\n");
                 }
             }
         }
 
         static void Main (string[] args) {
-            Console.Write("1. Insult Generator\n\nPlease select the program that you want to execute: ");
-            int temp = int.Parse(Console.ReadLine());
 
-            Console.Clear();
+            bool backToMain;
 
-            if (temp == 1) {
-                ICA27();
+            while (true) {
+                backToMain = false;
+                try {
+                    Console.Write("Enter - Exit the program\n1 - Insult Generator\n\nPlease select the program that you want to execute: ");
+                    int temp = int.Parse(Console.ReadLine());
+
+                    Console.Clear();
+
+                    if (temp == 0) {
+                        break;
+                    } else if (temp == 1) {
+                        ICA27(ref backToMain);
+                        if (!backToMain)
+                            break;
+                        else
+                            Console.Clear();
+                    } else {
+                        Console.Clear();
+                        Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
+                    }
+                } catch (Exception) {
+                    break;
+                }
             }
         }
     }
