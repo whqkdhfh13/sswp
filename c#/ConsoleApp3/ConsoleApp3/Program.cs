@@ -64,43 +64,82 @@ namespace ConsoleApp3 {
             System.Diagnostics.Process.Start("CMD.exe", executeCmd);
         }
 
+        private static void ICA28(ref bool toMain) {
+            string sFileToOpen;
+            string sFileToCopy;
+            Console.WriteLine("!! Double Doubler !!\n\nPlease press Enter at anytime to proceed to the main menu.");
+
+            Console.Write("Please enter name of the file to open: ");
+
+            sFileToOpen = Console.ReadLine();
+
+            if (sFileToOpen.Length == 0)
+                return;
+
+            if (!sFileToOpen.Contains(".txt"))
+                sFileToOpen += ".txt";
+
+            if (!File.Exists(sFileToOpen)) {
+                Console.WriteLine("\nNew file with the name {0} has been created, since there is no such file named {0}.", sFileToOpen);
+                StreamWriter swTemp = new StreamWriter(sFileToOpen);
+                Random rnd = new Random();
+                while (true) {
+                    Console.Write("Please enter the number of doubles you want to generate:");
+                    try {
+                        int iTemp = int.Parse(Console.ReadLine());                        
+                        for (int i = 0; i < iTemp; i++) {
+                            swTemp.WriteLine(rnd.NextDouble());
+                        }
+                        swTemp.Close();
+                        Console.WriteLine("\n{0} random doubles have been generated.");
+                    } catch (Exception) {
+                        Console.WriteLine("\nWrong input. Make sure to type only a natural number.");
+                    }
+                }
+            }
+
+            //StreamReader sr = new StreamReader(sFileToOpen);
+
+            //while (true) {
+
+            //}
+        }
+
         private static void ICA27(ref bool toMain) {
-            string[] aTemp = MakeInsults(sName, sVerb, sObject, 1);
+            string[] aTemp = MakeInsults(sName, sVerb, sObject, 1);            
 
             while (true) {
+                string sTemp;
                 Console.Write("!! Insult Generator !!\n\nPlease submit the number of insults that you want to make.\nIf you want to proceed to the main menu, please press Enter: ");
-                try {
-                    uint sNum = uint.Parse(Console.ReadLine());
+                sTemp = Console.ReadLine();
+                try {                    
+                    uint sNum = uint.Parse(sTemp);
                     aTemp = MakeInsults(sName, sVerb, sObject, (int)sNum);
                     break;
                 }
                 catch (System.FormatException) {
-                    toMain = true;
-                    break;
-                }
-                catch (System.OverflowException e) { // Both catch occurs when string is typed. Need to be fixed.
-                    toMain = false;
-                    Console.Clear();
-                    Console.WriteLine("Wrong input. Please try again with the natural number.\n\n" + e + "\n");
-                }
-
+                    if (sTemp.Length == 0) {
+                        toMain = true;
+                        break;
+                    } else {
+                        Console.Clear();
+                        Console.WriteLine("Wrong input. Please try again with the natural number.\n");
+                    }
+                }         
             }
 
             if (toMain) return;
 
-
             Console.WriteLine("\n// List of insults\n");
-            for (int i = 0; i < aTemp.Length; i++) {
-                Console.WriteLine((i + 1) + ". " + aTemp[i]);
-            }
+            for (int i = 0; i < aTemp.Length; i++) Console.WriteLine((i + 1) + ". " + aTemp[i]);
+            
 
             while (true) {
                 try {
                     Console.WriteLine("\nIf you want to save this in a new file, please type the name of the file. \nIf you want to proceed to the main menu, please press Enter:");
                     string sTemp = Console.ReadLine();
 
-                    if (sTemp.Length > 0)
-                        SaveInsults(sTemp, aTemp);
+                    if (sTemp.Length > 0) SaveInsults(sTemp, aTemp);
 
                     toMain = true;
                     break;
@@ -118,7 +157,10 @@ namespace ConsoleApp3 {
             while (true) {
                 backToMain = false;
                 try {
-                    Console.Write("Enter - Exit the program\n1 - Insult Generator\n\nPlease select the program that you want to execute: ");
+                    Console.Write("Enter - Exit the program\n" +
+                        "1 - Insult Generator\n" +
+                        "2 - Double Doubler\n" +
+                        "\nPlease select the program that you want to execute: ");
                     int temp = int.Parse(Console.ReadLine());
 
                     Console.Clear();
@@ -131,6 +173,8 @@ namespace ConsoleApp3 {
                             break;
                         else
                             Console.Clear();
+                    } else if (temp == 2) {
+
                     } else {
                         Console.Clear();
                         Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
