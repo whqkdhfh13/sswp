@@ -18,7 +18,7 @@ namespace ConsoleApp3 {
             string[] result = new string[howMany];
 
             for (int i = 0; i < howMany; i++) {
-                result[i] = String.Format("{0} {1} {2}.",sN[rnd.Next(4)], sV[rnd.Next(4)], sO[rnd.Next(4)]);
+                result[i] = String.Format("{0} {1} {2}.",sN[rnd.Next(sName.Length)], sV[rnd.Next(sVerb.Length)], sO[rnd.Next(sObject.Length)]);
             }
 
             return result;
@@ -62,55 +62,14 @@ namespace ConsoleApp3 {
             Console.WriteLine("\n" + currentPath + fileName);
             string executeCmd = "/C \"" + System.AppDomain.CurrentDomain.BaseDirectory + fileName + "\"\nexit";
             System.Diagnostics.Process.Start("CMD.exe", executeCmd);
-        }
-
-        private static void ICA28(ref bool toMain) {
-            string sFileToOpen;
-            string sFileToCopy;
-            Console.WriteLine("!! Double Doubler !!\n\nPlease press Enter at anytime to proceed to the main menu.");
-
-            Console.Write("Please enter name of the file to open: ");
-
-            sFileToOpen = Console.ReadLine();
-
-            if (sFileToOpen.Length == 0)
-                return;
-
-            if (!sFileToOpen.Contains(".txt"))
-                sFileToOpen += ".txt";
-
-            if (!File.Exists(sFileToOpen)) {
-                Console.WriteLine("\nNew file with the name {0} has been created, since there is no such file named {0}.", sFileToOpen);
-                StreamWriter swTemp = new StreamWriter(sFileToOpen);
-                Random rnd = new Random();
-                while (true) {
-                    Console.Write("Please enter the number of doubles you want to generate:");
-                    try {
-                        int iTemp = int.Parse(Console.ReadLine());                        
-                        for (int i = 0; i < iTemp; i++) {
-                            swTemp.WriteLine(rnd.NextDouble());
-                        }
-                        swTemp.Close();
-                        Console.WriteLine("\n{0} random doubles have been generated.");
-                    } catch (Exception) {
-                        Console.WriteLine("\nWrong input. Make sure to type only a natural number.");
-                    }
-                }
-            }
-
-            //StreamReader sr = new StreamReader(sFileToOpen);
-
-            //while (true) {
-
-            //}
-        }
+        }        
 
         private static void ICA27(ref bool toMain) {
             string[] aTemp = MakeInsults(sName, sVerb, sObject, 1);            
 
             while (true) {
                 string sTemp;
-                Console.Write("!! Insult Generator !!\n\nPlease submit the number of insults that you want to make.\nIf you want to proceed to the main menu, please press Enter: ");
+                Console.Write("!!-Insult Generator-!!\n\nPlease submit the number of insults that you want to make.\nIf you want to proceed to the main menu, please press Enter: ");
                 sTemp = Console.ReadLine();
                 try {                    
                     uint sNum = uint.Parse(sTemp);
@@ -150,6 +109,95 @@ namespace ConsoleApp3 {
             }
         }
 
+        private static void ICA28 (ref bool toMain) {
+            string sFileToOpen;
+            string sFileToCopy;
+            StreamWriter swTemp;
+            StreamReader sr;
+            StreamWriter sw;
+
+            Console.WriteLine("!!-Double Doubler-!!\n\nPlease press Enter at anytime to proceed to the main menu.");
+            Console.Write("Please enter the name of file to create or read from: ");
+            sFileToOpen = Console.ReadLine();
+
+            if (sFileToOpen.Length == 0)
+                return;
+
+            if (!sFileToOpen.Contains(".txt"))
+                sFileToOpen += ".txt";
+
+            if (!File.Exists(sFileToOpen)) {
+                while (true) {
+                    try {
+                        swTemp = new StreamWriter(sFileToOpen);
+                        Console.WriteLine("\nNew file with the name {0} has been created, since there is no such file named {0}.", sFileToOpen);
+                        break;
+                    }
+                    catch (Exception) {
+                        Console.WriteLine("Failed to create a new file with the given name - \"{0}\". Please try again with a different name", sFileToOpen);
+                    }
+                }
+                Random rnd = new Random();
+
+                while (true) {
+                    Console.Write("Please enter the number of doubles you want to generate: ");
+                    try {
+                        int iTemp = int.Parse(Console.ReadLine());
+                        for (int i = 0; i < iTemp; i++) {
+                            swTemp.WriteLine(rnd.NextDouble() * 100);
+                        }
+                        swTemp.Close();
+                        Console.WriteLine("\n{0} random doubles have been generated successfully.\n", iTemp);
+                        break;
+                    }
+                    catch (Exception) {
+                        Console.WriteLine("\nWrong input. Make sure to type only a natural number.\n");
+                    }
+                }
+            }
+
+            sr = new StreamReader(sFileToOpen);
+
+            while (true) {
+                try {
+                    Console.Write("Please enter the name of file to create where the doubled doubles will be stored: ");
+                    sFileToCopy = Console.ReadLine();
+
+                    if (sFileToCopy.Length == 0)
+                        return;
+
+                    if (!sFileToCopy.Contains(".txt")) {
+                        sFileToCopy += ".txt";
+                    }
+
+                    sw = new StreamWriter(sFileToCopy);
+
+                    break;
+                }
+                catch (Exception) {
+                    Console.WriteLine("\nWrong input. Please try again with a different name.\n");
+                }
+            }
+
+            Console.WriteLine("\n// Transition Log\n");
+
+            while (sr.Peek() != -1) {
+                double dTemp = double.Parse(sr.ReadLine());
+                Console.WriteLine("{0} --- X2 ---> {1}", dTemp, 2 * dTemp);
+                sw.WriteLine(2 * dTemp);
+            }
+            sr.Close();
+            sw.Close();
+
+            Console.WriteLine("\nSuccessfully doubled doubles. Press Enter to proceed to main menu...");
+            Console.ReadLine();
+        }
+
+        private static void ICA29(ref bool toMain) {
+            Console.WriteLine("!!-Advanced Insult Managing Tool-!!");
+            Console.ReadLine();
+        }
+
         static void Main (string[] args) {
 
             bool backToMain;
@@ -158,9 +206,10 @@ namespace ConsoleApp3 {
                 backToMain = false;
                 try {
                     Console.Write("Enter - Exit the program\n" +
-                        "1 - Insult Generator\n" +
-                        "2 - Double Doubler\n" +
-                        "\nPlease select the program that you want to execute: ");
+                        "1 - ICA 27\n" +
+                        "2 - ICA 28\n" +
+                        "3 - ICA 29\n" +
+                        "\nPlease select one of the options: ");
                     int temp = int.Parse(Console.ReadLine());
 
                     Console.Clear();
@@ -171,10 +220,10 @@ namespace ConsoleApp3 {
                         ICA27(ref backToMain);
                         if (!backToMain)
                             break;
-                        else
-                            Console.Clear();
                     } else if (temp == 2) {
-
+                        ICA28(ref backToMain);
+                    } else if (temp == 3) {
+                        ICA29(ref backToMain);
                     } else {
                         Console.Clear();
                         Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
@@ -182,6 +231,7 @@ namespace ConsoleApp3 {
                 } catch (Exception) {
                     break;
                 }
+                Console.Clear();
             }
         }
     }
