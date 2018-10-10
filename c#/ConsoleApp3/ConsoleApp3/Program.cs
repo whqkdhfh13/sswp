@@ -189,13 +189,57 @@ namespace ConsoleApp3 {
             sr.Close();
             sw.Close();
 
-            Console.WriteLine("\nSuccessfully doubled doubles. Press Enter to proceed to main menu...");
-            Console.ReadLine();
+            Console.WriteLine("\nSuccessfully doubled doubles. Press any key to proceed to main menu...");
+            Console.ReadKey();
         }
 
         private static void ICA29(ref bool toMain) {
-            Console.WriteLine("!!-Advanced Insult Managing Tool-!!");
+            Console.Clear();
+            Console.WriteLine("!!-Advanced Insult Management Tool-!!");
+            string[] savedArray = GenerateInsults();
+            foreach(string temp in savedArray) {
+                Console.WriteLine(temp);
+            }
             Console.ReadLine();
+
+        }
+
+        private static string[] GenerateInsults() {         
+            Console.Write("\nPlease type the number of names you want to enter: ");
+            string[] saName = new string[uint.Parse(Console.ReadLine())];
+            Console.WriteLine();
+            for (int i = 0; i < saName.Length; i++) {
+                Console.Write("Please enter name #{0}: ", i);
+                saName[i] = Console.ReadLine();
+            }
+
+            Console.Write("\nPlease type the number of verbs you want to enter: ");
+            string[] saVerb = new string[uint.Parse(Console.ReadLine())];
+            Console.WriteLine();
+            for (int i = 0; i < saVerb.Length; i++) {
+                Console.Write("Please enter verb #{0}: ", i);
+                saVerb[i] = Console.ReadLine();
+            }
+
+            Console.Write("\nPlease type the number of objects you want to enter: ");
+            string[] saObject = new string[uint.Parse(Console.ReadLine())];
+            Console.WriteLine();
+            for (int i = 0; i < saObject.Length; i++) {
+                Console.Write("Please enter name #{0}: ", i);
+                saObject[i] = Console.ReadLine();
+            }
+
+            Console.Write("\nPlease type the number of insults that you want to generate: ");
+            uint howMany = uint.Parse(Console.ReadLine());
+
+            string[] result = new string[howMany];
+            Random rnd = new Random();
+
+            for (int i = 0; i < howMany; i++) {
+                result[i] = String.Format("{0} {1} {2}.", saName[rnd.Next()], saVerb[rnd.Next()], saObject[rnd.Next()]);
+            }
+            
+            return result;
         }
 
         static void Main (string[] args) {
@@ -209,7 +253,7 @@ namespace ConsoleApp3 {
                         "1 - ICA 27\n" +
                         "2 - ICA 28\n" +
                         "3 - ICA 29\n" +
-                        "\nPlease select one of the options: ");
+                        "\nPlease select from one of the options: ");
                     int temp = int.Parse(Console.ReadLine());
 
                     Console.Clear();
@@ -223,7 +267,9 @@ namespace ConsoleApp3 {
                     } else if (temp == 2) {
                         ICA28(ref backToMain);
                     } else if (temp == 3) {
-                        ICA29(ref backToMain);
+                        while (true) {
+                            ICA29(ref backToMain);
+                        }
                     } else {
                         Console.Clear();
                         Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
