@@ -5,8 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
-
-
+/*
+ * while (true) {
+       try {
+           Console.Write("\nPlease type the number of insults that you want to generate: ");
+           howMany = uint.Parse(Console.ReadLine());
+           break;
+       }
+       catch (Exception) {
+           Console.WriteLine("Wrong input. Pleases try again.");
+       }
+    }   
+ */
 namespace ConsoleApp3 {
     class Program {
         readonly static private string[] sName = new string[] { "Allister", "Jane", "Justin", "Jayden", "Annyung"};
@@ -14,33 +24,15 @@ namespace ConsoleApp3 {
         readonly static private string[] sObject = new string[] { "Apple", "Microsoft", "school", "the god", "the monitor" };
         static Random rnd = new Random();
 
-        private static string[] MakeInsults(string[] sN, string[] sV, string[] sO, int howMany) {
+        private static string[] MakeInsults(string[] sN, string[] sV, string[] sO, uint howMany) {
             string[] result = new string[howMany];
 
             for (int i = 0; i < howMany; i++) {
-                result[i] = String.Format("{0} {1} {2}.",sN[rnd.Next(sName.Length)], sV[rnd.Next(sVerb.Length)], sO[rnd.Next(sObject.Length)]);
+                result[i] = String.Format("{0} {1} {2}.",sN[rnd.Next(sN.Length)], sV[rnd.Next(sV.Length)], sO[rnd.Next(sO.Length)]);
             }
 
             return result;
 
-        }
-
-        private static void SaveInsults(string inputFileName, string[] inputArray, bool putLine) {
-            string fileName;
-
-            if (!inputFileName.Contains(".txt"))
-                fileName = inputFileName + ".txt";
-            else
-                fileName = inputFileName;
-
-            StreamWriter sw = new StreamWriter(fileName); 
-
-            for(int i = 0; i < inputArray.Length; i++) {
-                sw.WriteLine((i+1) + ". " + inputArray[i]);
-            }
-            sw.Close();
-
-            Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory + fileName);
         }
 
         private static void SaveInsults (string inputFileName, string[] inputArray) {
@@ -62,7 +54,90 @@ namespace ConsoleApp3 {
             Console.WriteLine("\n" + currentPath + fileName);
             string executeCmd = "/C \"" + System.AppDomain.CurrentDomain.BaseDirectory + fileName + "\"\nexit";
             System.Diagnostics.Process.Start("CMD.exe", executeCmd);
-        }        
+        }
+
+        private static string[] GenerateInsults () {
+            string[] saName, saVerb, saObject;
+            uint howMany;
+            while (true) {
+                try {
+                    Console.Write("\nPlease type the number of names you want to enter: ");
+                    saName = new string[uint.Parse(Console.ReadLine())];
+                    Console.WriteLine();
+                    for (int i = 0; i < saName.Length; i++) {
+                        while (true) {
+                            Console.Write("Please enter name #{0}: ", i + 1);
+                            saName[i] = Console.ReadLine();
+                            if (saName[i].Trim().Length < 1)
+                                Console.WriteLine("Wrong input. Pleases try again.");
+                            else
+                                break;
+                        }
+                    }
+                    break;
+                }
+                catch (Exception) {
+                    Console.WriteLine("Wrong input. Pleases try again.");
+                }
+            }
+
+            while (true) {
+                try {
+                    Console.Write("\nPlease type the number of verbs you want to enter: ");
+                    saVerb = new string[uint.Parse(Console.ReadLine())];
+                    Console.WriteLine();
+                    for (int i = 0; i < saVerb.Length; i++) {
+                        while (true) {
+                            Console.Write("Please enter verb #{0}: ", i + 1);
+                            saVerb[i] = Console.ReadLine();
+                            if (saVerb[i].Trim().Length < 1)
+                                Console.WriteLine("Wrong input. Pleases try again.");
+                            else
+                                break;
+                        }
+                    }
+                    break;
+                }
+                catch (Exception) {
+                    Console.WriteLine("Wrong input. Pleases try again.");
+                }
+            }
+
+            while (true) {
+                try {
+                    Console.Write("\nPlease type the number of objects you want to enter: ");
+                    saObject = new string[uint.Parse(Console.ReadLine())];
+                    Console.WriteLine();
+                    for (int i = 0; i < saObject.Length; i++) {
+                        while (true) {
+                            Console.Write("Please enter object #{0}: ", i + 1);
+                            saObject[i] = Console.ReadLine();
+                            if (saObject[i].Trim().Length < 1)
+                                Console.WriteLine("Wrong input. Pleases try again.");
+                            else
+                                break;
+                        }
+                    }
+                    break;
+                }
+                catch (Exception) {
+                    Console.WriteLine("Wrong input. Pleases try again.");
+                }
+            }
+
+            while (true) {
+                try {
+                    Console.Write("\nPlease type the number of insults that you want to generate: ");
+                    howMany = uint.Parse(Console.ReadLine());
+                    break;
+                }
+                catch (Exception) {
+                    Console.WriteLine("Wrong input. Pleases try again.");
+                }
+            }
+
+            return MakeInsults(saName, saVerb, saObject, howMany);
+        }
 
         private static void ICA27(ref bool toMain) {
             string[] aTemp = MakeInsults(sName, sVerb, sObject, 1);            
@@ -73,7 +148,7 @@ namespace ConsoleApp3 {
                 sTemp = Console.ReadLine();
                 try {                    
                     uint sNum = uint.Parse(sTemp);
-                    aTemp = MakeInsults(sName, sVerb, sObject, (int)sNum);
+                    aTemp = MakeInsults(sName, sVerb, sObject, sNum);
                     break;
                 }
                 catch (System.FormatException) {
@@ -193,54 +268,16 @@ namespace ConsoleApp3 {
             Console.ReadKey();
         }
 
-        private static void ICA29(ref bool toMain) {
+        private static void ICA29(ref bool toMain, out string[] mainSaTemp) {
             Console.Clear();
             Console.WriteLine("!!-Advanced Insult Management Tool-!!");
-            string[] savedArray = GenerateInsults();
-            foreach(string temp in savedArray) {
+            mainSaTemp = GenerateInsults();
+            foreach(string temp in mainSaTemp) {
                 Console.WriteLine(temp);
             }
-            Console.ReadLine();
-
-        }
-
-        private static string[] GenerateInsults() {         
-            Console.Write("\nPlease type the number of names you want to enter: ");
-            string[] saName = new string[uint.Parse(Console.ReadLine())];
-            Console.WriteLine();
-            for (int i = 0; i < saName.Length; i++) {
-                Console.Write("Please enter name #{0}: ", i);
-                saName[i] = Console.ReadLine();
-            }
-
-            Console.Write("\nPlease type the number of verbs you want to enter: ");
-            string[] saVerb = new string[uint.Parse(Console.ReadLine())];
-            Console.WriteLine();
-            for (int i = 0; i < saVerb.Length; i++) {
-                Console.Write("Please enter verb #{0}: ", i);
-                saVerb[i] = Console.ReadLine();
-            }
-
-            Console.Write("\nPlease type the number of objects you want to enter: ");
-            string[] saObject = new string[uint.Parse(Console.ReadLine())];
-            Console.WriteLine();
-            for (int i = 0; i < saObject.Length; i++) {
-                Console.Write("Please enter name #{0}: ", i);
-                saObject[i] = Console.ReadLine();
-            }
-
-            Console.Write("\nPlease type the number of insults that you want to generate: ");
-            uint howMany = uint.Parse(Console.ReadLine());
-
-            string[] result = new string[howMany];
-            Random rnd = new Random();
-
-            for (int i = 0; i < howMany; i++) {
-                result[i] = String.Format("{0} {1} {2}.", saName[rnd.Next()], saVerb[rnd.Next()], saObject[rnd.Next()]);
-            }
-            
-            return result;
-        }
+            Console.ReadKey();
+            toMain = true;
+        }    
 
         static void Main (string[] args) {
 
@@ -262,21 +299,24 @@ namespace ConsoleApp3 {
                         break;
                     } else if (temp == 1) {
                         ICA27(ref backToMain);
-                        if (!backToMain)
-                            break;
                     } else if (temp == 2) {
                         ICA28(ref backToMain);
                     } else if (temp == 3) {
+                        string[] saTemp;
                         while (true) {
-                            ICA29(ref backToMain);
+                            ICA29(ref backToMain, out saTemp);
+                            if (!backToMain)
+                                break;
                         }
                     } else {
                         Console.Clear();
                         Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
                     }
-                } catch (Exception) {
-                    break;
+                } catch (Exception e) {
+                    Console.WriteLine("Exception occured. Please fix it :\n" + e);
                 }
+                if (!backToMain)
+                    break;
                 Console.Clear();
             }
         }
