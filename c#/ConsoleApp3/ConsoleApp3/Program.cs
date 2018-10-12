@@ -24,6 +24,44 @@ namespace ConsoleApp3 {
         readonly static private string[] sObject = new string[] { "Apple", "Microsoft", "school", "the god", "the monitor" };
         static Random rnd = new Random();
 
+        static void Main (string[] args) {
+            bool backToMain;
+            string[] saTemp;
+
+            while (true) {
+                backToMain = false;
+                try {
+                    Console.Write("Enter - Exit the program\n" +
+                        "1 - ICA 27\n" +
+                        "2 - ICA 28\n" +
+                        "3 - ICA 29\n" +
+                        "\nPlease select from one of the options: ");
+                    int temp = int.Parse(Console.ReadLine());
+
+                    Console.Clear();
+
+                    if (temp == 0) {
+                        break;
+                    } else if (temp == 1) {
+                        ICA27(ref backToMain);
+                    } else if (temp == 2) {
+                        ICA28(ref backToMain);
+                    } else if (temp == 3) {
+                        ICA29(ref backToMain, out saTemp);
+                    } else {
+                        Console.Clear();
+                        Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
+                    }
+                }
+                catch (Exception e) {
+                    Console.WriteLine("Exception occured. Please fix it :\n" + e);
+                }
+                if (!backToMain)
+                    break;
+                Console.Clear();
+            }
+        }
+
         private static string[] MakeInsults(string[] sN, string[] sV, string[] sO, uint howMany) {
             string[] result = new string[howMany];
 
@@ -269,56 +307,59 @@ namespace ConsoleApp3 {
         }
 
         private static void ICA29(ref bool toMain, out string[] mainSaTemp) {
-            Console.Clear();
-            Console.WriteLine("!!-Advanced Insult Management Tool-!!");
-            mainSaTemp = GenerateInsults();
-            foreach(string temp in mainSaTemp) {
-                Console.WriteLine(temp);
-            }
-            Console.ReadKey();
-            toMain = true;
-        }    
-
-        static void Main (string[] args) {
-
-            bool backToMain;
+            mainSaTemp = new string[0];
 
             while (true) {
-                backToMain = false;
-                try {
-                    Console.Write("Enter - Exit the program\n" +
-                        "1 - ICA 27\n" +
-                        "2 - ICA 28\n" +
-                        "3 - ICA 29\n" +
-                        "\nPlease select from one of the options: ");
-                    int temp = int.Parse(Console.ReadLine());
-
-                    Console.Clear();
-
-                    if (temp == 0) {
-                        break;
-                    } else if (temp == 1) {
-                        ICA27(ref backToMain);
-                    } else if (temp == 2) {
-                        ICA28(ref backToMain);
-                    } else if (temp == 3) {
-                        string[] saTemp;
-                        while (true) {
-                            ICA29(ref backToMain, out saTemp);
-                            if (!backToMain)
-                                break;
-                        }
-                    } else {
-                        Console.Clear();
-                        Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
-                    }
-                } catch (Exception e) {
-                    Console.WriteLine("Exception occured. Please fix it :\n" + e);
-                }
-                if (!backToMain)
-                    break;
                 Console.Clear();
+                Console.Write("!!-Advanced Insult Management Tool-!!\n\n" +
+                    "1 - Create a new series of insults\n" +
+                    "2 - Save insults to a file\n" +
+                    "3 - Load insults from a file\n" +
+                    "4 - Add insults to an existing file\n" +
+                    "5 - Find all the insults for a specific person\n" +
+                    "Enter - Exit the program\n\n" +
+                    "Selection: ");
+                try {
+                    switch (int.Parse(Console.ReadLine())) {
+                        case 1:
+                            mainSaTemp = GenerateInsults();
+                            foreach (string temp in mainSaTemp) {
+                                Console.WriteLine(temp);
+                            }
+                            Console.WriteLine("\n" +
+                                "Insults successfully created.\n" +
+                                "Press any key to proceed...");
+                            Console.ReadKey();
+                            break;
+                        case 2:
+                            if (mainSaTemp.Length == 0) {
+                                Console.WriteLine("\nNo insults created to save to a file. Please create insults first...");
+                                Console.ReadKey();
+                                break;
+                            }
+                            Console.WriteLine("\nPlease type the name of the file you want to create: ");
+                            SaveInsults(Console.ReadLine(), mainSaTemp);
+                            Console.WriteLine("\n" +
+                                "Insults successfully saved.\n" +
+                                "Press any key to proceed...");
+                            Console.ReadKey();
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        default:
+                            Console.WriteLine("Wrong input. Please try again.");
+                            break;
+                    }
+                } catch (Exception) {
+                    toMain = true;
+                    break;
+                }                
             }
-        }
+            return;
+        }            
     }
 }
