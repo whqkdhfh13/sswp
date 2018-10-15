@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace ConsoleApp3 {
 
         static void Main (string[] args) {
             bool backToMain;
-            string[] saTemp;
+            string[] saTemp = new string[0];
 
             while (true) {
                 backToMain = false;
@@ -47,7 +48,7 @@ namespace ConsoleApp3 {
                     } else if (temp == 2) {
                         ICA28(ref backToMain);
                     } else if (temp == 3) {
-                        ICA29(ref backToMain, out saTemp);
+                        ICA29(ref backToMain, ref saTemp);
                     } else {
                         Console.Clear();
                         Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
@@ -94,74 +95,36 @@ namespace ConsoleApp3 {
             System.Diagnostics.Process.Start("CMD.exe", executeCmd);
         }
 
+        private static void ReceiveInput (string s, out string[] thisSa) {
+            while (true) {
+                try {
+                    Console.Write("\nPlease type the number of {0}s you want to enter: ", s);
+                    thisSa = new string[uint.Parse(Console.ReadLine())];
+                    Console.WriteLine();
+                    for (int i = 0; i < thisSa.Length; i++) {
+                        while (true) {
+                            Console.Write("Please enter {0} #{1}: ", s, i + 1);
+                            thisSa[i] = Console.ReadLine();
+                            if (thisSa[i].Trim().Length < 1)
+                                Console.WriteLine("Wrong input. Pleases try again.");
+                            else
+                                break;
+                        }
+                    }
+                    break;
+                }
+                catch (Exception) {
+                    Console.WriteLine("Wrong input. Pleases try again.");
+                }
+            }
+        }
+
         private static string[] GenerateInsults () {
-            string[] saName, saVerb, saObject;
             uint howMany;
-            while (true) {
-                try {
-                    Console.Write("\nPlease type the number of names you want to enter: ");
-                    saName = new string[uint.Parse(Console.ReadLine())];
-                    Console.WriteLine();
-                    for (int i = 0; i < saName.Length; i++) {
-                        while (true) {
-                            Console.Write("Please enter name #{0}: ", i + 1);
-                            saName[i] = Console.ReadLine();
-                            if (saName[i].Trim().Length < 1)
-                                Console.WriteLine("Wrong input. Pleases try again.");
-                            else
-                                break;
-                        }
-                    }
-                    break;
-                }
-                catch (Exception) {
-                    Console.WriteLine("Wrong input. Pleases try again.");
-                }
-            }
 
-            while (true) {
-                try {
-                    Console.Write("\nPlease type the number of verbs you want to enter: ");
-                    saVerb = new string[uint.Parse(Console.ReadLine())];
-                    Console.WriteLine();
-                    for (int i = 0; i < saVerb.Length; i++) {
-                        while (true) {
-                            Console.Write("Please enter verb #{0}: ", i + 1);
-                            saVerb[i] = Console.ReadLine();
-                            if (saVerb[i].Trim().Length < 1)
-                                Console.WriteLine("Wrong input. Pleases try again.");
-                            else
-                                break;
-                        }
-                    }
-                    break;
-                }
-                catch (Exception) {
-                    Console.WriteLine("Wrong input. Pleases try again.");
-                }
-            }
-
-            while (true) {
-                try {
-                    Console.Write("\nPlease type the number of objects you want to enter: ");
-                    saObject = new string[uint.Parse(Console.ReadLine())];
-                    Console.WriteLine();
-                    for (int i = 0; i < saObject.Length; i++) {
-                        while (true) {
-                            Console.Write("Please enter object #{0}: ", i + 1);
-                            saObject[i] = Console.ReadLine();
-                            if (saObject[i].Trim().Length < 1)
-                                Console.WriteLine("Wrong input. Pleases try again.");
-                            else
-                                break;
-                        }
-                    }
-                    break;
-                }
-                catch (Exception) {
-                    Console.WriteLine("Wrong input. Pleases try again.");
-                }
-            }
+            ReceiveInput("name", out string[] saName);
+            ReceiveInput("verb", out string[] saVerb);
+            ReceiveInput("object", out string[] saObject);
 
             while (true) {
                 try {
@@ -306,8 +269,10 @@ namespace ConsoleApp3 {
             Console.ReadKey();
         }
 
-        private static void ICA29(ref bool toMain, out string[] mainSaTemp) {
-            mainSaTemp = new string[0];
+        private static void ICA29(ref bool toMain, ref string[] mainTSarray) {
+            if (mainTSarray.Length == 0 || mainTSarray == null) {
+                mainTSarray = new string[0];
+            }
 
             while (true) {
                 Console.Clear();
@@ -322,29 +287,83 @@ namespace ConsoleApp3 {
                 try {
                     switch (int.Parse(Console.ReadLine())) {
                         case 1:
-                            mainSaTemp = GenerateInsults();
-                            foreach (string temp in mainSaTemp) {
+                            mainTSarray = GenerateInsults();
+
+                            foreach (string temp in mainTSarray) {
                                 Console.WriteLine(temp);
                             }
+
                             Console.WriteLine("\n" +
                                 "Insults successfully created.\n" +
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
                         case 2:
-                            if (mainSaTemp.Length == 0) {
-                                Console.WriteLine("\nNo insults created to save to a file. Please create insults first...");
+                            if (mainTSarray.Length == 0) {
+                                Console.Write("\nNo insults created to save to a file. Please create insults first...");
                                 Console.ReadKey();
                                 break;
                             }
-                            Console.WriteLine("\nPlease type the name of the file you want to create: ");
-                            SaveInsults(Console.ReadLine(), mainSaTemp);
+
+                            Console.Write("\nPlease type the name of the file you want to create: ");
+
+                            SaveInsults(Console.ReadLine(), mainTSarray);
+
                             Console.WriteLine("\n" +
                                 "Insults successfully saved.\n" +
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
                         case 3:
+                            Console.Write("\nPlease type the name of the file you want to load insults from: ");
+                            string sName = Console.ReadLine();
+                            ArrayList al = new ArrayList();
+
+                            if (!sName.Contains(".txt")) {
+                                sName += ".txt";
+                            }
+
+                            if (!File.Exists(sName)) {
+                                Console.Write("File \"{0}\" doesn't exist. Returning back to main menu...", sName);
+                                Console.ReadKey();
+                                break;
+                            }
+
+                            StreamReader sr = new StreamReader(sName);
+
+                            Console.WriteLine();                            
+                            int i = 0;
+                            while (sr.Peek() != -1) {
+                                al.Add(sr.ReadLine());
+                                Console.WriteLine(al[i]);
+                                i++;
+                            }
+
+                            bool toThisMain = false;
+                            while (true) {
+                                Console.Write("\nIs this the file that you wanted to load? (y/n): ");
+                                String sYes = Console.ReadLine();
+                                if (sYes == "y" || sYes == "Y") {
+                                    break;
+                                } else if (sYes == "n" || sYes == "N") {
+                                    Console.Write("Returning to main menu...");
+                                    Console.ReadKey();
+                                    toThisMain = true;
+                                    break;
+                                } else {
+                                    Console.WriteLine("Wrong input; Please try again.");
+                                }
+                            }
+
+                            if (toThisMain)
+                                break;
+                            // Ask questions why type doesn't work;
+                            al.ToArray();
+
+                            Console.WriteLine("\n" +
+                                "Insults successfully loaded.\n" +
+                                "Press any key to proceed...");
+                            Console.ReadKey();
                             break;
                         case 4:
                             break;
