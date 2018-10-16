@@ -76,6 +76,7 @@ namespace ConsoleApp3 {
 
         private static void SaveInsults (string inputFileName, string[] inputArray) {
             string fileName;
+            StreamWriter sw;
             string currentPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
             if (!inputFileName.Contains(".txt"))
@@ -83,7 +84,25 @@ namespace ConsoleApp3 {
             else
                 fileName = inputFileName;
 
-            StreamWriter sw = new StreamWriter(fileName);
+            try {
+                if (File.Exists(fileName)) {
+                    Console.WriteLine("\n!! A file with the name \"{0}\" already exists. Do you want to overwrite it? (y/n)", fileName);
+                    string sTemp = Console.ReadLine();
+                    if (sTemp == "y" || sTemp == "Y") {
+                        sw = new StreamWriter(fileName);
+
+                    } else {
+                        sw = new StreamWriter(fileName, true);
+
+                    }
+                } else {
+                    sw = new StreamWriter(fileName);
+                }
+            } catch(Exception e) {
+                Console.WriteLine(e);
+                Console.ReadKey();
+                sw = new StreamWriter(fileName);
+            }
 
             foreach (string sTemp in inputArray) {
                 sw.WriteLine(sTemp);
@@ -91,7 +110,7 @@ namespace ConsoleApp3 {
             sw.Close();
 
             Console.WriteLine("\n" + currentPath + fileName);
-            string executeCmd = "/C \"" + System.AppDomain.CurrentDomain.BaseDirectory + fileName + "\"\nexit";
+            string executeCmd = "/C \"" + currentPath + fileName + "\"\nexit";
             System.Diagnostics.Process.Start("CMD.exe", executeCmd);
         }
 
@@ -138,6 +157,43 @@ namespace ConsoleApp3 {
             }
 
             return MakeInsults(saName, saVerb, saObject, howMany);
+        }
+
+        private static string[] FindPerson(string[] givenArray) {
+            if (givenArray.Length == 0) {
+                Console.WriteLine("\nThere are currently no insults in the memory. Please create one first...");
+                Console.ReadKey();
+                return null;
+            }
+            ArrayList result = new ArrayList();
+            ArrayList tPerson = new ArrayList();
+            uint order = 0;
+
+            // Sorting each names and print them
+            Console.WriteLine("////////////////////////");
+            foreach (string temp in givenArray) {
+                string tName = temp.Split(' ')[0];
+                if (!tPerson.Contains(tName)) {
+                    tPerson.Add(tName);
+                    Console.WriteLine("{0} - {1}", 1 + order++, tName);
+                }
+            }
+            Console.WriteLine("////////////////////////");
+                        
+            // Sorting given strings by each names into separate sections
+            for (int i = 0; i < order; i++) {
+                result.Add(new ArrayList());
+                for (int j = 0; j < givenArray.Length; j++) {
+                    if (givenArray[j].Contains((string)tPerson[i])) {
+                        ((ArrayList)result[i]).Add(givenArray[j]);
+                    }
+                }
+            }
+            
+            Console.Write("\nPlease select a person to find from one of the choices: ");
+
+            // ERROR DETECTED WHEN RETURNING. MUST BE FIXED WITH TRY/CATCH
+            return ((ArrayList)result[int.Parse(Console.ReadLine())]).ToArray(typeof(string)) as string[];
         }
 
         private static void ICA27(ref bool toMain) {
@@ -196,8 +252,10 @@ namespace ConsoleApp3 {
             Console.Write("Please enter the name of file to create or read from: ");
             sFileToOpen = Console.ReadLine();
 
-            if (sFileToOpen.Length == 0)
-                return;
+            if (sFileToOpen.Length == 0) {
+                toMain = true;
+                return;                
+            }
 
             if (!sFileToOpen.Contains(".txt"))
                 sFileToOpen += ".txt";
@@ -278,10 +336,9 @@ namespace ConsoleApp3 {
                 Console.Clear();
                 Console.Write("!!-Advanced Insult Management Tool-!!\n\n" +
                     "1 - Create a new series of insults\n" +
-                    "2 - Save insults to a file\n" +
+                    "2 - Save insults to a new or existing file\n" +
                     "3 - Load insults from a file\n" +
-                    "4 - Add insults to an existing file\n" +
-                    "5 - Find all the insults for a specific person\n" +
+                    "4 - Find all the insults for a specific person\n" +
                     "Enter - Exit the program\n\n" +
                     "Selection: ");
                 try {
@@ -357,8 +414,8 @@ namespace ConsoleApp3 {
 
                             if (toThisMain)
                                 break;
-                            // Ask questions why type doesn't work;
-                            al.ToArray();
+
+                            mainTSarray = al.ToArray(typeof(string)) as string[];
 
                             Console.WriteLine("\n" +
                                 "Insults successfully loaded.\n" +
@@ -366,8 +423,11 @@ namespace ConsoleApp3 {
                             Console.ReadKey();
                             break;
                         case 4:
-                            break;
-                        case 5:
+                            if (FindPerson(mainTSarray) == null) {
+                                break;
+                            }                            
+                            Console.WriteLine("\nSearched results saved in the memory.\nPlease press any key to proceed...");
+                            Console.ReadKey();
                             break;
                         default:
                             Console.WriteLine("Wrong input. Please try again.");
