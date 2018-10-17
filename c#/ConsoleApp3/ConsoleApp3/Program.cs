@@ -31,31 +31,34 @@ namespace ConsoleApp3 {
 
             while (true) {
                 backToMain = false;
-                try {
+                try {                                   
                     Console.Write("Enter - Exit the program\n" +
                         "1 - ICA 27\n" +
                         "2 - ICA 28\n" +
                         "3 - ICA 29\n" +
                         "\nPlease select from one of the options: ");
-                    int temp = int.Parse(Console.ReadLine());
 
-                    Console.Clear();
+                    switch (Console.ReadKey().KeyChar) {
 
-                    if (temp == 0) {
-                        break;
-                    } else if (temp == 1) {
-                        ICA27(ref backToMain);
-                    } else if (temp == 2) {
-                        ICA28(ref backToMain);
-                    } else if (temp == 3) {
-                        ICA29(ref backToMain, ref saTemp);
-                    } else {
-                        Console.Clear();
-                        Console.WriteLine("Wrong input. Please try again within the range of the selections.\n");
+                        case '1':
+                            Console.Clear();
+                            ICA27(ref backToMain);
+                            break;
+                        case '2':
+                            Console.Clear();
+                            ICA28(ref backToMain);
+                            break;
+                        case '3':
+                            Console.Clear();
+                            ICA29(ref backToMain, ref saTemp);
+                            break;
+                        default:
+                            Console.Clear();
+                            break;
                     }
                 }
-                catch (Exception e) {
-                    Console.WriteLine("Exception occured. Please fix it :\n" + e);
+                catch {
+                    backToMain = false;
                 }
                 if (!backToMain)
                     break;
@@ -177,7 +180,7 @@ namespace ConsoleApp3 {
                     tPerson.Add(tName);
                     Console.WriteLine("{0} - {1}", 1 + order++, tName);
                 }
-            }
+            }            
             Console.WriteLine("////////////////////////");
                         
             // Sorting given strings by each names into separate sections
@@ -192,8 +195,23 @@ namespace ConsoleApp3 {
             
             Console.Write("\nPlease select a person to find from one of the choices: ");
 
-            // ERROR DETECTED WHEN RETURNING. MUST BE FIXED WITH TRY/CATCH
-            return ((ArrayList)result[int.Parse(Console.ReadLine())]).ToArray(typeof(string)) as string[];
+            try {
+                return ((ArrayList)result[int.Parse(Console.ReadLine()) - 1]).ToArray(typeof(string)) as string[];
+            } catch {
+                return null;
+            }
+        }
+
+        private static void DisplayArray(string[] givenArray) {
+            uint it = 0;
+            if (givenArray.Length == 0 || givenArray == null) {
+                Console.WriteLine("The array is empty. Please create one first..");
+                Console.ReadKey();
+                return;
+            }
+            foreach (string t in givenArray) {
+                Console.WriteLine("{0}| {1}", 1 + it++, t);
+            }
         }
 
         private static void ICA27(ref bool toMain) {
@@ -342,20 +360,17 @@ namespace ConsoleApp3 {
                     "Enter - Exit the program\n\n" +
                     "Selection: ");
                 try {
-                    switch (int.Parse(Console.ReadLine())) {
-                        case 1:
+                    switch (Console.ReadKey().KeyChar) {
+                        case '1':
                             mainTSarray = GenerateInsults();
-
-                            foreach (string temp in mainTSarray) {
-                                Console.WriteLine(temp);
-                            }
+                            DisplayArray(mainTSarray);
 
                             Console.WriteLine("\n" +
                                 "Insults successfully created.\n" +
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
-                        case 2:
+                        case '2':
                             if (mainTSarray.Length == 0) {
                                 Console.Write("\nNo insults created to save to a file. Please create insults first...");
                                 Console.ReadKey();
@@ -371,7 +386,7 @@ namespace ConsoleApp3 {
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
-                        case 3:
+                        case '3':
                             Console.Write("\nPlease type the name of the file you want to load insults from: ");
                             string sName = Console.ReadLine();
                             ArrayList al = new ArrayList();
@@ -392,17 +407,17 @@ namespace ConsoleApp3 {
                             int i = 0;
                             while (sr.Peek() != -1) {
                                 al.Add(sr.ReadLine());
-                                Console.WriteLine(al[i]);
-                                i++;
+                                Console.WriteLine("{1}| {0}", al[i], 1 + i++);
                             }
+                            sr.Close();
 
                             bool toThisMain = false;
                             while (true) {
                                 Console.Write("\nIs this the file that you wanted to load? (y/n): ");
-                                String sYes = Console.ReadLine();
-                                if (sYes == "y" || sYes == "Y") {
+                                var sYes = Console.ReadKey();
+                                if (sYes.KeyChar == 'y' || sYes.KeyChar == 'Y') {
                                     break;
-                                } else if (sYes == "n" || sYes == "N") {
+                                } else if (sYes.KeyChar == 'n' || sYes.KeyChar == 'N') {
                                     Console.Write("Returning to main menu...");
                                     Console.ReadKey();
                                     toThisMain = true;
@@ -422,15 +437,14 @@ namespace ConsoleApp3 {
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
-                        case 4:
-                            if (FindPerson(mainTSarray) == null) {
-                                break;
-                            }                            
+                        case '4':
+                            mainTSarray = FindPerson(mainTSarray);
+                            DisplayArray(mainTSarray);                        
+                                                        
                             Console.WriteLine("\nSearched results saved in the memory.\nPlease press any key to proceed...");
                             Console.ReadKey();
                             break;
                         default:
-                            Console.WriteLine("Wrong input. Please try again.");
                             break;
                     }
                 } catch (Exception) {
