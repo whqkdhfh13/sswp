@@ -38,17 +38,17 @@ namespace ConsoleApp3 {
                         "3 - ICA 29\n" +
                         "\nPlease select from one of the options: ");
 
-                    switch (Console.ReadKey().KeyChar) {
+                    switch (int.Parse(Console.ReadLine())) {
 
-                        case '1':
+                        case 1:
                             Console.Clear();
                             ICA27(ref backToMain);
                             break;
-                        case '2':
+                        case 2:
                             Console.Clear();
                             ICA28(ref backToMain);
                             break;
-                        case '3':
+                        case 3:
                             Console.Clear();
                             ICA29(ref backToMain, ref saTemp);
                             break;
@@ -360,8 +360,8 @@ namespace ConsoleApp3 {
                     "Enter - Exit the program\n\n" +
                     "Selection: ");
                 try {
-                    switch (Console.ReadKey().KeyChar) {
-                        case '1':
+                    switch (int.Parse(Console.ReadLine())) {
+                        case 1:
                             mainTSarray = GenerateInsults();
                             DisplayArray(mainTSarray);
 
@@ -370,7 +370,7 @@ namespace ConsoleApp3 {
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
-                        case '2':
+                        case 2:
                             if (mainTSarray.Length == 0) {
                                 Console.Write("\nNo insults created to save to a file. Please create insults first...");
                                 Console.ReadKey();
@@ -386,7 +386,7 @@ namespace ConsoleApp3 {
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
-                        case '3':
+                        case 3:
                             Console.Write("\nPlease type the name of the file you want to load insults from: ");
                             string sName = Console.ReadLine();
                             ArrayList al = new ArrayList();
@@ -437,7 +437,7 @@ namespace ConsoleApp3 {
                                 "Press any key to proceed...");
                             Console.ReadKey();
                             break;
-                        case '4':
+                        case 4:
                             mainTSarray = FindPerson(mainTSarray);
                             DisplayArray(mainTSarray);                        
                                                         
