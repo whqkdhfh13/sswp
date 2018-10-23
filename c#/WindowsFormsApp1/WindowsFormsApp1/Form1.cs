@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
         }
 
         private void Form1_Paint (object sender, PaintEventArgs e) {
-            System.Diagnostics.Trace.WriteLine(m_i++.ToString() + "| Waaaaaaaaaaaaaaaaaaaa");
+            System.Diagnostics.Trace.WriteLine(m_i++.ToString() + "| Hey! it hurtss");
         }
     }
 }
