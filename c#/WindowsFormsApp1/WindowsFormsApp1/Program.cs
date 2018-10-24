@@ -12,6 +12,13 @@ namespace WindowsFormsApp1
         /// The main entry point for the application.
         /// </summary>
         [MTAThread]
+
+        public static void Times (this int count, Action action) {
+            for (int i = 0; i < count; i++) {
+                action();
+            }
+        }
+
         static void Main () {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
