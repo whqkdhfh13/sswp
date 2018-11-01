@@ -6,24 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
-/*
- * while (true) {
-       try {
-           Console.Write("\nPlease type the number of insults that you want to generate: ");
-           howMany = uint.Parse(Console.ReadLine());
-           break;
-       }
-       catch (Exception) {
-           Console.WriteLine("Wrong input. Pleases try again.");
-       }
-    }   
- */
+
 namespace ConsoleApp3 {
-    class Program {
-        readonly static private string[] sName = new string[] { "Allister", "Jane", "Justin", "Jayden", "Annyung"};
-        readonly static private string[] sVerb = new string[] { "licks", "kicks", "absorb the power from", "runs", "eats" };
-        readonly static private string[] sObject = new string[] { "Apple", "Microsoft", "school", "the god", "the monitor" };
-        static Random rnd = new Random();
+    class Program {        
 
         static void Main (string[] args) {
             bool backToMain;
@@ -67,6 +52,7 @@ namespace ConsoleApp3 {
         }
 
         private static string[] MakeInsults(string[] sN, string[] sV, string[] sO, uint howMany) {
+            Random rnd = new Random();
             string[] result = new string[howMany];
 
             for (int i = 0; i < howMany; i++) {
@@ -215,6 +201,9 @@ namespace ConsoleApp3 {
         }
 
         private static void ICA27(ref bool toMain) {
+            string[] sName = new string[] { "Allister", "Jane", "Justin", "Jayden", "Annyung" };
+            string[] sVerb = new string[] { "licks", "kicks", "absorb the power from", "runs", "eats" };
+            string[] sObject = new string[] { "Apple", "Microsoft", "school", "the god", "the monitor" };
             string[] aTemp = MakeInsults(sName, sVerb, sObject, 1);            
 
             while (true) {
