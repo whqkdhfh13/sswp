@@ -46,16 +46,15 @@
             // 
             // textBox1
             // 
+            this.textBox1.AcceptsReturn = true;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBox1.Location = new System.Drawing.Point(14, 12);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(208, 60);
             this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "Try to guess the secret number from 1 to 100 in 6 tries to win. Press [New Game] " +
-    "to start.";
+            this.textBox1.Text = "Please press [New Game] button to start the game!";
             // 
             // button2
             // 
