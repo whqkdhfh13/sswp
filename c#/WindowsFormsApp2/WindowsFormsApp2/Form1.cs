@@ -13,7 +13,7 @@ namespace WindowsFormsApp2
     public partial class Form1: Form
     {
         private int iGoal;
-        private int iCount = 6;
+        private int iCount;
 
         public Form1 () {
             InitializeComponent();
@@ -27,28 +27,39 @@ namespace WindowsFormsApp2
             button2.Enabled = true;
             Random rnd = new Random();
             iGoal = rnd.Next(101);
+            iCount = 6;
         }
 
         private void button2_Click (object sender, EventArgs e) {
             try {
                 int tInput = int.Parse(textBox2.Text);
 
+                if (tInput > 100 || tInput < 0)
+                    throw new System.ArgumentOutOfRangeException();
+
                 if (tInput == iGoal) {
-                    EndGame("Congraturations! You have successfully guessed the secret number. Please press [New Game] button to start a new game.");
-                } else if (tInput > iGoal) {
-                    // ERROR
-                    textBox1.Value = tInput + "is too high!" + "\r\n" + "Changes Remaining: " + iCount.ToString();
-                        // string.Format("{0} is too high!\nChance(s) remaining: {1}", tInput, iCount);
-                } else {
-                    textBox1.Text = string.Format("{0} is too low!\nChance(s) remaining: {1}", tInput, iCount);
+                    EndGame("Congraturations! You have successfully guessed the secret number in " + (7 - iCount) +" tries. Please press [New Game] button to start a new game.");
+                    return;
                 }
+
                 iCount--;
 
                 if (iCount == 0) {
                     EndGame("Unfortunately, you have failed to guess the secret number. Please press [New Game] button to start a new game.");
+                    return;
                 }
+
+                string sTemp;
+                if (tInput > iGoal) {
+                    sTemp = "high";
+                } else {
+                    sTemp = "low";
+                }
+
+                textBox1.Text = string.Format("{0} is too {1}!\r\n\r\n\r\nChance(s) remaining: {2}", tInput, sTemp, iCount);
+
             } catch (Exception) {
-                MessageBox.Show("Wrong input! Please Try again\nThis game only requires positive integer number to play.", "Error while processing given input");
+                MessageBox.Show("Wrong input! Please Try again.\nThis game only requires positive integer number less or equal to 100 to play.", "Error while processing given input");
             }
             
         }

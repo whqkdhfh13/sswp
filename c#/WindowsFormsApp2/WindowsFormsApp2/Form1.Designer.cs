@@ -52,8 +52,10 @@
             this.textBox1.Location = new System.Drawing.Point(14, 12);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(208, 60);
             this.textBox1.TabIndex = 1;
+            this.textBox1.TabStop = false;
             this.textBox1.Text = "Please press [New Game] button to start the game!";
             // 
             // button2
@@ -93,7 +95,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Guess me!";
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
