@@ -24,10 +24,10 @@ namespace WindowsFormsApp2
             textBox2.Enabled = true;
             this.ActiveControl = textBox2;
             button1.Enabled = false;
-            button2.Enabled = true;
             Random rnd = new Random();
             iGoal = rnd.Next(101);
             iCount = 6;
+            label1.Text = iGoal.ToString();
         }
 
         private void button2_Click (object sender, EventArgs e) {
@@ -58,6 +58,10 @@ namespace WindowsFormsApp2
 
                 textBox1.Text = string.Format("{0} is too {1}!\r\n\r\n\r\nChance(s) remaining: {2}", tInput, sTemp, iCount);
 
+                textBox2.Text = "";
+
+                this.ActiveControl = textBox2;
+
             } catch (Exception) {
                 MessageBox.Show("Wrong input! Please Try again.\nThis game only requires positive integer number less or equal to 100 to play.", "Error while processing given input");
             }
@@ -72,6 +76,22 @@ namespace WindowsFormsApp2
             button1.Enabled = true;
             button2.Enabled = false;
         }
+
+        private void textBox2_KeyDown (object sender, KeyEventArgs e) {            
+            if (e.KeyCode == Keys.Return) {
+                button2.PerformClick();               
+            }
+
+        }
+
+        private void textBox2_TextChanged (object sender, EventArgs e) {
+            if (textBox2.TextLength == 0)
+                button2.Enabled = false;
+            else
+                button2.Enabled = true;
+        }
+
+
         // Plan - StartGame(), ProcessGame() !! Will try to use recursion
 
 
