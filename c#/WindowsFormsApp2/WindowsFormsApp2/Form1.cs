@@ -31,41 +31,32 @@ namespace WindowsFormsApp2
         }
 
         private void button2_Click (object sender, EventArgs e) {
-            try {
-                int tInput = int.Parse(textBox2.Text);
+            int tInput = int.Parse(textBox2.Text);
 
-                if (tInput > 100 || tInput < 0)
-                    throw new System.ArgumentOutOfRangeException();
-
-                if (tInput == iGoal) {
-                    EndGame("Congraturations! You have successfully guessed the secret number in " + (7 - iCount) +" tries. Please press [New Game] button to start a new game.");
-                    return;
-                }
-
-                iCount--;
-
-                if (iCount == 0) {
-                    EndGame("Unfortunately, you have failed to guess the secret number. Please press [New Game] button to start a new game.");
-                    return;
-                }
-
-                string sTemp;
-                if (tInput > iGoal) {
-                    sTemp = "high";
-                } else {
-                    sTemp = "low";
-                }
-
-                textBox1.Text = string.Format("{0} is too {1}!\r\n\r\n\r\nChance(s) remaining: {2}", tInput, sTemp, iCount);
-
-                textBox2.Text = "";
-
-                this.ActiveControl = textBox2;
-
-            } catch (Exception) {
-                MessageBox.Show("Wrong input! Please Try again.\nThis game only requires positive integer number less or equal to 100 to play.", "Error while processing given input");
+            if (tInput == iGoal) {
+                EndGame("Congraturations! You have successfully guessed the secret number in " + (7 - iCount) + " tries. Please press [New Game] button to start a new game.");
+                return;
             }
-            
+
+            iCount--;
+
+            if (iCount == 0) {
+                EndGame("Unfortunately, you have failed to guess the secret number. Please press [New Game] button to start a new game.");
+                return;
+            }
+
+            string sTemp;
+            if (tInput > iGoal) {
+                sTemp = "high";
+            } else {
+                sTemp = "low";
+            }
+
+            textBox1.Text = string.Format("{0} is too {1}!\r\n\r\n\r\nChance(s) remaining: {2}", tInput, sTemp, iCount);
+
+            textBox2.Text = "";
+
+            this.ActiveControl = textBox2;
         }
 
         private void EndGame(string endText) {
@@ -85,17 +76,16 @@ namespace WindowsFormsApp2
         }
 
         private void textBox2_TextChanged (object sender, EventArgs e) {
-            if (textBox2.TextLength == 0)
-                button2.Enabled = false;
-            else
+            
+            try {
+                int tInt = int.Parse(textBox2.Text);
+                if (tInt > 100 || tInt < 1) throw new Exception();
                 button2.Enabled = true;
+            } catch (Exception) {
+                button2.Enabled = false;
+            }       
+                     
         }
-
-
-        // Plan - StartGame(), ProcessGame() !! Will try to use recursion
-
-
-
 
     }
 }
