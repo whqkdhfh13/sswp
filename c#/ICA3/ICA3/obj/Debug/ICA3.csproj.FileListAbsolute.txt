@@ -1,0 +1,12 @@
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\bin\Debug\ICA3.exe.config
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\bin\Debug\ICA3.exe
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\bin\Debug\ICA3.pdb
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\bin\Debug\GDIDrawer.dll
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.csprojAssemblyReference.cache
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.Form1.resources
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.Properties.Resources.resources
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.csproj.GenerateResource.cache
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.csproj.CoreCompileInputs.cache
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.csproj.CopyComplete
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.exe
+F:\Computer Technology Skills\Programmer Level 2\sswp\c#\ICA3\ICA3\obj\Debug\ICA3.pdb
