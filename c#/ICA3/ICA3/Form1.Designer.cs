@@ -26,10 +26,11 @@
         /// </summary>
         private void InitializeComponent () {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.trackBar3 = new System.Windows.Forms.TrackBar();
@@ -46,37 +47,30 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.button1 = new System.Windows.Forms.Button();
+            this.trackBar5 = new System.Windows.Forms.TrackBar();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 216);
+            this.groupBox1.Location = new System.Drawing.Point(12, 264);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(161, 50);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Color";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(16, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(37, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Fill";
-            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
@@ -88,6 +82,19 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Border";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(16, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(37, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Fill";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // statusStrip1
             // 
@@ -96,9 +103,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 276);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 317);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(316, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(336, 24);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
@@ -111,6 +118,17 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(38, 19);
             this.toolStripStatusLabel1.Text = "Idle..";
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(283, 19);
+            this.toolStripStatusLabel2.Spring = true;
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(92, 15);
@@ -119,6 +137,7 @@
             this.trackBar1.Size = new System.Drawing.Size(212, 45);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.TickFrequency = 0;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // trackBar2
             // 
@@ -128,6 +147,7 @@
             this.trackBar2.Size = new System.Drawing.Size(212, 45);
             this.trackBar2.TabIndex = 3;
             this.trackBar2.TickFrequency = 0;
+            this.trackBar2.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
             // 
             // trackBar3
             // 
@@ -137,6 +157,7 @@
             this.trackBar3.Size = new System.Drawing.Size(212, 45);
             this.trackBar3.TabIndex = 4;
             this.trackBar3.TickFrequency = 0;
+            this.trackBar3.ValueChanged += new System.EventHandler(this.trackBar3_ValueChanged);
             // 
             // trackBar4
             // 
@@ -146,6 +167,7 @@
             this.trackBar4.Size = new System.Drawing.Size(212, 45);
             this.trackBar4.TabIndex = 5;
             this.trackBar4.TickFrequency = 0;
+            this.trackBar4.ValueChanged += new System.EventHandler(this.trackBar4_ValueChanged);
             // 
             // label1
             // 
@@ -255,20 +277,9 @@
             this.label12.TabIndex = 17;
             this.label12.Text = "255";
             // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
-            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(207, 19);
-            this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(204, 228);
+            this.button1.Location = new System.Drawing.Point(204, 276);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 37);
             this.button1.TabIndex = 18;
@@ -276,11 +287,52 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // trackBar5
+            // 
+            this.trackBar5.Location = new System.Drawing.Point(92, 213);
+            this.trackBar5.Maximum = 400;
+            this.trackBar5.Name = "trackBar5";
+            this.trackBar5.Size = new System.Drawing.Size(211, 45);
+            this.trackBar5.TabIndex = 19;
+            this.trackBar5.TickFrequency = 0;
+            this.trackBar5.Value = 50;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(39, 226);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 13);
+            this.label13.TabIndex = 20;
+            this.label13.Text = "Size";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(100, 245);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(13, 13);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "0";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(279, 245);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(25, 13);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "400";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 300);
+            this.ClientSize = new System.Drawing.Size(336, 341);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.trackBar5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -302,7 +354,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(332, 339);
+            this.MaximumSize = new System.Drawing.Size(999, 999);
             this.MinimumSize = new System.Drawing.Size(332, 339);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -314,6 +366,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,6 +397,10 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TrackBar trackBar5;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
     }
 }
 
