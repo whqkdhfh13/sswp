@@ -25,6 +25,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent () {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -52,6 +53,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -82,7 +84,6 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Border";
             this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -94,7 +95,6 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Fill";
             this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // statusStrip1
             // 
@@ -167,6 +167,7 @@
             this.trackBar4.Size = new System.Drawing.Size(212, 45);
             this.trackBar4.TabIndex = 5;
             this.trackBar4.TickFrequency = 0;
+            this.trackBar4.Value = 255;
             this.trackBar4.ValueChanged += new System.EventHandler(this.trackBar4_ValueChanged);
             // 
             // label1
@@ -295,7 +296,7 @@
             this.trackBar5.Size = new System.Drawing.Size(211, 45);
             this.trackBar5.TabIndex = 19;
             this.trackBar5.TickFrequency = 0;
-            this.trackBar5.Value = 50;
+            this.trackBar5.Value = 100;
             // 
             // label13
             // 
@@ -323,6 +324,10 @@
             this.label15.Size = new System.Drawing.Size(25, 13);
             this.label15.TabIndex = 22;
             this.label15.Text = "400";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -401,6 +406,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
