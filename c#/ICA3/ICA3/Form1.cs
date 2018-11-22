@@ -18,7 +18,6 @@ namespace ICA3
         static Color cCurrent;
         static Color fill;
         static Color stroke;
-        static int size = 10;
         Point mClick = new Point();
 
         public Form1 () {
@@ -27,18 +26,12 @@ namespace ICA3
             stroke = Color.FromArgb(255, 255, 255, 255);
         }
 
-        static void abc() {
-            b.AddEllipse(150, 150, 100, 100, Color.FromArgb(255, 255, 0), 1, Color.FromArgb(0, 255, 255));
-            b.AddEllipse(100, 100, 100, 100, Color.FromArgb(100, 255, 255, 0), 1, Color.FromArgb(0, 255, 255));
-        }
-
         private void button1_Click (object sender, EventArgs e) {
             cCurrent = Color.FromArgb(0, 0, 0, 0);
             b = new CDrawer(800, 800);
             timer1.Enabled = true;
-            abc();
             toolStripStatusLabel1.Text = "Initiated..";
-            
+            System.Diagnostics.Debug.Print(Thread.CurrentThread.Name);
         }        
 
         private void trackBar1_ValueChanged (object sender, EventArgs e) {
@@ -63,7 +56,7 @@ namespace ICA3
 
         private void timer1_Tick (object sender, EventArgs e) {
             if (b.GetLastMouseLeftClick(out mClick)) {
-                b.AddEllipse(mClick.X, mClick.Y, size, size, fill, 1, stroke);
+                b.AddEllipse(mClick.X - trackBar5.Value / 2, mClick.Y - trackBar5.Value / 2, trackBar5.Value, trackBar5.Value, fill, 1, stroke);
             }          
             if (radioButton1.Checked) {
                 fill = cCurrent;
