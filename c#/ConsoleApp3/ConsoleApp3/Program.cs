@@ -166,7 +166,7 @@ namespace ConsoleApp3 {
                     tPerson.Add(tName);
                     Console.WriteLine("{0} - {1}", 1 + order++, tName);
                 }
-            }            
+            }
             Console.WriteLine("////////////////////////");
                         
             // Sorting given strings by each names into separate sections
