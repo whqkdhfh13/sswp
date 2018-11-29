@@ -16,13 +16,13 @@ w = tf.Variable(tf.random_normal([1]), name = 'weight')
 b = tf.Variable(tf.random_normal([1]), name = 'bias')
 
 # Our hypothesis wx + b
-hypothesis = w * x + b
+hypothesis = w * x**2 + b
 
 # cost/loss function
 cost = tf.reduce_mean(tf.square(hypothesis - y))
 
 # Minimize
-optimizer = tf.train.GradientDescentOptimizer(learning_rate = 0.02)
+optimizer = tf.train.AdamOptimizer(learning_rate = 1)
 train = optimizer.minimize(cost)
 
 print(hypothesis)
@@ -38,7 +38,9 @@ sess.run(tf.global_variables_initializer())
 
 # Fit the line
 for step in range(2001):
-	sess.run(train)
+	costVal, wVal, bVal, _ = sess.run([cost, w, b, train], feed_dict = {x: [1, 2, 3, 4, 5], y: [2, 5, 10, 17, 26]})
 	if step % 20 == 0:
-		print(step, "|", sess.run(cost), "|", sess.run(w), "|", sess.run(b))
-# WARNING - NOT COMPLETED - REFER TO 12:07
+		print(step, "|", costVal, "|", wVal, "|", bVal)
+
+# Testing our model
+print(sess.run(hypothesis, feed_dict = {x: [6, -3]}))
