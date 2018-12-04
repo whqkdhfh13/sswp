@@ -1,5 +1,6 @@
 import tensorflow as tf
 import os
+import numpy as np
 
 # Turning off Tensorflow warning message in program output
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -14,6 +15,7 @@ ydata = [[76], [91], [90], [98], [70]]
 # x1 = tf.placeholder(tf.float32)
 # x2 = tf.placeholder(tf.float32)
 # x3 = tf.placeholder(tf.float32)
+q = np.int64(0)
 
 x = tf.placeholder(tf.float32, shape = [None, 3])
 y = tf.placeholder(tf.float32, shape = [None, 1])
@@ -26,29 +28,26 @@ hypothesis = tf.matmul(x, w) + b
 
 cost = tf.reduce_mean(tf.square(hypothesis - y), name = 'cost')
 
-gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = 0.00002)
+gOptimizer = tf.train.AdagradOptimizer(learning_rate = 1)
 gTrain = gOptimizer.minimize(cost)
 
 lRate = 1
 
-aOptimizer = tf.train.AdamOptimizer(learning_rate = lRate)
+aOptimizer = tf.train.AdamOptimizer()
 aTrain = aOptimizer.minimize(cost)
 
 sess = tf.Session()
 
 sess.run(tf.global_variables_initializer())
 
-for step in range(10001):
+for step in range(50001):
 	if step == 0:
 		costVal = 1
 
-	costVal, hyVal, _ = sess.run([cost, hypothesis, aTrain], feed_dict = {x: xdata, y: ydata})
+	costVal, hyVal, _ = sess.run([cost, hypothesis, gTrain], feed_dict = {x: xdata, y: ydata})
 
-	if costVal < lRate / 2:
-		lRate /= 2
-
-	if step % 200 == 0:
-		print(step, "\nCost: ", costVal, "\nPrediction:", hyVal)
+	if step % 1000 == 0:
+		print(step, "- ", lRate, "\nCost: ", costVal, "\nPrediction:", hyVal)
 
 # Matrix multiplication
 #     [x, y] * [y, z] = [x, z]
