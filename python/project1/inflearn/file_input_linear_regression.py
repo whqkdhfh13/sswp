@@ -31,6 +31,25 @@ sess = tf.Session()
 
 sess.run(tf.global_variables_initializer())
 
+
+def printresult(cost_value, original_result, actual_result, session, test_value):
+	s = 0
+	for i in range(len(original_result)):
+		s += (original_result[i] - actual_result[i])
+	print("/Most Approximate values/\n")
+	for temp in actual_result:
+		sh = temp - 2 * s
+		sl = temp + 2 * s
+		if sh > sl:
+			print(temp, "|", sl, "-", sh)
+		else:
+			print(temp, "|", sh, "-", sl)
+	print("\nCost =", cost_value, "=", np.sqrt(cost_value), "^ 2")
+
+	if len(test_value) > 0:
+		print(session.run(hypothesis, feed_dict = {x: test_value}))
+
+
 for step in range(20001):
 	if step == 0:
 		cost_val = 1
@@ -44,11 +63,12 @@ for step in range(20001):
 	# 	print(step, "Cost: ", cost_val, "\nPrediction:\n", hy_val)
 
 	if step == 20000:
-		for temp in hy_val:
-			print(temp, "±", np.sqrt(cost_val))
-		s = 0
-		for i in range(len(yData)):
-			s += (yData[i] - hy_val[i]) / len(hy_val)
-		print(s * len(hy_val), " | ", s)
-
-		print("\nYour score will be ", sess.run(hypothesis, feed_dict = {x: [[90, 93, 96]]}))
+		printresult(cost_val, yData, hy_val, sess, [[50, 50, 50], [60, 60, 60]])
+		# for temp in hy_val:
+		# 	print(temp, "±", 2 * np.sqrt(cost_val))
+		# s = 0
+		# for i in range(len(yData)):
+		# 	s += (yData[i] - hy_val[i]) / len(hy_val)
+		# print(s * len(hy_val), " | ", s)
+		#
+		# print("\nYour score will be ", sess.run(hypothesis, feed_dict = {x: [[90, 93, 96]]}))
