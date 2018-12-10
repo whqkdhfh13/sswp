@@ -18,10 +18,9 @@ w = tf.Variable(tf.random_normal([3, 1]), name='weight')
 b = tf.Variable(tf.random_normal([1]), name='bias')
 
 hypothesis = tf.matmul(x, w) + b
-
 cost = tf.reduce_mean(tf.square(hypothesis - y))
 
-aOptimizer = tf.train.AdamOptimizer(learning_rate = 1)
+aOptimizer = tf.train.AdamOptimizer(learning_rate = 1e-2)
 aTrain = aOptimizer.minimize(cost)
 
 gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = 2e-5)
@@ -44,25 +43,25 @@ def printresult(cost_value, original_result, actual_result, session, test_value)
 			print(temp, "|", sl, "-", sh)
 		else:
 			print(temp, "|", sh, "-", sl)
-	print("\nCost =", cost_value, "=", np.sqrt(cost_value), "^ 2")
+	print("\nCost =", cost_value, "=", np.sqrt(cost_value), "^ 2\ns =", s)
 
 	if len(test_value) > 0:
 		print(session.run(hypothesis, feed_dict = {x: test_value}))
 
 
-for step in range(20001):
+for step in range(30001):
 	if step == 0:
 		cost_val = 1
 
-	cost_val, hy_val, _ = sess.run(
-		[cost, hypothesis, aTrain if cost_val > 6 else gTrain],
+	cost_val, hy_val, _= sess.run(
+		[cost, hypothesis, aTrain if cost_val > .03 else gTrain],
 		feed_dict = {x: xData, y: yData}
 	)
 
-	# if step % 100 == 0:
-	# 	print(step, "Cost: ", cost_val, "\nPrediction:\n", hy_val)
+	if step % 1000 == 0:
+		print(step, "Cost: ", cost_val, "\nPrediction:\n", hy_val)
 
-	if step == 20000:
+	if step == 30000:
 		printresult(cost_val, yData, hy_val, sess, [[50, 50, 50], [60, 60, 60]])
 		# for temp in hy_val:
 		# 	print(temp, "±", 2 * np.sqrt(cost_val))

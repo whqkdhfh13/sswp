@@ -28,7 +28,7 @@ cost = tf.reduce_mean(tf.square(hypothesis - y))
 
 lRate = 2e-5
 
-aOptimizer = tf.train.AdamOptimizer(learning_rate = 1)
+aOptimizer = tf.train.AdagradDAOptimizerOptimizer()
 aTrain = aOptimizer.minimize(cost)
 
 gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = lRate)
@@ -40,7 +40,7 @@ sess.run(tf.global_variables_initializer())
 coord = tf.train.Coordinator()
 threads = tf.train.start_queue_runners(sess = sess, coord = coord)
 
-for step in range(5001):
+for step in range(20001):
 	if step == 0:
 		costVal = 1
 
@@ -49,7 +49,7 @@ for step in range(5001):
 		gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = lRate)
 	x_batch, y_batch = sess.run([train_x_batch, train_y_batch])
 	costVal, hyVal, _ = sess.run(
-		[cost, hypothesis, aTrain if costVal > 6 else gTrain],
+		[cost, hypothesis, aTrain],
 		feed_dict = {x : x_batch, y : y_batch}
 	)
 
