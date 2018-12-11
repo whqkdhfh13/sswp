@@ -23,7 +23,9 @@ cost = tf.reduce_mean(tf.square(hypothesis - y))
 aOptimizer = tf.train.AdamOptimizer(learning_rate = 1e-2)
 aTrain = aOptimizer.minimize(cost)
 
-gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = 2e-5)
+lRate = 1e-7
+
+gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = lRate)
 gTrain = gOptimizer.minimize(cost)
 
 sess = tf.Session()
@@ -47,18 +49,46 @@ def printresult(cost_value, original_result, actual_result, session, test_value)
 
 	if len(test_value) > 0:
 		print(session.run(hypothesis, feed_dict = {x: test_value}))
+	return s
 
+
+f = 0
+c = 0
+d = True
 
 for step in range(30001):
+	s = 0
+
 	if step == 0:
 		cost_val = 1
+		s = 1
 
-	cost_val, hy_val, _= sess.run(
-		[cost, hypothesis, aTrain if cost_val > .03 else gTrain],
+	cost_val, hy_val, _ = sess.run(
+		[cost, hypothesis, aTrain if d is True else gTrain],
 		feed_dict = {x: xData, y: yData}
 	)
 
-	if step % 1000 == 0:
+	for i in range(len(yData)):
+		s += (yData[i] - hy_val[i])
+
+	if abs(f - cost_val) < 5e-5 and abs(s) < 0.5 and d is True:
+		d = False
+		print("Hello")
+
+	# ERROR // f - cost_val = 0?? It shouldn't be.
+	if abs(f - cost_val) < lRate / 10 and d is False:
+		c += 1
+		print(f - cost_val)
+
+	if c % 10 == 0 and c > 0:
+		lRate /= 10
+		gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = lRate)
+		gTrain = gOptimizer.minimize(cost)
+		print("hi")
+
+	f = cost_val
+
+	if step % 3000 == 0:
 		print(step, "Cost: ", cost_val, "\nPrediction:\n", hy_val)
 
 	if step == 30000:
