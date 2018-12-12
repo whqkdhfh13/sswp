@@ -20,13 +20,8 @@ b = tf.Variable(tf.random_normal([1]), name='bias')
 hypothesis = tf.matmul(x, w) + b
 cost = tf.reduce_mean(tf.square(hypothesis - y))
 
-aOptimizer = tf.train.AdamOptimizer(learning_rate = 1e-2)
+aOptimizer = tf.train.AdamOptimizer(learning_rate = .1, epsilon = 1e-12)
 aTrain = aOptimizer.minimize(cost)
-
-lRate = 1e-7
-
-gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = lRate)
-gTrain = gOptimizer.minimize(cost)
 
 sess = tf.Session()
 
@@ -63,28 +58,23 @@ for step in range(30001):
 		cost_val = 1
 		s = 1
 
+	if c % 1000 == 0 and c == 1000:
+		aOptimizer = tf.train.GradientDescentOptimizer(learning_rate = 1e-5)
+		aTrain = aOptimizer.minimize(cost)
+		print("hi |", c, "|", d, "|", f - cost_val, "|",)
+		c += 1
+
 	cost_val, hy_val, _ = sess.run(
-		[cost, hypothesis, aTrain if d is True else gTrain],
+		[cost, hypothesis, aTrain],
 		feed_dict = {x: xData, y: yData}
 	)
 
-	for i in range(len(yData)):
-		s += (yData[i] - hy_val[i])
-
-	if abs(f - cost_val) < 5e-5 and abs(s) < 0.5 and d is True:
+	if abs(f - cost_val) < 1e-5 and d is True:
 		d = False
-		print("Hello")
+		print("Hello", abs(f - cost_val))
 
-	# ERROR // f - cost_val = 0?? It shouldn't be.
-	if abs(f - cost_val) < lRate / 10 and d is False:
+	if abs(f - cost_val) < 1e-5 / 1e-4 and d is False:
 		c += 1
-		print(f - cost_val)
-
-	if c % 10 == 0 and c > 0:
-		lRate /= 10
-		gOptimizer = tf.train.GradientDescentOptimizer(learning_rate = lRate)
-		gTrain = gOptimizer.minimize(cost)
-		print("hi")
 
 	f = cost_val
 
@@ -92,7 +82,7 @@ for step in range(30001):
 		print(step, "Cost: ", cost_val, "\nPrediction:\n", hy_val)
 
 	if step == 30000:
-		printresult(cost_val, yData, hy_val, sess, [[50, 50, 50], [60, 60, 60]])
+		printresult(cost_val, yData, hy_val, sess, [[50, 50, 50], [60, 60, 60], [40, 60, 80]])
 		# for temp in hy_val:
 		# 	print(temp, "±", 2 * np.sqrt(cost_val))
 		# s = 0
