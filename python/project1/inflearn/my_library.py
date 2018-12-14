@@ -2,34 +2,10 @@ import tensorflow as tf
 import os
 import numpy as np
 
+# SOLVE ERRORS BELOW AND RESEARCH HOW TO ADD GLOBAL LIBRARY
+
 # Turning off Tensorflow warning message in program output
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-xy = np.loadtxt('data_01.txt', delimiter = ',', dtype = np.float32)
-xData = xy[:, 0:-1]
-yData = xy[:, [-1]]
-dataLength = 6
-
-print(
-	("Successfully loaded data.\nx: " + str(xData.shape) + " | y: " + str(yData.shape)) if (len(xData) == dataLength and len(yData) == dataLength) else "Error")
-
-x = tf.placeholder(tf.float32, shape = [None, xData.shape[1]])
-y = tf.placeholder(tf.float32, shape = [None, yData.shape[1]])
-w = tf.Variable(tf.random_normal([xData.shape[1], yData.shape[1]]), name = 'weight')
-b = tf.Variable(tf.random_normal([1]), name = 'bias')
-
-hypothesis = tf.matmul(x, w) + b
-cost = tf.reduce_mean(tf.square(hypothesis - y))
-
-aOptimizer = tf.train.AdamOptimizer(learning_rate = .1, epsilon = 1e-12)
-aTrain = aOptimizer.minimize(cost)
-
-sess = tf.Session()
-
-sess.run(tf.global_variables_initializer())
-
-
-# CONTINUE FUNCTIONALIZE THE PROCESS
 
 
 def printresult(cost_value, original_result, actual_result, session, temp_hy, test_value = [[]]):
@@ -85,7 +61,7 @@ def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count
 			temp_train = temp_optimizer.minimize(temp_cost)
 
 		if temp_endCount == 1000:
-			return printresult(temp_cost_value, y_data, temp_hypothesis_value, temp_sess, temp_hypothesis)
+			return printresult(temp_cost_value, y_data, temp_hypothesis_value, temp_sess)
 
 		if temp_difference < temp_cost_value / cdv and temp_triggered is False:
 			temp_triggered = True
@@ -102,5 +78,3 @@ def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count
 		if temp_step % 1000 == 0:
 			print(temp_step, "Cost: ", temp_cost_value, "\nPrediction:\n", temp_hypothesis_value)
 
-
-training(xData, yData, temp_sess = sess)
