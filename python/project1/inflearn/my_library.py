@@ -24,6 +24,7 @@ def printresult(cost_value, original_result, actual_result, session, temp_hy, te
 	print("\nCost =", cost_value, "=", np.sqrt(cost_value), "^ 2\ns =", s)
 
 	if len(test_value[0]) > 0:
+		x = tf.placeholder(tf.float32, shape = [len(test_value), len(test_value[0])])
 		print(session.run(temp_hy, feed_dict = {x: feed_value}))
 
 	return s

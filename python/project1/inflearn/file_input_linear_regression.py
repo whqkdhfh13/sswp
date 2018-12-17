@@ -13,47 +13,18 @@ dataLength = 6
 print(
 	("Successfully loaded data.\nx: " + str(xData.shape) + " | y: " + str(yData.shape)) if (len(xData) == dataLength and len(yData) == dataLength) else "Error")
 
-x = tf.placeholder(tf.float32, shape = [None, xData.shape[1]])
-y = tf.placeholder(tf.float32, shape = [None, yData.shape[1]])
-w = tf.Variable(tf.random_normal([xData.shape[1], yData.shape[1]]), name = 'weight')
-b = tf.Variable(tf.random_normal([1]), name = 'bias')
-
-hypothesis = tf.matmul(x, w) + b
-cost = tf.reduce_mean(tf.square(hypothesis - y))
-
-aOptimizer = tf.train.AdamOptimizer(learning_rate = .1, epsilon = 1e-12)
-aTrain = aOptimizer.minimize(cost)
-
-sess = tf.Session()
-
-sess.run(tf.global_variables_initializer())
-
 
 # CONTINUE FUNCTIONALIZE THE PROCESS
 
+def initializer(x_data, y_data):
+	global x_holder, y_holder, w_holder, b_holder
+	x_holder = tf.placeholder(tf.float32, shape = [None, x_data.shape[1]])
+	y_holder = tf.placeholder(tf.float32, shape = [None, y_data.shape[1]])
+	w_holder = tf.Variable(tf.random_normal([x_data.shape[1], y_data.shape[1]]), name = 'temp_weight')
+	b_holder = tf.Variable(tf.random_normal([1]), name = 'temp_bias')
 
-def printresult(cost_value, original_result, actual_result, session, temp_hy, test_value = [[]]):
-	feed_value = np.array(test_value)
-	s = 0
-	for i in range(len(original_result)):
-		s += (original_result[i] - actual_result[i])
-	print("/Most Approximate values/\n")
-	for temp in actual_result:
-		sh = temp - 2 * (s + np.sqrt(cost_value))
-		sl = temp + 2 * (s + np.sqrt(cost_value))
-		if sh > sl:
-			print(temp, "|", sl, "-", sh)
-		else:
-			print(temp, "|", sh, "-", sl)
-	print("\nCost =", cost_value, "=", np.sqrt(cost_value), "^ 2\ns =", s)
-
-	if len(test_value[0]) > 0:
-		print(session.run(temp_hy, feed_dict = {x: feed_value}))
-
-	return s
-
-
-def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count = 30001, cdv = 1e-3):
+# ERROR WHEN TEMP_HYPOTHESIS IS DEFINED BY AN USER / FEEDING SHAPE ERROR
+def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count = 30001, cdv = 1e-3, test_value = [[]]):
 	x_holder = tf.placeholder(tf.float32, shape = [None, x_data.shape[1]])
 	y_holder = tf.placeholder(tf.float32, shape = [None, y_data.shape[1]])
 	w_holder = tf.Variable(tf.random_normal([x_data.shape[1], y_data.shape[1]]), name = 'temp_weight')
@@ -75,6 +46,29 @@ def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count
 	temp_triggered = False
 	temp_endCount = 0
 
+	# Defining function to give clarity to the code
+	def printresult(cost_value, original_result, actual_result):
+		feed_value = np.array(test_value)
+		s = 0
+		for i in range(len(original_result)):
+			s += (original_result[i] - actual_result[i])
+		print("/Most Approximate values/\n")
+		for temp in actual_result:
+			sh = temp - 2 * (s + np.sqrt(cost_value))
+			sl = temp + 2 * (s + np.sqrt(cost_value))
+			if sh > sl:
+				print(temp, "|", sl, "-", sh)
+			else:
+				print(temp, "|", sh, "-", sl)
+		print("\nCost =", cost_value, "=", np.sqrt(cost_value), "^ 2\ns =", s)
+
+		if feed_value.shape[0] > 0:
+			print(temp_hypothesis.eval(session = temp_sess, feed_dict = {x_holder: feed_value}))
+
+		temp_sess.close()
+	# End of the defined function
+
+	# Start the training phase
 	for temp_step in range(run_count):
 		temp_cost_value, temp_hypothesis_value, _ = temp_sess.run([temp_cost, temp_hypothesis, temp_train], feed_dict = {x_holder: x_data, y_holder: y_data})
 
@@ -85,7 +79,7 @@ def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count
 			temp_train = temp_optimizer.minimize(temp_cost)
 
 		if temp_endCount == 1000:
-			return printresult(temp_cost_value, y_data, temp_hypothesis_value, temp_sess, temp_hypothesis)
+			return printresult(temp_cost_value, y_data, temp_hypothesis_value)
 
 		if temp_difference < temp_cost_value / cdv and temp_triggered is False:
 			temp_triggered = True
@@ -103,4 +97,5 @@ def training(x_data, y_data, temp_sess = None, temp_hypothesis = None, run_count
 			print(temp_step, "Cost: ", temp_cost_value, "\nPrediction:\n", temp_hypothesis_value)
 
 
-training(xData, yData, temp_sess = sess)
+initializer(xData, yData)
+training(xData, yData, test_value = [[50, 50, 50]])
