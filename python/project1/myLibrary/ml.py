@@ -6,16 +6,15 @@ import os
 # Turning off Tensorflow warning message in program output
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+
 def initialize(file_name, delimiter = ',', dtype = np.float32, output_size = 1):
 	temp_array = np.loadtxt(file_name, delimiter = delimiter, dtype = dtype)
-	global x_data, y_data
-	x_data = temp_array[:, 0:-output_size]
-	y_data = temp_array[:, [-output_size]]
+	return [temp_array[:, 0:-output_size], temp_array[:, [-output_size]]]
 
 
 def training(x_data, y_data, temp_sess = None, degree = 1, run_count = 30000, cdv = 1e-3, test_value = [[]]):
 	try:
-		x_data
+		x_data.shape
 	except NameError:
 		x_data = np.array(x_data)
 		y_data = np.array(y_data)

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49f0aa00-576d-47af-9619-a8532dbfaef7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/inflearn/ml.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inflearn/file_input_linear_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/inflearn/file_input_linear_regression.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inflearn/my_library.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inflearn/ml.py" beforeDir="false" afterPath="$PROJECT_DIR$/myLibrary/ml.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,14 +23,14 @@
     <session id="-1743169068">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="21" />
+          <entry key="project.closed" value="22" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="5" />
           <entry key="project.open.time.5" value="8" />
-          <entry key="project.open.time.6" value="4" />
+          <entry key="project.open.time.6" value="5" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="21" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -50,7 +50,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="file_input_linear_regression" value="26" />
-          <entry key="py" value="15181" />
+          <entry key="py" value="15260" />
           <entry key="txt" value="271" />
           <entry key="vmoptions" value="9" />
         </counts>
@@ -58,7 +58,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="282" />
-          <entry key="Python" value="15207" />
+          <entry key="Python" value="15286" />
         </counts>
       </usages-collector>
     </session>
@@ -92,20 +92,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/inflearn/file_input_linear_regression.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/inflearn/ml.py">
+        <entry file="file://$PROJECT_DIR$/myLibrary/ml.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+            <state relative-caret-position="119">
+              <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <marker date="1545241768723" expanded="true" signature="246:426" ph="..." />
+                <marker date="1545341549683" expanded="true" signature="247:395" ph="..." />
               </folding>
             </state>
           </provider>
@@ -148,6 +148,7 @@
         <option value="$PROJECT_DIR$/inflearn/data_01.txt" />
         <option value="$PROJECT_DIR$/inflearn/my_library.py" />
         <option value="$PROJECT_DIR$/inflearn/ml.py" />
+        <option value="$PROJECT_DIR$/myLibrary/ml.py" />
         <option value="$PROJECT_DIR$/inflearn/file_input_linear_regression.py" />
       </list>
     </option>
@@ -201,6 +202,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -243,7 +245,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -255,6 +256,10 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Computer Technology Skills\Programmer Level 2\sswp\python\project1" />
+      <recent name="F:\Computer Technology Skills\Programmer Level 2\sswp\python\project1\inflearn\myLibrary" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Computer Technology Skills\Programmer Level 2\sswp\python\project1\temp" />
       <recent name="F:\Computer Technology Skills\Programmer Level 2\sswp\python\project1\inflearn" />
@@ -436,7 +441,7 @@
     <frame x="1912" y="173" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17159383" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17352185" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -451,7 +456,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50074625" side_tool="true" weight="0.28290993" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32884097" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49925372" visible="true" weight="0.41644204" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="12" sideWeight="0.49925372" visible="true" weight="0.41644204" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -536,21 +541,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/inflearn/ml.py">
+    <entry file="file://$PROJECT_DIR$/myLibrary/ml.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+        <state relative-caret-position="119">
+          <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <marker date="1545241768723" expanded="true" signature="246:426" ph="..." />
+            <marker date="1545341549683" expanded="true" signature="247:395" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/inflearn/file_input_linear_regression.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
