@@ -1,0 +1,12 @@
+==> 2019-01-08 10:37:23 <==
+# cmd: C:\ProgramData\Anaconda3\Scripts\conda create -n tensorflow python=3.5
+# conda version: 4.5.11
++defaults::certifi-2018.8.24-py35_1
++defaults::pip-10.0.1-py35_0
++defaults::python-3.5.6-he025d50_0
++defaults::setuptools-40.2.0-py35_0
++defaults::vc-14.1-h0510ff6_4
++defaults::vs2015_runtime-14.15.26706-h3a45250_0
++defaults::wheel-0.31.1-py35_0
++defaults::wincertstore-0.2-py35hfebbdb8_0
+# update specs: ['python=3.5']
