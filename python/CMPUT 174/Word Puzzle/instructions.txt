@@ -1,0 +1,5 @@
+I'm thinking of a secret word.
+Try and guess the word. You can guess one letter at a time.
+Each time you guess I will show you which letters have been
+correctly guessed and which letters are still missing.
+You will have 4 guesses to guess all of the letters. Good luck!
