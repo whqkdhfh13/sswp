@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jgss-sample1">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/java/docs/technotes/guides/security/jgss/lab/jgss-sample.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

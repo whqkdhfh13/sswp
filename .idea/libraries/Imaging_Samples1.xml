@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Imaging_Samples1">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/java/docs/technotes/guides/2d/samples/Imaging_Samples.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
