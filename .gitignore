@@ -36,5 +36,4 @@ Thumbs.db
 *.dll
 *.lib
 *.sbr
-.idea/
-*/.idea/
+**/.idea
