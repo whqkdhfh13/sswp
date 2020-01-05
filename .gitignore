@@ -36,4 +36,5 @@ Thumbs.db
 *.dll
 *.lib
 *.sbr
-*/workspace.xml
+.idea/
+*/.idea/
