@@ -36,5 +36,6 @@ Thumbs.db
 *.dll
 *.lib
 *.sbr
-**/.idea
+**/.idea/
 *.xml
+desktop.ini
