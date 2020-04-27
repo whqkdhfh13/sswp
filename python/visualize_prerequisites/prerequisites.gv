@@ -1,0 +1,73 @@
+digraph {
+	subgraph cluster_1 {
+		rank=same
+		label="#100"
+		CMPUT175
+		MATH125
+	}
+	subgraph cluster_2 {
+		rank=same
+		label="#200"
+		CMPUT201
+		CMPUT204
+		CMPUT229
+		CMPUT272
+		CMPUT291
+		CMPUT296
+		MATH225
+	}
+	subgraph cluster_3 {
+		rank=same
+		label="#300"
+		CMPUT300
+		CMPUT304
+		CMPUT325
+		CMPUT328
+		CMPUT340
+		CMPUT361
+		CMPUT366
+		CMPUT379
+		CMPUT382
+	}
+	subgraph cluster_4 {
+		rank=same
+		label="#400"
+		CMPUT466
+		CMPUT474
+		CMPUT481
+	}
+	subgraph cluster_5 {
+		rank=same
+		label="#500"
+	}
+	subgraph cluster_6 {
+		rank=same
+		label="#600"
+	}
+	subgraph cluster_7 {
+		rank=same
+		label="#700"
+	}
+	CMPUT175 -> CMPUT201 [label=0]
+	CMPUT175 -> CMPUT204 [label=1]
+	CMPUT175 -> CMPUT229 [label=2]
+	CMPUT175 -> CMPUT291 [label=3]
+	CMPUT175 -> CMPUT328 [label=4]
+	CMPUT201 -> CMPUT229 [label=5]
+	CMPUT201 -> CMPUT325 [label=6]
+	CMPUT201 -> CMPUT361 [label=7]
+	CMPUT201 -> CMPUT379 [label=8]
+	CMPUT201 -> CMPUT481 [label=9]
+	CMPUT272 -> CMPUT204 [label=10]
+	CMPUT204 -> CMPUT304 [label=11]
+	CMPUT204 -> CMPUT325 [label=12]
+	CMPUT204 -> CMPUT340 [label=13]
+	CMPUT204 -> CMPUT361 [label=14]
+	CMPUT204 -> CMPUT366 [label=15]
+	CMPUT204 -> CMPUT379 [label=16]
+	CMPUT204 -> CMPUT474 [label=17]
+	CMPUT229 -> CMPUT379 [label=18]
+	CMPUT229 -> CMPUT382 [label=19]
+	CMPUT229 -> CMPUT474 [label=20]
+	CMPUT340 -> CMPUT466 [label=21]
+}

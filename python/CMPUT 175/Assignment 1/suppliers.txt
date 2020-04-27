@@ -1,0 +1,10 @@
+7808907654;Wholesale club;56 Stony Place
+7801234567;Costcorner;36 Spruce Street
+7807890123;PriceCo;98 Alberta Avenue
+7804922860;Lows Lili;66 Hinton Road
+7809876543;Coast to coast;34 Sherwood park Avenue
+7801236789;Always Supplies;101 Edson Crest
+7804321098;O and Z company;32 Alphonse Street
+7800000000;Test1;Test
+7800000001;Test2;Test
+7800000002;Test3;Test

@@ -1,7 +1,8 @@
-import tensorflow as tf
-import numpy as np
-import sys
 import os
+import sys
+
+import numpy as np
+import tensorflow as tf
 
 # Turning off Tensorflow warning message in program output
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'

@@ -1,0 +1,53 @@
+---------------------------------------
+Starting new Numerical Tic Tac Toe game
+---------------------------------------
+
+   0   1   2  
+0    |   |   
+  -----------
+1    |   |   
+  -----------
+2    |   |   
+Player 1, please enter an odd number (1-9): 5
+Player 1, please enter a row: 1
+Player 1, please enter a column: 1
+
+   0   1   2  
+0    |   |   
+  -----------
+1    | 5 |   
+  -----------
+2    |   |   
+Player 2, please enter an even number (2-8): 2
+Player 2, please enter a row: 1
+Player 2, please enter a column: 0
+
+   0   1   2  
+0    |   |   
+  -----------
+1  2 | 5 |   
+  -----------
+2    |   |   
+Player 1, please enter an odd number (1-9): 1
+Player 1, please enter a row: 0
+Player 1, please enter a column: 2
+
+   0   1   2  
+0    |   | 1 
+  -----------
+1  2 | 5 |   
+  -----------
+2    |   |   
+Player 2, please enter an even number (2-8): 8
+Player 2, please enter a row: 1
+Player 2, please enter a column: 2
+
+   0   1   2  
+0    |   | 1 
+  -----------
+1  2 | 5 | 8 
+  -----------
+2    |   |   
+Player 2 wins. Congrats!
+Do you want to play another game? (Y/N) n
+Thanks for playing! Goodbye.
