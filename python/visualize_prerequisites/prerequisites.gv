@@ -1,25 +1,45 @@
 digraph {
-	subgraph cluster_1 {
+	label="\n\nBachelor in Computing Science\nSpecialization in Software Practice\nCourse Roadmap\nTotal Credit: 120"
+	fontsize=20
+	{
 		rank=same
-		label="#100"
-		CMPUT175
+		CMPUT174
+		ECON101
+		ENGL125
 		MATH125
+		MATH144
+		PHYS124
+		STAT151
+		WRS102
 	}
-	subgraph cluster_2 {
+	{
 		rank=same
-		label="#200"
+		CMPUT175
+		ECON102
+		MATH146
+	}
+	{
+		rank=same
 		CMPUT201
-		CMPUT204
-		CMPUT229
 		CMPUT272
 		CMPUT291
 		CMPUT296
+		MATH214
+		MATH222
 		MATH225
+		MATH228
+		MATH241
+		STAT252
 	}
-	subgraph cluster_3 {
+	{
 		rank=same
-		label="#300"
+		CMPUT204
+		CMPUT229
+	}
+	{
+		rank=same
 		CMPUT300
+		CMPUT301
 		CMPUT304
 		CMPUT325
 		CMPUT328
@@ -28,46 +48,81 @@ digraph {
 		CMPUT366
 		CMPUT379
 		CMPUT382
+		MATH322
+		MATH324
+		MATH373
+		OM352
 	}
-	subgraph cluster_4 {
+	{
 		rank=same
-		label="#400"
 		CMPUT466
 		CMPUT474
 		CMPUT481
 	}
-	subgraph cluster_5 {
+	{
 		rank=same
-		label="#500"
 	}
-	subgraph cluster_6 {
+	{
 		rank=same
-		label="#600"
 	}
-	subgraph cluster_7 {
+	{
 		rank=same
-		label="#700"
 	}
-	CMPUT175 -> CMPUT201 [label=0]
-	CMPUT175 -> CMPUT204 [label=1]
-	CMPUT175 -> CMPUT229 [label=2]
-	CMPUT175 -> CMPUT291 [label=3]
-	CMPUT175 -> CMPUT328 [label=4]
-	CMPUT201 -> CMPUT229 [label=5]
-	CMPUT201 -> CMPUT325 [label=6]
-	CMPUT201 -> CMPUT361 [label=7]
-	CMPUT201 -> CMPUT379 [label=8]
-	CMPUT201 -> CMPUT481 [label=9]
-	CMPUT272 -> CMPUT204 [label=10]
-	CMPUT204 -> CMPUT304 [label=11]
-	CMPUT204 -> CMPUT325 [label=12]
-	CMPUT204 -> CMPUT340 [label=13]
-	CMPUT204 -> CMPUT361 [label=14]
-	CMPUT204 -> CMPUT366 [label=15]
-	CMPUT204 -> CMPUT379 [label=16]
-	CMPUT204 -> CMPUT474 [label=17]
-	CMPUT229 -> CMPUT379 [label=18]
-	CMPUT229 -> CMPUT382 [label=19]
-	CMPUT229 -> CMPUT474 [label=20]
-	CMPUT340 -> CMPUT466 [label=21]
+	ECON101 -> ECON102 [label=1]
+	MATH144 -> MATH146 [label=2]
+	MATH125 -> MATH214 [label=3]
+	MATH144 -> CMPUT204 [label=4]
+	CMPUT174 -> CMPUT175 [label=5]
+	MATH125 -> MATH225 [label=6]
+	MATH125 -> MATH228 [label=7]
+	MATH146 -> MATH214 [label=8]
+	MATH125 -> MATH241 [label=9]
+	MATH144 -> MATH222 [label=10]
+	CMPUT175 -> CMPUT201 [label=11]
+	CMPUT175 -> CMPUT204 [label=12]
+	STAT151 -> STAT252 [label=13]
+	CMPUT175 -> CMPUT229 [label=14]
+	CMPUT201 -> CMPUT229 [label=15]
+	CMPUT175 -> CMPUT272 [label=16]
+	MATH125 -> MATH322 [label=17]
+	MATH125 -> CMPUT325 [label=18]
+	STAT151 -> CMPUT304 [label=19]
+	MATH125 -> CMPUT340 [label=20]
+	CMPUT175 -> CMPUT291 [label=21]
+	MATH144 -> CMPUT328 [label=22]
+	CMPUT272 -> CMPUT204 [label=23]
+	STAT151 -> CMPUT328 [label=24]
+	MATH125 -> CMPUT361 [label=25]
+	STAT151 -> CMPUT340 [label=26]
+	MATH125 -> MATH373 [label=27]
+	CMPUT201 -> CMPUT301 [label=28]
+	STAT151 -> OM352 [label=29]
+	CMPUT175 -> CMPUT328 [label=30]
+	CMPUT204 -> CMPUT304 [label=31]
+	STAT151 -> CMPUT366 [label=32]
+	CMPUT174 -> OM352 [label=33]
+	CMPUT201 -> CMPUT325 [label=34]
+	MATH225 -> CMPUT304 [label=35]
+	CMPUT204 -> CMPUT325 [label=36]
+	CMPUT204 -> CMPUT340 [label=37]
+	MATH228 -> MATH322 [label=38]
+	MATH214 -> CMPUT340 [label=39]
+	CMPUT229 -> CMPUT325 [label=40]
+	CMPUT201 -> CMPUT361 [label=41]
+	CMPUT204 -> CMPUT361 [label=42]
+	CMPUT204 -> CMPUT366 [label=43]
+	CMPUT272 -> CMPUT300 [label=44]
+	CMPUT201 -> CMPUT379 [label=45]
+	CMPUT201 -> CMPUT382 [label=46]
+	CMPUT204 -> CMPUT379 [label=47]
+	MATH214 -> MATH373 [label=48]
+	CMPUT229 -> CMPUT379 [label=49]
+	CMPUT229 -> CMPUT382 [label=50]
+	STAT151 -> CMPUT466 [label=51]
+	CMPUT204 -> CMPUT474 [label=52]
+	CMPUT201 -> CMPUT481 [label=53]
+	MATH225 -> CMPUT474 [label=54]
+	CMPUT229 -> CMPUT474 [label=55]
+	CMPUT340 -> CMPUT466 [label=56]
+	MATH228 -> MATH324 [label=57]
 }
